@@ -1,0 +1,13 @@
+# This file is managed by puppet. Any changes to this file will be
+# overwritten the next time puppet runs. Update with caution!
+[<%= name %>]
+name = <%= repotitle %>
+release = <%= release %>
+arch = <%= arch %>
+metadata = <%= if metadata.is_a? Array; then metadata.join(' '); else metadata; end %>
+<% unless iso.empty? -%>
+iso = <%= iso %>
+<% end -%>
+<% urls.each_pair do | name, url | -%>
+<%= name %> = <%= url %>
+<% end -%>

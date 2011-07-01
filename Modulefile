@@ -1,11 +1,13 @@
-name    'puppetlabs-mrepo'
+name 'puppetlabs-mrepo'
 version '0.0.1'
-source 'UNKNOWN'
-author 'puppetlabs'
-license 'UNKNOWN'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+source 'git://github.com/puppetlabs/puppetlabs-mrepo'
+author 'Puppet Labs'
+license 'Apache 2.0'
+summary 'Puppet mrepo management'
+description 'Puppet module to configure and manage mrepo mirrors. Mirrors can
+be generated from distribution ISOs, existing RPM mirrors, or the Redhat
+Network.'
 
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'puppetlabs-apache' '>= 0.0.3'
+depencency 'puppetlabs/vcsrepo' '>= 0.0.3'
+depencency 'puppetlabs/stdlib' '>= 0.1.6'
