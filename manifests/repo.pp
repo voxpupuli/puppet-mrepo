@@ -46,7 +46,7 @@ define mrepo::repo (
   $ensure,
   $release,
   $arch,
-  $urls,
+  $urls       = {},
   $metadata   = 'repomd',
   $update     = 'nightly',
   $iso        = '',
