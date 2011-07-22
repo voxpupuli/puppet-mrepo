@@ -59,6 +59,14 @@ define mrepo::repo (
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
   validate_bool($rhn)
 
+  # mrepo tries to be clever, and if the arch is the suffix of the name will
+  # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
+  # This manages the inconsistent behavior.
+  $www_root_subdir = $name ? {
+    /(?i-mx:i386|x86_64)$/ => "${mrepo::params::www_root}/${name}",
+    default                => "${mrepo::params::www_root}/${name}-${arch}",
+  }
+
   case $ensure {
     present: {
 
@@ -91,7 +99,7 @@ define mrepo::repo (
         path      => [ "/usr/bin", "/bin" ],
         user      => $user,
         group     => $group,
-        creates   => "${mrepo::params::www_root}/${name}",
+        creates   => $www_root_subdir,
         require   => Class['mrepo'],
         subscribe => File["/etc/mrepo.conf.d/$name.conf"],
         logoutput => on_failure,
