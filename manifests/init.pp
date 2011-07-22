@@ -22,8 +22,6 @@
 # outside of puppet and only want dependencies to be installed, then include
 # this class.
 class mrepo {
-
-  include mrepo::params
   include mrepo::package
   include mrepo::rhn
   include mrepo::webservice
@@ -31,42 +29,7 @@ class mrepo {
 
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
-  Class['mrepo']             -> Mrepo::Repo <| |>
-  Class['mrepo']             -> Class['mrepo::selinux']
+  Class['mrepo::package']    -> Class['mrepo::selinux']
+  Class['mrepo::webservice'] -> Class['mrepo::selinux']
 
-  $user = $mrepo::params::user
-  $group = $mrepo::params::group
-
-  file { "/etc/mrepo.conf":
-      ensure  => present,
-      owner   => $user,
-      group   => $group,
-      mode    => '0640',
-      content => template("mrepo/mrepo.conf.erb"),
-  }
-
-  file {
-    "/etc/mrepo.conf.d":
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-    "/var/cache/mrepo":
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-    $mrepo::params::src_root:
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-  }
-
-  package {
-    "lftp":
-      ensure  => present;
-    "createrepo":
-      ensure  => present;
-  }
 }
