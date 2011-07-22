@@ -10,6 +10,7 @@
 #   repositories by itself.
 #
 # Requires:
+#   - puppetlabs-stdlib
 #
 # Sample Usage:
 #
@@ -27,9 +28,21 @@ class mrepo {
   include mrepo::webservice
   include mrepo::selinux
 
+  anchor { 'mrepo::begin':
+    before => Class['mrepo::package'],
+  }
+
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']
   Class['mrepo::webservice'] -> Class['mrepo::selinux']
 
+  anchor { 'mrepo::end':
+    require => [
+      Class['mrepo::package'],
+      Class['mrepo::webservice'],
+      Class['mrepo::selinux'],
+      Class['mrepo::rhn'],
+    ],
+  }
 }
