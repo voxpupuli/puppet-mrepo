@@ -21,8 +21,6 @@
 #   If the update parameter is set to "now", the repository will be immediately
 #   synchronized.
 #
-# Requires:
-#
 # Sample Usage:
 #
 # mrepo::repo { "centos5-x86_64":

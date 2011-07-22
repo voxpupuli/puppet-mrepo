@@ -10,8 +10,6 @@
 #   Corrects the SELinux context of mrepo mirror data to ensure that the web
 #   server can access mirror files.
 #
-# Requires:
-#
 # Sample Usage:
 #   This class does not need to be directly included
 class mrepo::selinux {

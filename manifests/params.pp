@@ -15,8 +15,6 @@
 #   [*rhn_username*]  - The Redhat Network username. Must be set if the param rhn is true.
 #   [*rhn_password*]  - The Redhat Network password. Must be set if the param rhn is true.
 #
-# Actions:
-#
 # Requires:
 #   - puppetlabs-stdlib
 #

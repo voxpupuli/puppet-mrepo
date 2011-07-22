@@ -2,10 +2,6 @@
 #
 # This class installs and configures apache to serve mrepo repositories.
 #
-# Parameters:
-#
-# Actions:
-#
 # Requires:
 #   - puppetlabs-apache
 #

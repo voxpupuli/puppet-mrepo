@@ -19,7 +19,7 @@
 #  }
 #
 # Directly including this class is optional; if you instantiate an mrepo::repo
-# the necessary dependencies will be pull in. If you plan on managing mirrors
+# the necessary dependencies will be pulled in. If you plan on managing mirrors
 # outside of puppet and only want dependencies to be installed, then include
 # this class.
 class mrepo {

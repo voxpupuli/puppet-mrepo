@@ -9,9 +9,6 @@
 #   Prepares a system to act as a RHN mirror. This primarily handles the
 #   specifics of preparing a CentOS host to connect to the RHN.
 #
-# Requires:
-#   - mrepo::package must be applied before this class.
-#
 # Sample Usage:
 #   This class does not need to be directly included
 class mrepo::rhn {
