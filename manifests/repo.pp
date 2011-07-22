@@ -54,6 +54,7 @@ define mrepo::repo (
   $repotitle  = undef
 ) {
   include mrepo
+  include mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")

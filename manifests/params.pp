@@ -52,12 +52,23 @@ class mrepo::params (
     validate_re($rhn_password, ".+")
   }
 
-  case $selinux {
+
+  # Validate selinux usage. If manually set, validate as a bool and use that value.
+  # If undefined and selinux is present and not disabled, use selinux.
+  case $mrepo::params::selinux {
     undef: {
-      $mrepo::params::selinux = $::selinux
+      case $::selinux {
+        'enforcing', 'permissive': {
+          $use_selinux = true
+        }
+        'disabled', default: {
+          $use_selinux = false
+        }
+      }
     }
     default: {
       validate_bool($selinux)
+      $use_selinux = $selinux
     }
   }
 }
