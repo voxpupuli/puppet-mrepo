@@ -36,7 +36,7 @@ class mrepo::params (
   $www_root     = "/var/www/mrepo",
   $user         = "apache",
   $group        = "apache",
-  $source       = "git",
+  $source       = "package",
   $selinux      = undef,
   $rhn          = false,
   $rhn_username = undef,
