@@ -14,6 +14,7 @@
 #                     That this could be a very lengthy process.
 #   [*iso*]         - The pattern of the ISO to mirror. Optional.
 #   [*rhn*]         - Whether to generate rhn metadata for these repos. Defaults to false. Optional.
+#   [*rhnrelease*]  - Name of the RHN release. Optional
 #   [*repotitle*]   - The human readable title of the repository. Optional.
 #
 # Actions:
@@ -49,6 +50,7 @@ define mrepo::repo (
   $update     = 'nightly',
   $iso        = '',
   $rhn        = false,
+  $rhnrelease = undef,
   $repotitle  = undef
 ) {
   include mrepo
@@ -71,9 +73,9 @@ define mrepo::repo (
 
       $user = $mrepo::params::user
       $group = $mrepo::params::group
-      if !$repotitle {
-        $repotitle = $name
-      }
+
+      if !$repotitle  { $repotitle = $name }
+      if !$rhnrelease { $rhnrelease = $release }
 
       file { "/etc/mrepo.conf.d/$name.conf":
         ensure  => present,
@@ -153,7 +155,7 @@ define mrepo::repo (
       }
       if $rhn == true {
         exec { "Generate systemid $name - $arch":
-          command   => "gensystemid -u ${mrepo::params::rhn_username} -p ${mrepo::params::rhn_password} --release $release --arch $arch ${mrepo::params::src_root}/$name",
+          command   => "gensystemid -u ${mrepo::params::rhn_username} -p ${mrepo::params::rhn_password} --release ${rhnrelease} --arch ${arch} ${mrepo::params::src_root}/${name}",
           path      => [ "/bin", "/usr/bin" ],
           user      => $user,
           group     => $group,
