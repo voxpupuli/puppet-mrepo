@@ -50,8 +50,8 @@ define mrepo::repo (
   $update     = 'nightly',
   $iso        = '',
   $rhn        = false,
-  $rhnrelease = undef,
-  $repotitle  = undef
+  $rhnrelease = $release,
+  $repotitle  = $name
 ) {
   include mrepo
   include mrepo::params
@@ -74,8 +74,6 @@ define mrepo::repo (
       $user  = $mrepo::params::user
       $group = $mrepo::params::group
 
-      if !$repotitle  { $repotitle = $name }
-      if !$rhnrelease { $rhnrelease = $release }
 
       file { "/etc/mrepo.conf.d/$name.conf":
         ensure  => present,
