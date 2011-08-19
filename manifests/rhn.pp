@@ -57,6 +57,17 @@ class mrepo::rhn {
         mode    => "0644",
         source  => "puppet:///modules/mrepo/RHNS-CA-CERT",
       }
+
+      file {
+        "/usr/share/rhn":
+          ensure  => directory,
+          owner   => "root",
+          group   => "root",
+          mode    => "0755";
+        "/usr/share/rhn/RHNS-CA-CERT":
+          ensure  => link,
+          target  => "/usr/share/mrepo/rhn/RHNS-CA-CERT";
+      }
     }
   }
 }

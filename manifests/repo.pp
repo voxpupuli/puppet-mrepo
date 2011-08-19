@@ -74,7 +74,6 @@ define mrepo::repo (
       $user  = $mrepo::params::user
       $group = $mrepo::params::group
 
-
       file { "/etc/mrepo.conf.d/$name.conf":
         ensure  => present,
         owner   => $user,
@@ -157,8 +156,12 @@ define mrepo::repo (
           path      => [ "/bin", "/usr/bin" ],
           user      => $user,
           group     => $group,
-          creates   => "${mrepo::params::src_root}/$name/systemid",
-          require   => Class['mrepo'],
+          creates   => "${mrepo::params::src_root}/${name}/systemid",
+          require   => [
+            Class['mrepo::package'],
+            Class['mrepo::rhn'],
+          ],
+          before    => Exec["Generate mrepo repo ${name}"],
           logoutput => on_failure,
         }
       }
