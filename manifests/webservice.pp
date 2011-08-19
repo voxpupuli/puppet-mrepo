@@ -11,7 +11,7 @@ class mrepo::webservice {
   include apache
   include mrepo::params
 
-  $user = $mrepo::params::user
+  $user  = $mrepo::params::user
   $group = $mrepo::params::group
 
   file { $mrepo::params::www_root:

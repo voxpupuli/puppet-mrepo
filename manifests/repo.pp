@@ -71,7 +71,7 @@ define mrepo::repo (
   case $ensure {
     present: {
 
-      $user = $mrepo::params::user
+      $user  = $mrepo::params::user
       $group = $mrepo::params::group
 
       if !$repotitle  { $repotitle = $name }

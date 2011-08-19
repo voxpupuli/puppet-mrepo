@@ -17,8 +17,8 @@ class mrepo::package {
 
   include mrepo::params
 
-  $user = $mrepo::params::user
-  $group = $mrepo::params::group
+  $user   = $mrepo::params::user
+  $group  = $mrepo::params::group
   $source = $mrepo::params::source
 
   case $source {
