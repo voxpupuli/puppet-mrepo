@@ -50,14 +50,15 @@ Mirror multiple centos 5 repositories
 Mirror multiple rhel channels
 
     mrepo::repo { "rhel6server-x86_64":
-      ensure    => present,
-      update    => "nightly",
-      repotitle => 'Red Hat Enterprise Linux Server $release ($arch)',
-      rhn       => true,
-      arch      => "x86_64",
-      release   => "6",
-      iso       => 'rhel-server-6.0-$arch-dvd.iso',
-      urls      => {
+      ensure     => present,
+      update     => "nightly",
+      repotitle  => 'Red Hat Enterprise Linux Server $release ($arch)',
+      rhn        => true,
+      arch       => "x86_64",
+      release    => "6",
+      rhnrelease => "6Server",
+      iso        => 'rhel-server-6.0-$arch-dvd.iso',
+      urls       => {
         updates       => 'rhns:///rhel-$arch-server-6',
         vt            => 'rhns:///rhel-$arch-server-vt-6',
         supplementary => 'rhns:///rhel-$arch-server-supplementary-6',
