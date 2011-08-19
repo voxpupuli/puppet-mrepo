@@ -98,6 +98,7 @@ define mrepo::repo (
         user      => $user,
         group     => $group,
         creates   => $www_root_subdir,
+        timeout   => 600,
         require   => Class['mrepo'],
         subscribe => File["/etc/mrepo.conf.d/$name.conf"],
         logoutput => on_failure,
@@ -111,7 +112,7 @@ define mrepo::repo (
             path      => [ "/usr/bin", "/bin" ],
             user      => $user,
             group     => $group,
-            timeout   => 0,
+            timeout   => 3600,
             require   => Class['mrepo'],
             logoutput => on_failure,
           }
