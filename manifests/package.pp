@@ -1,18 +1,21 @@
-# Class: mrepo::package
-#
 # This class installs mrepo from source or from the system package repository
 #
-# Parameters:
-#   Optional parameters can be found in the mrepo::params class
+# == Parameters
 #
-# Actions:
-#   Installs mrepo in the manner specified by mrepo::params
+# Optional parameters can be found in the mrepo::params class
 #
-# Requires:
-#   - puppetlabs-vcsrepo for puppet < 2.7.2
+# == Examples
 #
-# Sample Usage:
-#   This class does not need to be directly included
+# This class does not need to be directly included.
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 class mrepo::package {
 
   include mrepo::params

@@ -1,12 +1,17 @@
-# Class: mrepo::webservice
-#
 # This class installs and configures apache to serve mrepo repositories.
 #
-# Requires:
-#   - puppetlabs-apache
+# == Examples
 #
-# Sample Usage:
 #   This class does not need to be directly included
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 class mrepo::webservice {
   include apache
   include mrepo::params

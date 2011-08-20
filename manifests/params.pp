@@ -1,24 +1,45 @@
-# Class: mrepo::params
-#
 # This class provides default options for mrepo that can be overridden as well
 # as validating overridden parameters.
 #
 # Parameters:
-#   [*src_root*]      - The location to store the mrepo mirror data. Defaults to /var/mrepo.
-#   [*www_root*]      - The location of the mrepo document root. Defaults to /var/www/mrepo.
-#   [*user*]          - The account to use for mirroring the files. Defaults to apache.
-#   [*group*]         - The group to use for mirroring the files. Defaults to apache.
-#   [*source*]        - The package source. Defaults to git. (git|package)
-#   [*selinux*]       - Whether to update the selinux context for the mrepo document root.
-#                       Defaults to the selinux fact.
-#   [*rhn*]           - Whether to install redhat dependencies or not. Defaults to false.
-#   [*rhn_username*]  - The Redhat Network username. Must be set if the param rhn is true.
-#   [*rhn_password*]  - The Redhat Network password. Must be set if the param rhn is true.
+# [*src_root*]
+#   The path to store the mrepo mirror data.
+#   Default: /var/mrepo
 #
-# Requires:
-#   - puppetlabs-stdlib
+# [*www_root*]
+#   The path of the mrepo html document root.
+#   Default: /var/www/mrepo
 #
-# Sample Usage:
+# [*user*]
+#   The account to use for mirroring the files.
+#   Default: apache
+#
+# [*group*]
+#   The group to use for mirroring the files.
+#   Default: apache
+#
+# [*source*]
+#   The package source.
+#   Default: package
+#   Values: git, package
+#
+# [*selinux*]
+#   Whether to update the selinux context for the mrepo document root.
+#   Default: the selinux fact.
+#   Values: true, false
+#
+# [*rhn*]
+#   Whether to install redhat dependencies or not. Defaults to false.
+#   Default: false
+#   Values: true, false
+#
+# [*rhn_username*]
+#   The Redhat Network username. Must be set if the param rhn is true.
+#
+# [*rhn_password*]
+#   The Redhat Network password. Must be set if the param rhn is true.
+#
+# == Examples
 #
 # node default {
 #   class { "mrepo::params":
@@ -31,6 +52,15 @@
 #     rhn_password => 'pass',
 #   }
 # }
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 class mrepo::params (
   $src_root     = "/var/mrepo",
   $www_root     = "/var/www/mrepo",

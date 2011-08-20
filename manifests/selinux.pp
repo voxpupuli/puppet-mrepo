@@ -1,17 +1,23 @@
-# Class: mrepo::selinux
-#
 # This class configures selinux contexts for serving mrepo mirror data
-# with apache
+# with apache. It corrects the SELinux context of mrepo mirror data to ensure
+# that the web server can access mirror files.
 #
-# Parameters:
-#   Optional parameters can be found in the mrepo::params class
+# == Parameters
 #
-# Actions:
-#   Corrects the SELinux context of mrepo mirror data to ensure that the web
-#   server can access mirror files.
+# Optional parameters can be found in the mrepo::params class
 #
-# Sample Usage:
-#   This class does not need to be directly included
+# == Examples
+#
+# This class does not need to be directly included
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 class mrepo::selinux {
   include mrepo::params
   $src_root = $mrepo::params::src_root

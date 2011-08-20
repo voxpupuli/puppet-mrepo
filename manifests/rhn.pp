@@ -1,16 +1,23 @@
-# Class: mrepo::rhn
+# This class installs dependencies for Redhat Network mirroring. This
+# primarily handles the specifics of preparing a CentOS host to connect to
+# the RHN.
 #
-# This class installs dependencies for Redhat Network mirroring.
+# == Parameters
 #
-# Parameters:
-#   Optional parameters can be found in the mrepo::params class
+# Optional parameters can be found in the mrepo::params class
 #
-# Actions:
-#   Prepares a system to act as a RHN mirror. This primarily handles the
-#   specifics of preparing a CentOS host to connect to the RHN.
+# == Examples
 #
-# Sample Usage:
-#   This class does not need to be directly included
+# This class does not need to be directly included
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 class mrepo::rhn {
 
   include mrepo::params

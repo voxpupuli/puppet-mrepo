@@ -1,28 +1,44 @@
-# Define: mrepo::repo
+# This define creates and manages an mrepo repository. It generates an mrepo
+# repository file definition and will generate the initial repository. If the
+# update parameter is set to "now", the repository will be immediately
+# synchronized.
 #
-# This define creates and manages an mrepo repository.
+# == Parameters
 #
-# Parameters:
-#   [*ensure*]      - Creates or destroys the given repository (present|absent)
-#   [*release*]     - The distribution release to mirror
-#   [*arch*]        - The architecture of the release to mirror. (i386|x86_64)
-#   [*urls*]        - A hash of repository names and URLs.
-#   [*metadata*]    - The metadata type for the repository. Defaults to repomd.
-#                     More than one value can be used in an array. (yum|apt|repomd)
-#   [*update*]      - The schedule for updating. (now|nightly|weekly|never)
-#                     Now will update the repo on every run of puppet. Be warned
-#                     That this could be a very lengthy process.
-#   [*iso*]         - The pattern of the ISO to mirror. Optional.
-#   [*rhn*]         - Whether to generate rhn metadata for these repos. Defaults to false. Optional.
-#   [*rhnrelease*]  - Name of the RHN release. Optional
-#   [*repotitle*]   - The human readable title of the repository. Optional.
+# [*ensure*]
+#   Creates or destroys the given repository (present|absent)
 #
-# Actions:
-#   Generates an mrepo repository file and will generate the initial repository.
-#   If the update parameter is set to "now", the repository will be immediately
-#   synchronized.
+# [*release*]
+#   The distribution release to mirror
 #
-# Sample Usage:
+# [*arch*]
+#   The architecture of the release to mirror. (i386|x86_64)
+#
+# [*urls*]
+#   A hash of repository names and URLs.
+#
+# [*metadata*]
+#   The metadata type for the repository. Defaults to repomd. More than one
+#   value can be used in an array. (yum|apt|repomd)
+#
+# [*update*]
+#   The schedule for updating. (now|nightly|weekly|never)
+#   The 'now' will update the repo on every run of puppet. Be warned
+#   That this could be a very lengthy process on the first run.
+#
+# [*iso*]
+#   The pattern of the ISO to mirror. Optional.
+#
+# [*rhn*]
+#   Whether to generate rhn metadata for these repos. Defaults to false. Optional.
+#
+# [*rhnrelease*]
+#   The name of the RHN release as understood by mrepo. Optional.
+#
+# [*repotitle*]
+#   The human readable title of the repository. Optional.
+#
+# == Examples
 #
 # mrepo::repo { "centos5-x86_64":
 #   ensure    => present,
@@ -39,8 +55,20 @@
 #   }
 # }
 #
-# See Also:
+# Further examples can be found in the module README.
+#
+# == See Also
+#
 #   mrepo usage: https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt
+#
+# == Author
+#
+# Adrien Thebo <adrien@puppetlabs.com>
+#
+# == Copyright
+#
+# Copyright 2011 Puppet Labs, unless otherwise noted
+#
 define mrepo::repo (
   $ensure,
   $release,
