@@ -14,7 +14,7 @@
 #
 # [*arch*]
 # The architecture of the release to mirror.
-# Values: i386, x86_64
+# Values: i386, x86_64, ppc, s390, s390x, ia64
 #
 #
 # [*urls*]
@@ -94,6 +94,7 @@ define mrepo::repo (
   include mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
+  validate_re($arch, "^i386$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
   validate_bool($rhn)
 
@@ -101,8 +102,8 @@ define mrepo::repo (
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
   # This manages the inconsistent behavior.
   $www_root_subdir = $name ? {
-    /(?i-mx:i386|x86_64)$/ => "${mrepo::params::www_root}/${name}",
-    default                => "${mrepo::params::www_root}/${name}-${arch}",
+    /(i386|x86_64|ppc|s390|s390x|ia64)$/ => "${mrepo::params::www_root}/${name}",
+    default                              => "${mrepo::params::www_root}/${name}-${arch}",
   }
 
   case $ensure {
