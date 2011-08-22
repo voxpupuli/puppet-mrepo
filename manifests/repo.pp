@@ -206,17 +206,33 @@ define mrepo::repo (
       }
     }
     absent: {
+      exec { "Unmount any mirrored ISOs":
+        command   => "umount ${www_root_subdir}/disc*",
+        path      => ["/usr/bin", "/bin", "/usr/sbin", "/sbin"],
+        onlyif    => "mount | grep ${www_root_subdir}/disk",
+        provider  => shell,
+        logoutput => true,
+        before    => [
+          File[$www_root_subdir],
+          File["${mrepo::params::src_root}/${name}"],
+        ],
+      }
       file {
-        "/etc/mrepo.conf.d/$name":
+        $www_root_subdir:
+          ensure  => absent,
           backup  => false,
           recurse => false,
           force   => true,
-          ensure  => absent;
+          before  => File["${mrepo::params::src_root}/$name"];
         "${mrepo::params::src_root}/$name":
+          ensure  => absent,
           backup  => false,
           recurse => false,
-          force   => true,
-          ensure  => absent;
+          force   => true;
+        "/etc/mrepo.conf.d/$name":
+          ensure  => absent,
+          backup  => false,
+          force   => true;
       }
       cron {
         "Nightly synchronize repo $name":
