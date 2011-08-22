@@ -61,6 +61,8 @@
 #
 #   mrepo usage: https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt
 #
+#   For rhn mirroring, see README.redhat.markdown
+#
 # == Author
 #
 # Adrien Thebo <adrien@puppetlabs.com>
