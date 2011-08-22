@@ -2,7 +2,7 @@
 #
 # == Examples
 #
-#   This class does not need to be directly included
+# This class does not need to be directly included
 #
 # == Author
 #

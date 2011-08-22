@@ -6,37 +6,44 @@
 # == Parameters
 #
 # [*ensure*]
-#   Creates or destroys the given repository (present|absent)
+# Creates or destroys the given repository
+# Values: present,absent
 #
 # [*release*]
-#   The distribution release to mirror
+# The distribution release to mirror
 #
 # [*arch*]
-#   The architecture of the release to mirror. (i386|x86_64)
+# The architecture of the release to mirror.
+# Values: i386, x86_64
+#
 #
 # [*urls*]
-#   A hash of repository names and URLs.
+# A hash of repository names and URLs.
 #
 # [*metadata*]
-#   The metadata type for the repository. Defaults to repomd. More than one
-#   value can be used in an array. (yum|apt|repomd)
+# The metadata type for the repository. More than one value can be used in
+# an array.
+# Default: repomd
+# Values: yum,apt,repomd
 #
 # [*update*]
-#   The schedule for updating. (now|nightly|weekly|never)
-#   The 'now' will update the repo on every run of puppet. Be warned
-#   That this could be a very lengthy process on the first run.
+# The schedule for updating.The 'now' will update the repo on every run of 
+# puppet. Be warned that this could be a very lengthy process on the first run.
+# Default: nightly
+# Values: now, nightly, weekly, never
 #
 # [*iso*]
-#   The pattern of the ISO to mirror. Optional.
+# The pattern of the ISO to mirror. Optional.
 #
 # [*rhn*]
-#   Whether to generate rhn metadata for these repos. Defaults to false. Optional.
+# Whether to generate rhn metadata for these repos.
+# Default: false
 #
 # [*rhnrelease*]
-#   The name of the RHN release as understood by mrepo. Optional.
+# The name of the RHN release as understood by mrepo. Optional.
 #
 # [*repotitle*]
-#   The human readable title of the repository. Optional.
+# The human readable title of the repository. Optional.
 #
 # == Examples
 #
@@ -59,9 +66,9 @@
 #
 # == See Also
 #
-#   mrepo usage: https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt
+# mrepo usage: https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt
 #
-#   For rhn mirroring, see README.redhat.markdown
+# For rhn mirroring, see README.redhat.markdown
 #
 # == Author
 #

@@ -3,41 +3,41 @@
 #
 # Parameters:
 # [*src_root*]
-#   The path to store the mrepo mirror data.
-#   Default: /var/mrepo
+# The path to store the mrepo mirror data.
+# Default: /var/mrepo
 #
 # [*www_root*]
-#   The path of the mrepo html document root.
-#   Default: /var/www/mrepo
+# The path of the mrepo html document root.
+# Default: /var/www/mrepo
 #
 # [*user*]
-#   The account to use for mirroring the files.
-#   Default: apache
+# The account to use for mirroring the files.
+# Default: apache
 #
 # [*group*]
-#   The group to use for mirroring the files.
-#   Default: apache
+# The group to use for mirroring the files.
+# Default: apache
 #
 # [*source*]
-#   The package source.
-#   Default: package
-#   Values: git, package
+# The package source.
+# Default: package
+# Values: git, package
 #
 # [*selinux*]
-#   Whether to update the selinux context for the mrepo document root.
-#   Default: the selinux fact.
-#   Values: true, false
+# Whether to update the selinux context for the mrepo document root.
+# Default: the selinux fact.
+# Values: true, false
 #
 # [*rhn*]
-#   Whether to install redhat dependencies or not. Defaults to false.
-#   Default: false
-#   Values: true, false
+# Whether to install redhat dependencies or not. Defaults to false.
+# Default: false
+# Values: true, false
 #
 # [*rhn_username*]
-#   The Redhat Network username. Must be set if the param rhn is true.
+# The Redhat Network username. Must be set if the param rhn is true.
 #
 # [*rhn_password*]
-#   The Redhat Network password. Must be set if the param rhn is true.
+# The Redhat Network password. Must be set if the param rhn is true.
 #
 # == Examples
 #
