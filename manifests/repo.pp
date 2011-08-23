@@ -40,10 +40,20 @@
 # Default: false
 #
 # [*rhnrelease*]
-# The name of the RHN release as understood by mrepo. Optional.
+# The name of the RHN release as understood by mrepo.
+# Default: $release
 #
 # [*repotitle*]
-# The human readable title of the repository. Optional.
+# The human readable title of the repository.
+# Default: $name
+#
+# [*gentimeout*]
+# The number of seconds to allow mrepo to generate the initial repository.
+# Default: 1200
+#
+# [*synctimeout*]
+# The number of seconds to allow mrepo to sync a repository.
+# Default: 3600
 #
 # == Examples
 #
@@ -82,13 +92,15 @@ define mrepo::repo (
   $ensure,
   $release,
   $arch,
-  $urls       = {},
-  $metadata   = 'repomd',
-  $update     = 'nightly',
-  $iso        = '',
-  $rhn        = false,
-  $rhnrelease = $release,
-  $repotitle  = $name
+  $urls          = {},
+  $metadata      = 'repomd',
+  $update        = 'nightly',
+  $iso           = '',
+  $rhn           = false,
+  $rhnrelease    = $release,
+  $repotitle     = $name,
+  $gen_timeout   = '1200',
+  $sync_timeoute = '3600'
 ) {
   include mrepo
   include mrepo::params
@@ -136,7 +148,7 @@ define mrepo::repo (
         user      => $user,
         group     => $group,
         creates   => $www_root_subdir,
-        timeout   => 600,
+        timeout   => $gentimeout,
         require   => Class['mrepo'],
         subscribe => File["/etc/mrepo.conf.d/$name.conf"],
         logoutput => on_failure,
@@ -150,7 +162,7 @@ define mrepo::repo (
             path      => [ "/usr/bin", "/bin" ],
             user      => $user,
             group     => $group,
-            timeout   => 3600,
+            timeout   => $synctimeout,
             require   => Class['mrepo'],
             logoutput => on_failure,
           }
