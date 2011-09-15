@@ -190,8 +190,8 @@ define mrepo::repo (
           cron {
             "Weekly synchronize repo $name":
               ensure  => present,
-              command   => "/usr/bin/mrepo -qgu $name",
-              day     => "0",
+              command => "/usr/bin/mrepo -qgu $name",
+              weekday => "0",
               hour    => "0",
               minute  => "0",
               user    => $user,
