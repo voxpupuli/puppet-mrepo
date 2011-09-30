@@ -224,10 +224,6 @@ define mrepo::repo (
         onlyif    => "mount | grep ${www_root_subdir}/disk",
         provider  => shell,
         logoutput => true,
-        before    => [
-          File[$www_root_subdir],
-          File["${mrepo::params::src_root}/${name}"],
-        ],
       }
       file {
         $www_root_subdir:
