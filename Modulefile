@@ -8,6 +8,6 @@ description 'Puppet module to configure and manage mrepo mirrors. Mirrors can
 be generated from distribution ISOs, existing RPM mirrors, or the Redhat
 Network.'
 
-dependency 'puppetlabs-apache' '>= 0.0.3'
-dependency 'puppetlabs/vcsrepo' '>= 0.0.3'
-dependency 'puppetlabs/stdlib' '>= 0.1.6'
+dependency 'puppetlabs-apache', '>= 0.0.3'
+dependency 'puppetlabs/vcsrepo', '>= 0.0.3'
+dependency 'puppetlabs/stdlib', '>= 0.1.6'
