@@ -1,5 +1,5 @@
 name 'puppetlabs-mrepo'
-version '0.1.2'
+version '0.1.3'
 source 'git://github.com/puppetlabs/puppetlabs-mrepo'
 author 'puppetlabs'
 license 'Apache 2.0'
