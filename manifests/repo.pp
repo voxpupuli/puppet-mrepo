@@ -14,7 +14,7 @@
 #
 # [*arch*]
 # The architecture of the release to mirror.
-# Values: i386, x86_64, ppc, s390, s390x, ia64
+# Values: i386, i586, x86_64, ppc, s390, s390x, ia64
 #
 #
 # [*urls*]
@@ -106,7 +106,7 @@ define mrepo::repo (
   include mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
-  validate_re($arch, "^i386$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
+  validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
   validate_bool($rhn)
 
