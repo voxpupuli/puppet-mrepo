@@ -101,8 +101,6 @@ define mrepo::repo (
   $update        = 'nightly',
   $hour          = '0',
   $iso           = '',
-  $rhn           = false,
-  $rhnrelease    = $release,
   $repotitle     = $name,
   $gen_timeout   = '1200',
 ) {
@@ -112,7 +110,6 @@ define mrepo::repo (
   validate_re($ensure, "^present$|^absent$")
   validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
-  validate_bool($rhn)
 
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
@@ -203,21 +200,6 @@ define mrepo::repo (
             "Nightly synchronize repo $name":
               ensure  => absent;
           }
-        }
-      }
-      if $rhn == true {
-        exec { "Generate systemid $name - $arch":
-          command   => "gensystemid -u ${mrepo::params::rhn_username} -p ${mrepo::params::rhn_password} --release ${rhnrelease} --arch ${arch} ${mrepo::params::src_root}/${name}",
-          path      => [ "/bin", "/usr/bin" ],
-          user      => $user,
-          group     => $group,
-          creates   => "${mrepo::params::src_root}/${name}/systemid",
-          require   => [
-            Class['mrepo::package'],
-            Class['mrepo::rhn'],
-          ],
-          before    => Exec["Generate mrepo repo ${name}"],
-          logoutput => on_failure,
         }
       }
     }
