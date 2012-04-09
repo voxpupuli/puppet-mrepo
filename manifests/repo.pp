@@ -114,10 +114,7 @@ define mrepo::repo (
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
   # This manages the inconsistent behavior.
-  $real_name = $name ? {
-    /(i386|x86_64|ppc|s390|s390x|ia64)$/ => $name,
-    default                              => "${name}-${arch}",
-  }
+  $real_name = mrepo_munge($name, $arch)
 
   $www_root_subdir = "${mrepo::params::www_root}/${real_name}"
   $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
