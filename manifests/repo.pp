@@ -114,10 +114,13 @@ define mrepo::repo (
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
   # This manages the inconsistent behavior.
-  $www_root_subdir = $name ? {
-    /(i386|x86_64|ppc|s390|s390x|ia64)$/ => "${mrepo::params::www_root}/${name}",
-    default                              => "${mrepo::params::www_root}/${name}-${arch}",
+  $real_name = $name ? {
+    /(i386|x86_64|ppc|s390|s390x|ia64)$/ => $name,
+    default                              => "${name}-${arch}",
   }
+
+  $www_root_subdir = "${mrepo::params::www_root}/${real_name}"
+  $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
 
   case $ensure {
     present: {
@@ -133,7 +136,7 @@ define mrepo::repo (
         require => Class['mrepo'],
       }
 
-      file { "${mrepo::params::src_root}/$name":
+      file { $src_root_subdir:
         ensure  => directory,
         owner   => $user,
         group   => $group,
@@ -217,7 +220,7 @@ define mrepo::repo (
           backup  => false,
           recurse => false,
           force   => true,
-          before  => File["${mrepo::params::src_root}/$name"],
+          before  => File[$src_root_subdir],
           require => Exec["Unmount any mirrored ISOs for ${name}"];
         "${mrepo::params::src_root}/$name":
           ensure  => absent,
