@@ -1,13 +1,12 @@
-# This define creates and manages a redhat mrepo repository.
+# This define creates and manages a SLE mrepo repository.
 #
 # == Parameters
 #
-# [*rhn*]
-# Whether to generate rhn metadata for these repos.
-# Default: false
+# [*ncc_username*]
+# The ncc username, which can be found in /etc/zypp.d/NCCCredentials
 #
-# [*rhnrelease*]
-# The name of the RHN release as understood by mrepo. Optional.
+# [*ncc_password*]
+# The ncc password, which can be found in /etc/zypp.d/NCCCredentials
 #
 # == Examples
 #
