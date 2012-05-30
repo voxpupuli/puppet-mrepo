@@ -8,6 +8,6 @@ metadata = <%= if metadata.is_a? Array; then metadata.join(' '); else metadata; 
 <% unless iso.empty? -%>
 iso = <%= iso %>
 <% end -%>
-<% urls.each_pair do | name, url | -%>
-<%= name %> = <%= url %>
+<% urls.keys.sort.each do |name| -%>
+<%= name %> = <%= urls[name] %>
 <% end -%>
