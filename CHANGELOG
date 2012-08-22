@@ -1,0 +1,16 @@
+CHANGELOG
+
+1.0.0
+=====
+
+This is a backwards incompatible release.
+
+  * Split out mirroring for RHN and NCC repositories, since they have
+    nontrivial amounts of logic needed to authenticate to the mirror source.
+  * Add hour parameter to mrepo::repo define to permit staggering
+    synchronization time.
+  * Add mrepo::iso define. This will copy ISOs from to the mrepo host for
+    mirroring from ISOs. This adds a dependency on nanliu-staging
+  * Clean up repository name munging by extracting the logic into a Puppet
+    function.
+  * Respect mrepo docroot for apache

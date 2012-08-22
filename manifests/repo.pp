@@ -14,7 +14,7 @@
 #
 # [*arch*]
 # The architecture of the release to mirror.
-# Values: i386, x86_64, ppc, s390, s390x, ia64
+# Values: i386, i586, x86_64, ppc, s390, s390x, ia64
 #
 #
 # [*urls*]
@@ -31,6 +31,10 @@
 # puppet. Be warned that this could be a very lengthy process on the first run.
 # Default: nightly
 # Values: now, nightly, weekly, never
+#
+# [*hour*]
+# The hour to run the sync. Optional.
+# Default: 0
 #
 # [*iso*]
 # The pattern of the ISO to mirror. Optional.
@@ -95,28 +99,25 @@ define mrepo::repo (
   $urls          = {},
   $metadata      = 'repomd',
   $update        = 'nightly',
+  $hour          = '0',
   $iso           = '',
-  $rhn           = false,
-  $rhnrelease    = $release,
   $repotitle     = $name,
   $gen_timeout   = '1200',
-  $sync_timeoute = '3600'
 ) {
   include mrepo
   include mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
-  validate_re($arch, "^i386$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
+  validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
-  validate_bool($rhn)
 
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
   # This manages the inconsistent behavior.
-  $www_root_subdir = $name ? {
-    /(i386|x86_64|ppc|s390|s390x|ia64)$/ => "${mrepo::params::www_root}/${name}",
-    default                              => "${mrepo::params::www_root}/${name}-${arch}",
-  }
+  $real_name = mrepo_munge($name, $arch)
+
+  $www_root_subdir = "${mrepo::params::www_root}/${real_name}"
+  $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
 
   case $ensure {
     present: {
@@ -132,7 +133,7 @@ define mrepo::repo (
         require => Class['mrepo'],
       }
 
-      file { "${mrepo::params::src_root}/$name":
+      file { $src_root_subdir:
         ensure  => directory,
         owner   => $user,
         group   => $group,
@@ -178,7 +179,7 @@ define mrepo::repo (
             "Nightly synchronize repo $name":
               ensure  => present,
               command   => "/usr/bin/mrepo -qgu $name",
-              hour    => "0",
+              hour    => $hour,
               minute  => "0",
               user    => $user,
               require => Class['mrepo'];
@@ -192,28 +193,13 @@ define mrepo::repo (
               ensure  => present,
               command => "/usr/bin/mrepo -qgu $name",
               weekday => "0",
-              hour    => "0",
+              hour    => $hour,
               minute  => "0",
               user    => $user,
               require => Class['mrepo'];
             "Nightly synchronize repo $name":
               ensure  => absent;
           }
-        }
-      }
-      if $rhn == true {
-        exec { "Generate systemid $name - $arch":
-          command   => "gensystemid -u ${mrepo::params::rhn_username} -p ${mrepo::params::rhn_password} --release ${rhnrelease} --arch ${arch} ${mrepo::params::src_root}/${name}",
-          path      => [ "/bin", "/usr/bin" ],
-          user      => $user,
-          group     => $group,
-          creates   => "${mrepo::params::src_root}/${name}/systemid",
-          require   => [
-            Class['mrepo::package'],
-            Class['mrepo::rhn'],
-          ],
-          before    => Exec["Generate mrepo repo ${name}"],
-          logoutput => on_failure,
         }
       }
     }
@@ -224,10 +210,6 @@ define mrepo::repo (
         onlyif    => "mount | grep ${www_root_subdir}/disk",
         provider  => shell,
         logoutput => true,
-        before    => [
-          File[$www_root_subdir],
-          File["${mrepo::params::src_root}/${name}"],
-        ],
       }
       file {
         $www_root_subdir:
@@ -235,7 +217,7 @@ define mrepo::repo (
           backup  => false,
           recurse => false,
           force   => true,
-          before  => File["${mrepo::params::src_root}/$name"],
+          before  => File[$src_root_subdir],
           require => Exec["Unmount any mirrored ISOs for ${name}"];
         "${mrepo::params::src_root}/$name":
           ensure  => absent,

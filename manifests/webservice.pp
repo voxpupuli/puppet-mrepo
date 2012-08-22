@@ -18,8 +18,9 @@ class mrepo::webservice {
 
   $user  = $mrepo::params::user
   $group = $mrepo::params::group
+  $docroot = $mrepo::params::www_root
 
-  file { $mrepo::params::www_root:
+  file { $docroot:
     ensure  => directory,
     owner   => $user,
     group   => $group,
@@ -30,7 +31,7 @@ class mrepo::webservice {
   apache::vhost { "mrepo":
     priority  => "10",
     port      => "80",
-    docroot   => "/var/www/mrepo",
+    docroot   => $docroot,
     template  => "mrepo/apache.conf.erb",
   }
 }
