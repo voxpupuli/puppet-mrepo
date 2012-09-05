@@ -28,7 +28,7 @@ class mrepo::exports($clients) {
   }
 
   if is_array($clients) {
-    $clients_real = inline_template('<%= clients.map {|c| "-c #{c}"}.join(" ") %>')
+    $clients_real = inline_template('<%= scope.lookupvar("clients").map {|c| "-c #{c}"}.join(" ") %>')
   }
   else {
     $clients_real = "-c ${clients}"
