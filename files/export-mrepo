@@ -63,10 +63,11 @@ def parse(args)
   options = {
     :options  => %w{ro sec=sys crossmnt},
     :www_root => default_www_root,
+    :action   => 'print'
   }
 
   parser = OptionParser.new do |p|
-    p.banner = "Usage: #{File.basename($0)} [options] ACTION"
+    p.banner = "Usage: #{File.basename($0)} [options] [print|write]"
 
     p.on('-r',
          '--root=val',
@@ -94,10 +95,25 @@ def parse(args)
     end
   end
 
-  parser.parse!(args)
+  action = parser.parse!(args)
 
   if options[:clients].nil?
     raise OptionParser::MissingArgument, 'client'
+  end
+
+  if action.empty?
+    options[:action] = :print
+  elsif action.length == 1
+    if action[0].match /write|print/
+      options[:action] = action[0].intern
+    else
+      $stderr.puts "ACTION must be one of [print, write]"
+      $stderr.puts parser
+      exit 1
+    end
+  else
+    $stderr.puts parser
+    exit 1
   end
 
   options
@@ -116,8 +132,8 @@ def header
   str = <<-EOT
 # This file is being managed by export-mrepo. It may stomp on any changes you make manually.
 # export-mrepo does not care if it crushes your changes, hopes, or dreams. export-mrepo is
-# a program. export-mrepo has no feelings and is merciless. See #{File.expand_path $0} to understand why it
-# is an unstoppable engine of destruction.
+# a program. export-mrepo has no feelings and is merciless. See #{File.expand_path $0}
+# to understand why it is an unstoppable engine of destruction.
   EOT
 end
 
@@ -132,6 +148,13 @@ if $0 == __FILE__
 
   lines = generate_exports(paths, opts[:clients], nfs_opts)
 
-  puts header
-  puts lines
+  contents = [header, lines].join("\n")
+
+  if opts[:action] == :print
+    puts contents
+  elsif opts[:action] == :write
+    File.open('/etc/exports', 'w') do |fh|
+      fh.write contents
+    end
+  end
 end
