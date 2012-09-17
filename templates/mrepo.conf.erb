@@ -1,8 +1,8 @@
 # This file is managed by puppet. Any changes to this file will be
 # overwritten the next time puppet runs. Update with caution!
 [main]
-srcdir = <%= scope.lookupvar('mrepo::params::src_root') %>
-wwwdir = <%= scope.lookupvar('mrepo::params::www_root') %>
+srcdir  = <%= scope.lookupvar('mrepo::params::src_root') %>
+wwwdir  = <%= scope.lookupvar('mrepo::params::www_root') %>
 confdir = /etc/mrepo.conf.d
 
 <% if not scope.lookupvar('mrepo::params::rhn_username').empty? and not scope.lookupvar('mrepo::params::rhn_password').empty? -%>
