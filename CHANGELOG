@@ -1,5 +1,15 @@
 CHANGELOG
 
+1.1.0
+=====
+
+  * Correct invalid Modulefile dependency
+  * Changes to conform to style guide.
+  * Allow tuning of email recipient
+  * Add in mrepo::exports class
+  * Add in support for creating NFS shares of mrepo disks. This is primarily
+    needed for mirroring and building on SLES.
+
 1.0.0
 =====
 
