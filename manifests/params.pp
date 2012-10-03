@@ -39,6 +39,10 @@
 # [*rhn_password*]
 # The Redhat Network password. Must be set if the param rhn is true.
 #
+# [*mailto*]
+#
+# The email recipient for mrepo updates. Defaults to unset
+#
 # == Examples
 #
 # node default {
@@ -70,7 +74,8 @@ class mrepo::params (
   $selinux      = undef,
   $rhn          = false,
   $rhn_username = undef,
-  $rhn_password = undef
+  $rhn_password = undef,
+  $mailto       = 'UNSET'
 ) {
   validate_re($source, "^git$|^package$")
   validate_bool($rhn)

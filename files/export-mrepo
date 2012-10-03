@@ -1,0 +1,160 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+# Extract all mountpoints to share
+#
+# @param [String] The mrepo www root
+#
+# @return [Array] A list of all the ISO mountpoints under the mrepo www root
+def mount_list(www_root)
+  arr = []
+  %x{mount -t iso9660}.scan(/\S+ on (\S+)/) do |a|
+    mountpoint = a[0]
+    arr << mountpoint if mountpoint.match %r{#{www_root}}
+  end
+  arr
+end
+
+# Provide every 2-tuple combination of two given arrays
+#
+# @param [Array] one
+# @param [Array] two
+#
+# @yield [Object, Object] every successive combination
+#
+# @return [Array<Array<Object, Object>>]
+def combine(one, two)
+
+  tuples = []
+
+  one.each do |o|
+    two.each do |t|
+      pair = [o, t]
+      tuples << pair
+      yield o, t if block_given?
+    end
+  end
+
+  tuples
+end
+
+# Return formatted lines for /etc/exports
+#
+# @param [Array<String>] paths
+# @param [Array<String>] clients
+# @param [String]        options The NFS export options
+def generate_exports(paths, clients, options)
+
+  contents = []
+
+  combine(paths, clients) do |path, client|
+    line = "#{path} #{client}(#{options})"
+    contents << line
+  end
+
+  contents
+end
+
+# @param [Array<String>] The argument list to parse
+#
+# @return [Hash] The parsed options
+def parse(args)
+  options = {
+    :options  => %w{ro sec=sys crossmnt},
+    :www_root => default_www_root,
+    :action   => 'print'
+  }
+
+  parser = OptionParser.new do |p|
+    p.banner = "Usage: #{File.basename($0)} [options] [print|write]"
+
+    p.on('-r',
+         '--root=val',
+         'The mrepo root to use when locating mountpoints',
+         "default: (#{options[:www_root].dup})"
+    ) do |val|
+      options[:www_root] = val
+    end
+
+    p.on('-o',
+         '--options=val',
+         "NFS export options",
+         "default: (#{options[:options].dup.join(', ')})"
+    ) do |val|
+      options[:options] ||= []
+      options[:options] << val
+    end
+
+    p.on('-c',
+         '--client=val',
+         'The NFS mount recipient'
+    ) do |val|
+      options[:clients] ||= []
+      options[:clients] << val
+    end
+  end
+
+  action = parser.parse!(args)
+
+  if options[:clients].nil?
+    raise OptionParser::MissingArgument, 'client'
+  end
+
+  if action.empty?
+    options[:action] = :print
+  elsif action.length == 1
+    if action[0].match /write|print/
+      options[:action] = action[0].intern
+    else
+      $stderr.puts "ACTION must be one of [print, write]"
+      $stderr.puts parser
+      exit 1
+    end
+  else
+    $stderr.puts parser
+    exit 1
+  end
+
+  options
+end
+
+# @return [String] The wwwdir value from /etc/mrepo.conf
+def default_www_root
+  contents = File.read '/etc/mrepo.conf'
+
+  if(m = contents.match /\s*wwwdir\s*=\s*(.*)/)
+    m[1]
+  end
+end
+
+def header
+  str = <<-EOT
+# This file is being managed by export-mrepo. It may stomp on any changes you make manually.
+# export-mrepo does not care if it crushes your changes, hopes, or dreams. export-mrepo is
+# a program. export-mrepo has no feelings and is merciless. See #{File.expand_path $0}
+# to understand why it is an unstoppable engine of destruction.
+  EOT
+end
+
+if $0 == __FILE__
+  opts = parse(ARGV)
+
+  nfs_opts = opts[:options].join(',')
+  paths    = mount_list(opts[:www_root])
+
+  # Manually add the www_root to the export paths
+  paths << opts[:www_root]
+
+  lines = generate_exports(paths, opts[:clients], nfs_opts)
+
+  contents = [header, lines].join("\n")
+
+  if opts[:action] == :print
+    puts contents
+  elsif opts[:action] == :write
+    File.open('/etc/exports', 'w') do |fh|
+      fh.write contents
+    end
+  end
+end
