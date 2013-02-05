@@ -25,7 +25,6 @@ class mrepo::webservice {
     owner   => $user,
     group   => $group,
     mode    => '0755',
-    require => Class['apache'],
   }
 
   apache::vhost { "mrepo":
