@@ -5,9 +5,9 @@ srcdir  = <%= scope.lookupvar('mrepo::params::src_root') %>
 wwwdir  = <%= scope.lookupvar('mrepo::params::www_root') %>
 confdir = /etc/mrepo.conf.d
 
-<% if not scope.lookupvar('mrepo::params::rhn_username').empty? and not scope.lookupvar('mrepo::params::rhn_password').empty? -%>
+<% if scope.lookupvar('mrepo::params::rhn_username') and scope.lookupvar('mrepo::params::rhn_password') -%>
 rhnlogin = <%= scope.lookupvar('mrepo::params::rhn_username') %>:<%= scope.lookupvar('mrepo::params::rhn_password') %>
-<% elsif not scope.lookupvar('mrepo::params::rhn_username').empty? -%>
+<% elsif scope.lookupvar('mrepo::params::rhn_username') -%>
 rhnlogin = <%= scope.lookupvar('mrepo::params::rhn_username') %>
 <% end -%>
 
