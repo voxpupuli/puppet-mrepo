@@ -102,7 +102,8 @@ define mrepo::repo (
   $hour          = '0',
   $iso           = '',
   $repotitle     = $name,
-  $gen_timeout   = '1200',
+  $gentimeout    = '1200',
+  $synctimeout   = '1200',
 ) {
   include mrepo
   include mrepo::params
