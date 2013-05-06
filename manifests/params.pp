@@ -73,8 +73,8 @@ class mrepo::params (
   $source       = "package",
   $selinux      = undef,
   $rhn          = false,
-  $rhn_username = undef,
-  $rhn_password = undef,
+  $rhn_username = '',
+  $rhn_password = '',
   $mailto       = 'UNSET'
 ) {
   validate_re($source, "^git$|^package$")
