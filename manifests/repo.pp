@@ -59,6 +59,14 @@
 # The number of seconds to allow mrepo to sync a repository.
 # Default: 3600
 #
+# [*mrepo_options*]
+# Options passed to the mrepo command
+# Default: -qgu (Quiet, Generate, Update)
+#
+# [*mrepo_logging*]
+# Can be used to redirect output to a logfile for later inspection
+# Default: empty
+#
 # == Examples
 #
 # mrepo::repo { "centos5-x86_64":
@@ -100,10 +108,15 @@ define mrepo::repo (
   $metadata      = 'repomd',
   $update        = 'nightly',
   $hour          = '0',
+  $minute        = '0',
   $iso           = '',
   $repotitle     = $name,
-  $gen_timeout    = '1200',
-  $sync_timeout   = '1200',
+  $gen_timeout   = '1200',
+  $sync_timeout  = '1200',
+  $type          = 'std',
+  $typerelease   = undef,
+  $mrepo_options = '-qgu',
+  $mrepo_logging = '',
 ) {
   include mrepo
   include mrepo::params
@@ -111,6 +124,7 @@ define mrepo::repo (
   validate_re($ensure, "^present$|^absent$")
   validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
   validate_re($update, "^now$|^nightly$|^weekly$|^never$")
+  validate_re($type  , "^std$|^ncc$|^rhn$")
 
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
@@ -131,7 +145,7 @@ define mrepo::repo (
         owner   => $user,
         group   => $group,
         content => template("mrepo/repo.conf.erb"),
-        require => Class['mrepo'],
+        require => Class['mrepo::package'],
       }
 
       file { $src_root_subdir:
@@ -151,7 +165,7 @@ define mrepo::repo (
         group     => $group,
         creates   => $www_root_subdir,
         timeout   => $gen_timeout,
-        require   => Class['mrepo'],
+        require   => Class['mrepo::package'],
         subscribe => File["/etc/mrepo.conf.d/$name.conf"],
         logoutput => on_failure,
       }
@@ -159,13 +173,13 @@ define mrepo::repo (
       case $update {
         now: {
           exec { "Synchronize repo $name":
-            command   => "/usr/bin/mrepo -qgu $name",
+            command   => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
             cwd       => $src_root,
             path      => [ "/usr/bin", "/bin" ],
             user      => $user,
             group     => $group,
             timeout   => $sync_timeout,
-            require   => Class['mrepo'],
+            require   => Class['mrepo::package'],
             logoutput => on_failure,
           }
           cron {
@@ -179,11 +193,11 @@ define mrepo::repo (
           cron {
             "Nightly synchronize repo $name":
               ensure  => present,
-              command   => "/usr/bin/mrepo -qgu $name",
+              command => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
               hour    => $hour,
-              minute  => "0",
+              minute  => $minute,
               user    => $user,
-              require => Class['mrepo'];
+              require => Class['mrepo::package'];
             "Weekly synchronize repo $name":
               ensure  => absent;
           }
@@ -192,17 +206,32 @@ define mrepo::repo (
           cron {
             "Weekly synchronize repo $name":
               ensure  => present,
-              command => "/usr/bin/mrepo -qgu $name",
+              command => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
               weekday => "0",
               hour    => $hour,
-              minute  => "0",
+              minute  => $minute,
               user    => $user,
-              require => Class['mrepo'];
+              require => Class['mrepo::package'];
             "Nightly synchronize repo $name":
               ensure  => absent;
           }
         }
       }
+     
+      if $type != 'std' {
+        #notify { "Type = ${type}": }
+        create_resources( "mrepo::repo::${type}",
+          { "$name"      => {
+              ensure     => $ensure,
+              release    => $release,
+              arch       => $arch,
+              repotitle  => $repotitle,
+              typerelease => $typerelease,
+            }
+          }
+        )
+      }
+
     }
     absent: {
       exec { "Unmount any mirrored ISOs for ${name}":
