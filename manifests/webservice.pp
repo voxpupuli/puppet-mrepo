@@ -25,13 +25,12 @@ class mrepo::webservice {
     owner   => $user,
     group   => $group,
     mode    => '0755',
-    require => Class['apache'],
   }
 
   apache::vhost { "mrepo":
-    priority  => "10",
-    port      => "80",
-    docroot   => $docroot,
-    template  => "mrepo/apache.conf.erb",
+    priority        => "10",
+    port            => "80",
+    docroot         => $docroot,
+    custom_fragment => template("${module_name}/apache.conf.erb"),
   }
 }
