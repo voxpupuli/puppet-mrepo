@@ -51,11 +51,11 @@
 # The human readable title of the repository.
 # Default: $name
 #
-# [*gentimeout*]
+# [*gen_timeout*]
 # The number of seconds to allow mrepo to generate the initial repository.
 # Default: 1200
 #
-# [*synctimeout*]
+# [*sync_timeout*]
 # The number of seconds to allow mrepo to sync a repository.
 # Default: 3600
 #
@@ -102,7 +102,8 @@ define mrepo::repo (
   $hour          = '0',
   $iso           = '',
   $repotitle     = $name,
-  $gen_timeout   = '1200',
+  $gen_timeout    = '1200',
+  $sync_timeout   = '1200',
 ) {
   include mrepo
   include mrepo::params
@@ -149,7 +150,7 @@ define mrepo::repo (
         user      => $user,
         group     => $group,
         creates   => $www_root_subdir,
-        timeout   => $gentimeout,
+        timeout   => $gen_timeout,
         require   => Class['mrepo'],
         subscribe => File["/etc/mrepo.conf.d/$name.conf"],
         logoutput => on_failure,
@@ -163,7 +164,7 @@ define mrepo::repo (
             path      => [ "/usr/bin", "/bin" ],
             user      => $user,
             group     => $group,
-            timeout   => $synctimeout,
+            timeout   => $sync_timeout,
             require   => Class['mrepo'],
             logoutput => on_failure,
           }
