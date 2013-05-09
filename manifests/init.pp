@@ -8,7 +8,11 @@
 #
 # == Parameters
 #
-# Optional parameters can be found in the mrepo::params class
+# repo_hash = undef (Default)
+# Hash with repo definitions to create
+# These can also be provided via Hiera
+# 
+# Other optional parameters can be found in the mrepo::params class
 #
 # == Examples
 #
@@ -24,7 +28,9 @@
 #
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
-class mrepo {
+class mrepo (
+  $repo_hash = undef
+){
   include mrepo::package
   include mrepo::rhn
   include mrepo::webservice
@@ -47,4 +53,9 @@ class mrepo {
       Class['mrepo::rhn'],
     ],
   }
+
+  class { 'mrepo::repos':
+    repo_hash => $repo_hash,
+  }
+
 }
