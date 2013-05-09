@@ -1,5 +1,17 @@
 CHANGELOG
 
+1.1.1
+=====
+
+NOTE: This version requires puppetlabs/apache 0.6.0, which is a backwards
+incompatible release. If you are using that module elsewhere then you'll need
+to resolve the upgrade for apache first.
+
+  * Manage /var/log/mrepo.log so that mrepo user can write to it while running
+  * Remove dependency cycle when using mrepo with apache
+  * Don't use `undef` for rhn username or password
+
+
 1.1.0
 =====
 
