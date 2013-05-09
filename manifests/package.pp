@@ -75,9 +75,9 @@ class mrepo::package {
       mode    => '0755';
     "/var/log/mrepo.log":
       ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0666';
+      owner   => $user,
+      group   => $group,
+      mode    => '0750';
   }
 
   # Packages needed to mirror files and generate mirror metadata
