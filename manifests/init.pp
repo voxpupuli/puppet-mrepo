@@ -28,9 +28,7 @@
 #
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
-class mrepo (
-  $repo_hash = undef
-){
+class mrepo {
   include mrepo::package
   include mrepo::rhn
   include mrepo::webservice
@@ -53,9 +51,4 @@ class mrepo (
       Class['mrepo::rhn'],
     ],
   }
-
-  class { 'mrepo::repos':
-    repo_hash => $repo_hash,
-  }
-
 }
