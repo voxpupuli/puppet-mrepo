@@ -1,6 +1,6 @@
 class mrepo::repos (
-  $repo_hash = {}
+  $resources = {}
 ) {
-  validate_hash( $repo_hash )
-  create_resources('mrepo::repo',$repo_hash)
+  validate_hash( $resources )
+  create_resources('mrepo::repo',$resources)
 }
