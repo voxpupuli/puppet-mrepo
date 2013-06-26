@@ -31,13 +31,22 @@ class mrepo::rhn {
 
     # CentOS does not have redhat network specific configuration files by default
     if $operatingsystem == 'CentOS' {
+
+      file {
+        "/etc/sysconfig/rhn":
+          ensure  => directory,
+          owner   => "root",
+          group   => "root",
+          mode    => "0755",
+      }
       exec { "Generate rhnuuid":
-        command => 'printf "rhnuuid=%s\n" `/usr/bin/uuidgen` >> /etc/sysconfig/rhn/up2date-uuid',
-        path    => [ "/usr/bin", "/bin" ],
-        user    => "root",
-        group   => $group,
-        creates => "/etc/sysconfig/rhn/up2date-uuid",
+        command   => 'printf "rhnuuid=%s\n" `/usr/bin/uuidgen` >> /etc/sysconfig/rhn/up2date-uuid',
+        path      => [ "/usr/bin", "/bin" ],
+        user      => "root",
+        group     => $group,
+        creates   => "/etc/sysconfig/rhn/up2date-uuid",
         logoutput => on_failure,
+        require   => File['/etc/sysconfig/rhn'],
       }
 
       file { "/etc/sysconfig/rhn/up2date-uuid":

@@ -1,4 +1,7 @@
-  <Directory <%= docroot %>>
+
+  Alias /mrepo <%= @docroot %>
+
+  <Directory <%= @docroot %>>
     Options Indexes FollowSymlinks SymLinksifOwnerMatch IncludesNOEXEC
     IndexOptions NameWidth=* DescriptionWidth=*
 
@@ -14,6 +17,10 @@
     
     HeaderName HEADER.shtml
     ReadmeName README.shtml
+
+<% scope.lookupvar('mrepo::params::descriptions').keys.sort.each do |key| -%>
+    AddDescription "<%= scope.lookupvar('mrepo::params::descriptions')[key] %>" <%= key %>
+<% end -%>
 
     AddDescription "CDROM ISO file" .iso
     AddDescription "RPM packages" .rpm
