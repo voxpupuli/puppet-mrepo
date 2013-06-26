@@ -1,16 +1,23 @@
 # This file is managed by puppet. Any changes to this file will be
 # overwritten the next time puppet runs. Update with caution!
 [main]
-srcdir  = <%= scope.lookupvar('mrepo::params::src_root') %>
-wwwdir  = <%= scope.lookupvar('mrepo::params::www_root') %>
+srcdir  = <%= @src_root %>
+wwwdir  = <%= @www_root %>
 confdir = /etc/mrepo.conf.d
 
-<% if scope.lookupvar('mrepo::params::rhn_username') and scope.lookupvar('mrepo::params::rhn_password') -%>
-rhnlogin = <%= scope.lookupvar('mrepo::params::rhn_username') %>:<%= scope.lookupvar('mrepo::params::rhn_password') %>
-<% elsif scope.lookupvar('mrepo::params::rhn_username') -%>
-rhnlogin = <%= scope.lookupvar('mrepo::params::rhn_username') %>
+<% if not @http_proxy.empty? -%>
+http_proxy = <%= @http_proxy %>
+<% end -%>
+<% if not @https_proxy.empty? -%>
+https_proxy = <%= @https_proxy %>
 <% end -%>
 
-<% unless (mailto = scope.lookupvar('mrepo::params::mailto')) == 'UNSET' -%>
+<% if not @rhn_username.empty? and not @rhn_password.empty? -%>
+rhnlogin = <%= @rhn_username %>:<%= @rhn_password %>
+<% elsif not @rhn_username.empty? -%>
+rhnlogin = <%= @rhn_username %>
+<% end -%>
+
+<% unless (mailto = @mailto) == 'UNSET' -%>
 mailto = <%= mailto %>
 <% end -%>

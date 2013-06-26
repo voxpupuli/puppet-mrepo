@@ -23,6 +23,7 @@ class mrepo::package {
   $user   = $mrepo::params::user
   $group  = $mrepo::params::group
   $source = $mrepo::params::source
+  $proto  = $mrepo::params::git_proto
 
   case $source {
     git: {
@@ -30,7 +31,7 @@ class mrepo::package {
         ensure    => latest,
         revision  => 'HEAD',
         provider  => "git",
-        source    => "git://github.com/dagwieers/mrepo.git",
+        source    => "${proto}://github.com/dagwieers/mrepo.git",
       }
 
       exec { "Install mrepo from source":
@@ -48,6 +49,16 @@ class mrepo::package {
       }
     }
   }
+
+  # mrepo.conf template params
+  #
+  $src_root     = $mrepo::params::src_root
+  $www_root     = $mrepo::params::www_root
+  $rhn_username = $mrepo::params::rhn_username
+  $rhn_password = $mrepo::params::rhn_password
+  $mailto       = $mrepo::params::mailto
+  $http_proxy   = $mrepo::params::http_proxy
+  $https_proxy  = $mrepo::params::https_proxy
 
   file { "/etc/mrepo.conf":
     ensure  => present,
@@ -68,7 +79,7 @@ class mrepo::package {
       owner   => $user,
       group   => $group,
       mode    => '0755';
-    $mrepo::params::src_root:
+    $src_root:
       ensure  => directory,
       owner   => $user,
       group   => $group,

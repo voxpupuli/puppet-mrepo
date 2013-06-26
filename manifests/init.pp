@@ -8,7 +8,11 @@
 #
 # == Parameters
 #
-# Optional parameters can be found in the mrepo::params class
+# repo_hash = undef (Default)
+# Hash with repo definitions to create
+# These can also be provided via Hiera
+# 
+# Other optional parameters can be found in the mrepo::params class
 #
 # == Examples
 #
@@ -34,17 +38,21 @@ class mrepo {
     before => Class['mrepo::package'],
   }
 
+  Class['mrepo::params']     -> Class['mrepo::package']
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']
   Class['mrepo::webservice'] -> Class['mrepo::selinux']
+  Class['mrepo::selinux']    -> Class['mrepo::repos']
 
   anchor { 'mrepo::end':
     require => [
-      Class['mrepo::package'],
-      Class['mrepo::webservice'],
-      Class['mrepo::selinux'],
-      Class['mrepo::rhn'],
+#      Class['mrepo::package'],
+#      Class['mrepo::webservice'],
+#      Class['mrepo::selinux'],
+#      Class['mrepo::rhn'],
+      Class['mrepo::repos'],
     ],
   }
 }
+

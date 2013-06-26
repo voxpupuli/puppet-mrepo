@@ -32,38 +32,29 @@ define mrepo::repo::rhn (
   $update     = 'nightly',
   $hour       = '0',
   $iso        = '',
-  $rhnrelease = $release,
+  $typerelease = $release,
   $repotitle  = $name
 ) {
-  include mrepo
   include mrepo::params
 
-  mrepo::repo { $name:
-    ensure    => $ensure,
-    release   => $release,
-    arch      => $arch,
-    urls      => $urls,
-    metadata  => $metadata,
-    update    => $update,
-    hour      => $hour,
-    iso       => $iso,
-    repotitle => $repotitle,
-  }
+  $http_proxy   = $mrepo::params::http_proxy
+  $https_proxy  = $mrepo::params::https_proxy
 
   case $ensure {
     present: {
       exec { "Generate systemid $name - $arch":
-        command   => "gensystemid -u ${mrepo::params::rhn_username} -p ${mrepo::params::rhn_password} --release ${rhnrelease} --arch ${arch} ${mrepo::params::src_root}/${name}",
+        command   => "gensystemid -u '${mrepo::params::rhn_username}' -p '${mrepo::params::rhn_password}' --release '${typerelease}' --arch '${arch}' '${mrepo::params::src_root}/${name}'",
         path      => [ "/bin", "/usr/bin" ],
-        user      => $user,
-        group     => $group,
+        user      => $mrepo::params::user,
+        group     => $mrepo::params::group,
         creates   => "${mrepo::params::src_root}/${name}/systemid",
         require   => [
           Class['mrepo::package'],
           Class['mrepo::rhn'],
         ],
-        before    => Exec["Generate mrepo repo ${name}"],
-        logoutput => on_failure,
+        before      => Exec["Generate mrepo repo ${name}"],
+        logoutput   => on_failure,
+        environment => ["http_proxy=${http_proxy}","https_proxy=${https_proxy}"],
       }
     }
   }
