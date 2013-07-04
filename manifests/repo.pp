@@ -172,7 +172,7 @@ define mrepo::repo (
         logoutput => on_failure,
       }
 
-      $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}",
+      $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
       case $update {
         now: {
           exec { "Synchronize repo $name":
