@@ -21,6 +21,8 @@ class mrepo::webservice(
   $group = $mrepo::params::group
   $docroot = $mrepo::params::www_root
   $servername = $mrepo::params::www_servername
+  $priority = $mrepo::params::priority
+  $port = $mrepo::params::port
 
   case $ensure {
     present: {
@@ -34,8 +36,8 @@ class mrepo::webservice(
       }
 
       apache::vhost { "mrepo":
-        priority        => "10",
-        port            => "80",
+        priority        => $priority,
+        port            => $port,
         servername      => $servername,
         docroot         => $docroot,
         custom_fragment => template("${module_name}/apache.conf.erb"),
@@ -44,7 +46,7 @@ class mrepo::webservice(
     absent: {
       apache::vhost { "mrepo":
         ensure  => $ensure,
-        port    => "80",
+        port    => $port,
         docroot => $docroot,
       }
     }
