@@ -33,6 +33,7 @@ class mrepo {
   include mrepo::rhn
   include mrepo::webservice
   include mrepo::selinux
+  include mrepo::repos
 
   anchor { 'mrepo::begin':
     before => Class['mrepo::package'],
