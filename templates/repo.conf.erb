@@ -8,6 +8,6 @@ metadata = <%= if @metadata.is_a? Array; then @metadata.join(' '); else @metadat
 <% unless @iso.empty? -%>
 iso = <%= @iso %>
 <% end -%>
-<% @urls.keys.sort.each do |name| -%>
-<%= name %> = <%= @urls[name] %>
+<% @urls.keys.sort.each do |rname| -%>
+<%= rname %> = <%= @urls[rname] %>
 <% end -%>
