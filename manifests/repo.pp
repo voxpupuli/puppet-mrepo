@@ -11,6 +11,7 @@
 #
 # [*release*]
 # The distribution release to mirror
+# Example (RHN): 6
 #
 # [*arch*]
 # The architecture of the release to mirror.
@@ -43,9 +44,14 @@
 # Whether to generate rhn metadata for these repos.
 # Default: false
 #
-# [*rhnrelease*]
-# The name of the RHN release as understood by mrepo.
-# Default: $release
+# [*type*]
+# The type of the repo: std, ncc, rhn
+# Default: std
+#
+# [*typerelease*]
+# The name of the release as understood by mrepo.
+# Example (RHN): 6Server
+# Default: undef
 #
 # [*repotitle*]
 # The human readable title of the repository.
@@ -58,6 +64,14 @@
 # [*sync_timeout*]
 # The number of seconds to allow mrepo to sync a repository.
 # Default: 3600
+#
+# [*mrepo_env*]
+# Environment passed to the mrepo command
+# Default: ''
+#
+# [*mrepo_command*]
+# Mrepo command string
+# Default: /usr/bin/mrepo
 #
 # [*mrepo_options*]
 # Options passed to the mrepo command
@@ -133,8 +147,10 @@ define mrepo::repo (
   # This manages the inconsistent behavior.
   $real_name = mrepo_munge($name, $arch)
 
-  $www_root_subdir = "${mrepo::params::www_root}/${real_name}"
-  $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
+  $src_root        = $mrepo::params::src_root
+  $www_root        = $mrepo::params::www_root
+  $src_root_subdir = "${src_root}/${real_name}"
+  $www_root_subdir = "${www_root}/${real_name}"
 
   case $ensure {
     present: {
@@ -142,11 +158,11 @@ define mrepo::repo (
       $user  = $mrepo::params::user
       $group = $mrepo::params::group
 
-      file { "/etc/mrepo.conf.d/$name.conf":
+      file { "/etc/mrepo.conf.d/${name}.conf":
         ensure  => present,
         owner   => $user,
         group   => $group,
-        content => template("mrepo/repo.conf.erb"),
+        content => template('mrepo/repo.conf.erb'),
         require => Class['mrepo::package'],
       }
 
@@ -154,31 +170,37 @@ define mrepo::repo (
         ensure  => directory,
         owner   => $user,
         group   => $group,
-        mode    => "0755",
+        mode    => '0755',
         backup  => false,
         recurse => false,
       }
 
-      exec { "Generate mrepo repo $name":
-        command   => "mrepo -g $name",
+      exec { "Generate mrepo repo ${name}":
+        command   => "mrepo -g ${name}",
         cwd       => $src_root,
-        path      => [ "/usr/bin", "/bin" ],
+        path      => [ '/usr/bin', '/bin' ],
         user      => $user,
         group     => $group,
         creates   => $www_root_subdir,
         timeout   => $gen_timeout,
         require   => Class['mrepo::package'],
-        subscribe => File["/etc/mrepo.conf.d/$name.conf"],
+        subscribe => File["/etc/mrepo.conf.d/${name}.conf"],
         logoutput => on_failure,
       }
 
-      $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
+      if $::mrepo_env {
+        $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
+      }
+      else {
+        $repo_command = "${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
+      }
+
       case $update {
         now: {
-          exec { "Synchronize repo $name":
+          exec { "Synchronize repo ${name}":
             command   => $repo_command,
             cwd       => $src_root,
-            path      => [ "/usr/bin", "/bin" ],
+            path      => [ '/usr/bin', '/bin' ],
             user      => $user,
             group     => $group,
             timeout   => $sync_timeout,
@@ -186,49 +208,51 @@ define mrepo::repo (
             logoutput => on_failure,
           }
           cron {
-            "Nightly synchronize repo $name":
+            "Nightly synchronize repo ${name}":
               ensure  => absent;
-            "Weekly synchronize repo $name":
+            "Weekly synchronize repo ${name}":
               ensure  => absent;
           }
         }
         nightly: {
           cron {
-            "Nightly synchronize repo $name":
+            "Nightly synchronize repo ${name}":
               ensure  => present,
               command   => $repo_command,
               hour    => $hour,
               minute  => $minute,
               user    => $user,
               require => Class['mrepo::package'];
-            "Weekly synchronize repo $name":
+            "Weekly synchronize repo ${name}":
               ensure  => absent;
           }
         }
         weekly: {
           cron {
-            "Weekly synchronize repo $name":
+            "Weekly synchronize repo ${name}":
               ensure  => present,
               command   => $repo_command,
-              weekday => "0",
+              weekday => '0',
               hour    => $hour,
               minute  => $minute,
               user    => $user,
               require => Class['mrepo::package'];
-            "Nightly synchronize repo $name":
+            "Nightly synchronize repo ${name}":
               ensure  => absent;
           }
         }
+        default: {
+        }
       }
-     
+
       if $type != 'std' {
         #notify { "Type = ${type}": }
         create_resources( "mrepo::repo::${type}",
-          { "$name"      => {
-              ensure     => $ensure,
-              release    => $release,
-              arch       => $arch,
-              repotitle  => $repotitle,
+          { "${name}"      => {
+              ensure      => $ensure,
+              release     => $release,
+              arch        => $arch,
+              repotitle   => $repotitle,
               typerelease => $typerelease,
             }
           }
@@ -239,7 +263,7 @@ define mrepo::repo (
     absent: {
       exec { "Unmount any mirrored ISOs for ${name}":
         command   => "umount ${www_root_subdir}/disc*",
-        path      => ["/usr/bin", "/bin", "/usr/sbin", "/sbin"],
+        path      => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
         onlyif    => "mount | grep ${www_root_subdir}/disk",
         provider  => shell,
         logoutput => true,
@@ -252,22 +276,24 @@ define mrepo::repo (
           force   => true,
           before  => File[$src_root_subdir],
           require => Exec["Unmount any mirrored ISOs for ${name}"];
-        "${mrepo::params::src_root}/$name":
+        "${mrepo::params::src_root}/${name}":
           ensure  => absent,
           backup  => false,
           recurse => false,
           force   => true;
-        "/etc/mrepo.conf.d/$name":
+        "/etc/mrepo.conf.d/${name}":
           ensure  => absent,
           backup  => false,
           force   => true;
       }
       cron {
-        "Nightly synchronize repo $name":
+        "Nightly synchronize repo ${name}":
           ensure  => absent;
-        "Weekly synchronize repo $name":
+        "Weekly synchronize repo ${name}":
           ensure  => absent;
       }
+    }
+    default: {
     }
   }
 }

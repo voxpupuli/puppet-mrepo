@@ -7,26 +7,37 @@ This module creates and synchronizes rpm based repositories by managing mrepo.
 Install and configure a basic mrepo installation
 
     node default {
-      class { "mrepo": }
+      class { 'mrepo': }
     }
 
 Override default values and enable redhat network support for use in other classes
 
-    class { "mrepo::params":
+    class { 'mrepo::params':
       selinux       => true,
       rhn           => true,
-      rhn_username  => "user",
-      rhn_password  => "pass",
+      rhn_username  => 'user',
+      rhn_password  => 'pass',
     }
+
+Or using Hiera for parameters (same example)
+
+  code:
+    class { 'mrepo': }
+
+  Hiera:
+    mrepo::params::selinux: true
+    mrepo::params::rhn: true
+    mrepo::params::rhn_username: user
+    mrepo::params::rhn_password: pass
 
 Mirror multiple centos 5 repositories
 
-    mrepo::repo { "centos5-x86_64":
+    mrepo::repo { 'centos5-x86_64':
       ensure    => present,
-      update    => "nightly",
-      repotitle => "CentOS 5.6 64 bit",
-      arch      => "x86_64",
-      release   => "5.6",
+      update    => 'nightly',
+      repotitle => 'CentOS 5.6 64 bit',
+      arch      => 'x86_64',
+      release   => '5.6',
       urls      => {
         addons      => 'rsync://mirrors.kernel.org/centos/$release/addons/$arch/',
         centosplus  => 'rsync://mirrors.kernel.org/centos/$release/centosplus/$arch/',
@@ -34,12 +45,12 @@ Mirror multiple centos 5 repositories
       }
     }
 
-    mrepo::repo { "centos5-i386":
+    mrepo::repo { 'centos5-i386':
       ensure    => present,
-      update    => "nightly",
-      repotitle => "CentOS 5.6 64 bit",
-      arch      => "i386",
-      release   => "5.6",
+      update    => 'nightly',
+      repotitle => 'CentOS 5.6 64 bit',
+      arch      => 'i386',
+      release   => '5.6',
       urls      => {
         addons      => 'rsync://mirrors.kernel.org/centos/$release/addons/$arch/',
         centosplus  => 'rsync://mirrors.kernel.org/centos/$release/centosplus/$arch/',
@@ -49,22 +60,23 @@ Mirror multiple centos 5 repositories
 
 Mirror multiple rhel channels
 
-    mrepo::repo { "rhel6server-x86_64":
-      ensure     => present,
-      update     => "nightly",
-      repotitle  => 'Red Hat Enterprise Linux Server $release ($arch)',
-      rhn        => true,
-      arch       => "x86_64",
-      release    => "6",
-      rhnrelease => "6Server",
-      iso        => 'rhel-server-6.0-$arch-dvd.iso',
-      urls       => {
-        updates       => 'rhns:///rhel-$arch-server-6',
-        vt            => 'rhns:///rhel-$arch-server-vt-6',
-        supplementary => 'rhns:///rhel-$arch-server-supplementary-6',
-        fasttrack     => 'rhns:///rhel-$arch-server-fasttrack-6',
-        hts           => 'rhns:///rhel-$arch-server-hts-6',
-        rhn-tools     => 'rhns:///rhn-tools-rhel-$arch-server-6',
+    mrepo::repo { 'rhel6server-x86_64':
+      ensure      => present,
+      update      => 'nightly',
+      repotitle   => 'Red Hat Enterprise Linux Server $release ($arch)',
+      rhn         => true,
+      type        => 'rhn',
+      arch        => 'x86_64',
+      release     => '6',
+      typerelease => '6Server',
+      iso         => 'rhel-server-6.0-$arch-dvd.iso',
+      urls        => {
+        updates       => 'rhns:///rhel-$arch-server-$release',
+        vt            => 'rhns:///rhel-$arch-server-vt-$release',
+        supplementary => 'rhns:///rhel-$arch-server-supplementary-$release',
+        fasttrack     => 'rhns:///rhel-$arch-server-fasttrack-$release',
+        hts           => 'rhns:///rhel-$arch-server-hts-$release',
+        rhn-tools     => 'rhns:///rhn-tools-rhel-$arch-server-$release',
       }
     }
 
@@ -109,12 +121,12 @@ surround the string in single quotes so puppet doesn't try to expand them.
 
 So this:
 
-    mrepo::repo { "centos5-x86_64":
+    mrepo::repo { 'centos5-x86_64':
       ensure    => present,
-      update    => "nightly",
-      repotitle => "CentOS 5.6 64 bit",
-      arch      => "x86_64",
-      release   => "5.6",
+      update    => 'nightly',
+      repotitle => 'CentOS 5.6 64 bit',
+      arch      => 'x86_64',
+      release   => '5.6',
       urls      => {
         addons      => 'rsync://mirrors.kernel.org/centos/$release/$repo/$arch/',
         centosplus  => 'rsync://mirrors.kernel.org/centos/$release/$repo/$arch/',
@@ -124,12 +136,12 @@ So this:
 
 Is equivalent to this:
 
-    mrepo::repo { "centos5-x86_64":
+    mrepo::repo { 'centos5-x86_64':
       ensure    => present,
-      update    => "nightly",
-      repotitle => "CentOS 5.6 64 bit",
-      arch      => "x86_64",
-      release   => "5.6",
+      update    => 'nightly',
+      repotitle => 'CentOS 5.6 64 bit',
+      arch      => 'x86_64',
+      release   => '5.6',
         addons      => 'rsync://mirrors.kernel.org/centos/5.6/addons/x86_64/',
         centosplus  => 'rsync://mirrors.kernel.org/centos/5.6/centosplus/x86_64/',
         updates     => 'rsync://mirrors.kernel.org/centos/5.6/updates/x86_64/',

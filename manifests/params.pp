@@ -23,13 +23,26 @@
 # Default: package
 # Values: git, package
 #
+# [*ensure_src*]
+# Ensure value for the package source.
+# Note that with source set to 'git', setting ensure_src to 'latest'
+#  may cause module-removed source files (e.g. httpd mrepo.conf) to be restored
+# Default: latest
+# Values: latest, present, absent
+#
 # [*selinux*]
 # Whether to update the selinux context for the mrepo document root.
 # Default: the selinux fact.
 # Values: true, false
 #
 # [*rhn*]
-# Whether to install redhat dependencies or not. Defaults to false.
+# Whether to install RedHat dependencies or not. Defaults to false.
+# Default: false
+# Values: true, false
+#
+# [*rhn_config*]
+# Whether to install RedHat dependencies for RHN on RHEL. Defaults to false.
+# Note: Irrelevant (assumed true) for CentOS servers with rhn=true.
 # Default: false
 # Values: true, false
 #
@@ -38,6 +51,10 @@
 #
 # [*rhn_password*]
 # The Redhat Network password. Must be set if the param rhn is true.
+#
+# [*genid_command*]
+# The base command to use to generate a systemid for RHN (mrepo::repo::rhn).
+# Default: /usr/bin/gensystemid 
 #
 # [*mailto*]
 #
@@ -72,10 +89,13 @@ class mrepo::params (
   $user           = 'apache',
   $group          = 'apache',
   $source         = 'package',
+  $ensure_src     = 'latest',
   $selinux        = undef,
   $rhn            = false,
+  $rhn_config     = false,
   $rhn_username   = '',
   $rhn_password   = '',
+  $genid_command  = '/usr/bin/gensystemid',
   $mailto         = 'UNSET',
   $git_proto      = 'git',
   $descriptions   = {},
