@@ -11,7 +11,7 @@
 # repo_hash = undef (Default)
 # Hash with repo definitions to create
 # These can also be provided via Hiera
-# 
+#
 # Other optional parameters can be found in the mrepo::params class
 #
 # == Examples
@@ -33,6 +33,7 @@ class mrepo {
   include mrepo::rhn
   include mrepo::webservice
   include mrepo::selinux
+  include mrepo::repos
 
   anchor { 'mrepo::begin':
     before => Class['mrepo::package'],
