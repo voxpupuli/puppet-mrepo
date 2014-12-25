@@ -33,12 +33,12 @@ define mrepo::repo::ncc (
   $update     = 'nightly',
   $hour       = '0',
   $iso        = '',
-  $repotitle  = $name
+  $repotitle  = $name,
   $typerelease = $release,
 ) {
   include mrepo::params
 
-  # This Class needs testing... no SLES here.... 
+  # This Class needs testing... no SLES here....
 
   case $ensure {
     present: {
