@@ -115,6 +115,8 @@ define mrepo::repo (
   $sync_timeout  = '1200',
   $type          = 'std',
   $typerelease   = undef,
+  $mrepo_env     = '',
+  $mrepo_command = '/usr/bin/mrepo',
   $mrepo_options = '-qgu',
   $mrepo_logging = '',
 ) {
@@ -170,10 +172,11 @@ define mrepo::repo (
         logoutput => on_failure,
       }
 
+      $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
       case $update {
         now: {
           exec { "Synchronize repo $name":
-            command   => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
+            command   => $repo_command,
             cwd       => $src_root,
             path      => [ "/usr/bin", "/bin" ],
             user      => $user,
@@ -193,7 +196,7 @@ define mrepo::repo (
           cron {
             "Nightly synchronize repo $name":
               ensure  => present,
-              command => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
+              command   => $repo_command,
               hour    => $hour,
               minute  => $minute,
               user    => $user,
@@ -206,7 +209,7 @@ define mrepo::repo (
           cron {
             "Weekly synchronize repo $name":
               ensure  => present,
-              command => "/usr/bin/mrepo ${mrepo_options} $name ${mrepo_logging}",
+              command   => $repo_command,
               weekday => "0",
               hour    => $hour,
               minute  => $minute,
