@@ -17,12 +17,14 @@ class mrepo::webservice(
 ){
   include mrepo::params
 
-  $user  = $mrepo::params::user
-  $group = $mrepo::params::group
-  $docroot = $mrepo::params::www_root
+  $user       = $mrepo::params::user
+  $group      = $mrepo::params::group
+  $docroot    = $mrepo::params::www_root
   $servername = $mrepo::params::www_servername
-  $priority = $mrepo::params::priority
-  $port = $mrepo::params::port
+  $priority   = $mrepo::params::priority
+  $port       = $mrepo::params::port
+  $ip_based   = $mrepo::params::www_ip_based
+  $ip         = $mrepo::params::www_ip
 
   case $ensure {
     present: {
@@ -36,11 +38,13 @@ class mrepo::webservice(
       }
 
       apache::vhost { "mrepo":
-        priority        => $priority,
-        port            => $port,
-        servername      => $servername,
-        docroot         => $docroot,
-        custom_fragment => template("${module_name}/apache.conf.erb"),
+        priority          => $priority,
+        port              => $port,
+        servername        => $servername,
+        docroot           => $docroot,
+        custom_fragment   => template("${module_name}/apache.conf.erb"),
+        ip_based          => $ip_based,
+        ip                => $ip,
       }
     }
     absent: {

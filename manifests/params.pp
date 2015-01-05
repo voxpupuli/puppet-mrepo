@@ -10,6 +10,14 @@
 # The path of the mrepo html document root.
 # Default: /var/www/mrepo
 #
+# [*www_ip*]
+# Which IP address to use when www_ip_based is set.
+# Default: $::ipaddress
+#
+# [*www_ip_based*]
+# Whether to use IP-based virtual hosts or not.
+# Default: false
+#
 # [*user*]
 # The account to use for mirroring the files.
 # Default: apache
@@ -69,6 +77,8 @@ class mrepo::params (
   $src_root       = '/var/mrepo',
   $www_root       = '/var/www/mrepo',
   $www_servername = 'mrepo',
+  $www_ip         = $::ipaddress,
+  $www_ip_based   = false,
   $user           = 'apache',
   $group          = 'apache',
   $source         = 'package',
