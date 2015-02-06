@@ -28,17 +28,17 @@ define mrepo::repo::ncc (
   $arch,
   $ncc_username,
   $ncc_password,
-  $urls       = {},
-  $metadata   = 'repomd',
-  $update     = 'nightly',
-  $hour       = '0',
-  $iso        = '',
-  $repotitle  = $name
+  $urls        = {},
+  $metadata    = 'repomd',
+  $update      = 'nightly',
+  $hour        = '0',
+  $iso         = '',
+  $repotitle   = $name,
   $typerelease = $release,
 ) {
   include mrepo::params
 
-  # This Class needs testing... no SLES here.... 
+  # This Class needs testing... no SLES here....
 
   case $ensure {
     present: {
