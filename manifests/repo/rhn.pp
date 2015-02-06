@@ -6,7 +6,7 @@
 # Whether to generate rhn metadata for these repos.
 # Default: false
 #
-# [*rhnrelease*]
+# [*typerelease*]
 # The name of the RHN release as understood by mrepo. Optional.
 #
 # == Examples
@@ -27,35 +27,69 @@ define mrepo::repo::rhn (
   $ensure,
   $release,
   $arch,
-  $urls       = {},
-  $metadata   = 'repomd',
-  $update     = 'nightly',
-  $hour       = '0',
-  $iso        = '',
+  $urls        = {},
+  $metadata    = 'repomd',
+  $update      = 'nightly',
+  $hour        = '0',
+  $iso         = '',
   $typerelease = $release,
-  $repotitle  = $name
+  $repotitle   = $name,
 ) {
   include mrepo::params
 
-  $http_proxy   = $mrepo::params::http_proxy
-  $https_proxy  = $mrepo::params::https_proxy
+  $http_proxy    = $mrepo::params::http_proxy
+  $https_proxy   = $mrepo::params::https_proxy
+  $rhn_username  = $mrepo::params::rhn_username
+  $rhn_password  = $mrepo::params::rhn_password
+  $src_root      = $mrepo::params::src_root
+  $user          = $mrepo::params::user
+  $group         = $mrepo::params::group
+  $genid_command = $mrepo::params::genid_command
 
-  case $ensure {
-    present: {
-      exec { "Generate systemid $name - $arch":
-        command   => "gensystemid -u '${mrepo::params::rhn_username}' -p '${mrepo::params::rhn_password}' --release '${typerelease}' --arch '${arch}' '${mrepo::params::src_root}/${name}'",
-        path      => [ "/bin", "/usr/bin" ],
-        user      => $mrepo::params::user,
-        group     => $mrepo::params::group,
-        creates   => "${mrepo::params::src_root}/${name}/systemid",
-        require   => [
-          Class['mrepo::package'],
-          Class['mrepo::rhn'],
-        ],
-        before      => Exec["Generate mrepo repo ${name}"],
-        logoutput   => on_failure,
-        environment => ["http_proxy=${http_proxy}","https_proxy=${https_proxy}"],
-      }
+  $sysid_command = "${genid_command}\s-r\s${typerelease}\s-u\s\'${rhn_username}\'\s-p\s\'${rhn_password}\'\s-a\s${arch}\s\'${src_root}/${name}\'"
+
+  # Workaround for http://projects.puppetlabs.com/issues/19848
+  if $http_proxy or $https_proxy {
+    if $http_proxy and $https_proxy {
+      $gen_env = ["http_proxy=${http_proxy}","https_proxy=${https_proxy}"]
+    }
+    elsif $http_proxy {
+      $gen_env = "http_proxy=${http_proxy}"
+    }
+    elsif $https_proxy {
+      $gen_env = "https_proxy=${https_proxy}"
+    }
+  }
+
+  if $ensure == 'present' and $gen_env {
+    exec { "Generate systemid ${name} - ${arch}":
+      command     => $sysid_command,
+      path        => [ '/bin', '/usr/bin' ],
+      user        => $user,
+      group       => $group,
+      creates     => "${src_root}/${name}/systemid",
+      require     => [
+        Class['mrepo::package'],
+        Class['mrepo::rhn'],
+      ],
+      before      => Exec["Generate mrepo repo ${name}"],
+      logoutput   => on_failure,
+      environment => $gen_env,
+    }
+  }
+  elsif $ensure == 'present' {
+    exec { "Generate systemid ${name} - ${arch}":
+      command   => $sysid_command,
+      path      => [ '/bin', '/usr/bin' ],
+      user      => $user,
+      group     => $group,
+      creates   => "${src_root}/${name}/systemid",
+      require   => [
+        Class['mrepo::package'],
+        Class['mrepo::rhn'],
+      ],
+      before    => Exec["Generate mrepo repo ${name}"],
+      logoutput => on_failure,
     }
   }
 }
