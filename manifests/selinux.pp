@@ -25,7 +25,7 @@ class mrepo::selinux {
 
   $context = "system_u:object_r:httpd_sys_content_t"
 
-  if $use_selinux {
+  if $mrepo::params::use_selinux {
     exec { "Apply httpd context to mrepo $src_root":
       command   => "chcon -hR $context $src_root",
       path      => [ "/usr/bin", "/bin" ],
