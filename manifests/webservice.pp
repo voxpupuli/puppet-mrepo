@@ -44,7 +44,11 @@ class mrepo::webservice(
         docroot           => $docroot,
         custom_fragment   => template("${module_name}/apache.conf.erb"),
         ip_based          => $ip_based,
-        ip                => $ip,
+      }
+      if $ip_based {
+        Apache::Vhost['mrepo'] {
+          ip => $ip,
+        }
       }
     }
     absent: {
