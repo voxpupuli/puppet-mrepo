@@ -1,5 +1,16 @@
 CHANGELOG
 
+1.2.0
+====
+
+  * Add ability specify package source protocol other than git
+  * Add ability to specify source version other than latest
+  * Add ability to use ip_based vhost
+  * Fix some RHN related issues.
+  * Add ability to specify releases and release types (eg, 6Server)
+  * Add ability to customize mrepo command, options, environment vars
+  * Add `mrepo::repos` for hiera integration.
+
 1.1.1
 =====
 
