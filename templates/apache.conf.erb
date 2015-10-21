@@ -3,18 +3,18 @@
 # Managed by Puppet
 # ************************************
 
-NameVirtualHost *:<%= port %>
-<VirtualHost *:<%= port %>>
-  ServerName <%= name %>
-<%if serveraliases.is_a? Array -%>
-<% serveraliases.each do |name| -%><%= "  ServerAlias #{name}\n" %><% end -%>
-<% elsif serveraliases != '' -%>
-<%= "  ServerAlias #{serveraliases}" -%>
+NameVirtualHost *:<%= @port %>
+<VirtualHost *:<%= @port %>>
+  ServerName <%= @name %>
+<%if @serveraliases.is_a? Array -%>
+<% @serveraliases.each do |name| -%><%= "  ServerAlias #{name}\n" %><% end -%>
+<% elsif @serveraliases != '' -%>
+<%= "  ServerAlias #{@serveraliases}" -%>
 <% end -%>
-  DocumentRoot <%= docroot %>
-  Alias /mrepo <%= docroot %>
+  DocumentRoot <%= @docroot %>
+  Alias /mrepo <%= @docroot %>
 
-  <Directory <%= docroot %>>
+  <Directory <%= @docroot %>>
     Options Indexes FollowSymlinks SymLinksifOwnerMatch IncludesNOEXEC
     IndexOptions NameWidth=* DescriptionWidth=*
 
@@ -124,8 +124,8 @@ NameVirtualHost *:<%= port %>
     AddDescription "Yellow Dog Linux 3.0 for PPC" yd3-ppc
     AddDescription "Yellow Dog Linux 4.0 for PPC" yd4-ppc
   </Directory>
-  ErrorLog /var/log/httpd/<%= name %>_error.log
+  ErrorLog /var/log/httpd/<%= @name %>_error.log
   LogLevel warn
-  CustomLog /var/log/httpd/<%= name %>_access.log combined
+  CustomLog /var/log/httpd/<%= @name %>_access.log combined
   ServerSignature On
 </VirtualHost>
