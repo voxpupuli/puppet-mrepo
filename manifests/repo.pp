@@ -152,11 +152,11 @@ define mrepo::repo (
   $src_root_subdir = "${src_root}/${real_name}"
   $www_root_subdir = "${www_root}/${real_name}"
 
+  $user  = $mrepo::params::user
+  $group = $mrepo::params::group
+
   case $ensure {
     present: {
-
-      $user  = $mrepo::params::user
-      $group = $mrepo::params::group
 
       file { "/etc/mrepo.conf.d/${name}.conf":
         ensure  => present,
@@ -209,8 +209,10 @@ define mrepo::repo (
           }
           cron {
             "Nightly synchronize repo ${name}":
+              user => $user,
               ensure  => absent;
             "Weekly synchronize repo ${name}":
+              user => $user,
               ensure  => absent;
           }
         }
@@ -224,6 +226,7 @@ define mrepo::repo (
               user    => $user,
               require => Class['mrepo::package'];
             "Weekly synchronize repo ${name}":
+              user => $user,
               ensure  => absent;
           }
         }
@@ -238,6 +241,7 @@ define mrepo::repo (
               user    => $user,
               require => Class['mrepo::package'];
             "Nightly synchronize repo ${name}":
+              user => $user,
               ensure  => absent;
           }
         }
@@ -288,8 +292,10 @@ define mrepo::repo (
       }
       cron {
         "Nightly synchronize repo ${name}":
+          user => $user,
           ensure  => absent;
         "Weekly synchronize repo ${name}":
+          user => $user,
           ensure  => absent;
       }
     }
