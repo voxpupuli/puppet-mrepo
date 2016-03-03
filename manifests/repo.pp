@@ -268,7 +268,7 @@ define mrepo::repo (
       exec { "Unmount any mirrored ISOs for ${name}":
         command   => "umount ${www_root_subdir}/disc*",
         path      => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
-        onlyif    => "mount | grep ${www_root_subdir}/disk",
+        onlyif    => "mount | grep ${www_root_subdir}/disc",
         provider  => shell,
         logoutput => true,
       }
