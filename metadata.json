@@ -2,7 +2,7 @@
   "name": "puppetlabs-mrepo",
   "version": "1.2.0",
   "author": "puppetlabs",
-  "summary": "Configures and manages mrepo mirrors, which are generated from distribution ISOs, existing RPM mirrors, the Redhat Network, or Yast Online Update.",
+  "summary": "Configures and manages mrepo mirrors",
   "license": "Apache-2.0",
   "source": "git://github.com/puppetlabs/puppetlabs-mrepo.git",
   "project_page": "https://github.com/puppetlabs/puppetlabs-mrepo",
