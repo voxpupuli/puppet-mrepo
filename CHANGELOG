@@ -1,5 +1,14 @@
 CHANGELOG
 
+1.2.1
+====
+
+A small release to address some previous issues and errors.
+
+  * Removed non-root user cron jobs
+  * Fixed issue in which the grep string did not match the mount point of the ISO
+  * The summary in metadata used to throw an error, it has been shortened to fix this
+
 1.2.0
 ====
 

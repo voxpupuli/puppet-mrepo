@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-mrepo",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "puppetlabs",
   "summary": "Configures and manages mrepo mirrors",
   "license": "Apache-2.0",
