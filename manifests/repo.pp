@@ -156,7 +156,7 @@ define mrepo::repo (
   $group = $mrepo::params::group
 
   case $ensure {
-    present: {
+    'present': {
 
       file { "/etc/mrepo.conf.d/${name}.conf":
         ensure  => present,
@@ -196,7 +196,7 @@ define mrepo::repo (
       }
 
       case $update {
-        now: {
+        'now': {
           exec { "Synchronize repo ${name}":
             command   => $repo_command,
             cwd       => $src_root,
@@ -216,7 +216,7 @@ define mrepo::repo (
               ensure  => absent;
           }
         }
-        nightly: {
+        'nightly': {
           cron {
             "Nightly synchronize repo ${name}":
               ensure  => present,
@@ -230,7 +230,7 @@ define mrepo::repo (
               ensure  => absent;
           }
         }
-        weekly: {
+        'weekly': {
           cron {
             "Weekly synchronize repo ${name}":
               ensure  => present,
@@ -264,7 +264,7 @@ define mrepo::repo (
       }
 
     }
-    absent: {
+    'absent': {
       exec { "Unmount any mirrored ISOs for ${name}":
         command   => "umount ${www_root_subdir}/disc*",
         path      => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
