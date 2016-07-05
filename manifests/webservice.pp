@@ -37,7 +37,7 @@ class mrepo::webservice(
         mode    => '0755',
       }
 
-      apache::vhost { "mrepo":
+      apache::vhost { 'mrepo':
         priority          => $priority,
         port              => $port,
         servername        => $servername,
@@ -51,8 +51,9 @@ class mrepo::webservice(
         }
       }
     }
-    absent: {
-      apache::vhost { "mrepo":
+
+    'absent': {
+      apache::vhost { 'mrepo':
         ensure  => $ensure,
         port    => $port,
         docroot => $docroot,
