@@ -31,10 +31,10 @@ class mrepo::webservice(
     'present': {
 
       file { $docroot:
-        ensure  => directory,
-        owner   => $user,
-        group   => $group,
-        mode    => '0755',
+        ensure => directory,
+        owner  => $user,
+        group  => $group,
+        mode   => '0755',
       }
 
       apache::vhost { 'mrepo':

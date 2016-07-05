@@ -209,40 +209,40 @@ define mrepo::repo (
           }
           cron {
             "Nightly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+              user   => $user,
+              ensure => absent;
             "Weekly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+              user   => $user,
+              ensure => absent;
           }
         }
         'nightly': {
           cron {
             "Nightly synchronize repo ${name}":
               ensure  => present,
-              command   => $repo_command,
+              command => $repo_command,
               hour    => $hour,
               minute  => $minute,
               user    => $user,
               require => Class['mrepo::package'];
             "Weekly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+              user   => $user,
+              ensure => absent;
           }
         }
         'weekly': {
           cron {
             "Weekly synchronize repo ${name}":
               ensure  => present,
-              command   => $repo_command,
+              command => $repo_command,
               weekday => '0',
               hour    => $hour,
               minute  => $minute,
               user    => $user,
               require => Class['mrepo::package'];
             "Nightly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+              user   => $user,
+              ensure => absent;
           }
         }
         default: {
@@ -286,17 +286,17 @@ define mrepo::repo (
           recurse => false,
           force   => true;
         "/etc/mrepo.conf.d/${name}":
-          ensure  => absent,
-          backup  => false,
-          force   => true;
+          ensure => absent,
+          backup => false,
+          force  => true;
       }
       cron {
         "Nightly synchronize repo ${name}":
-          user => $user,
-          ensure  => absent;
+          user   => $user,
+          ensure => absent;
         "Weekly synchronize repo ${name}":
-          user => $user,
-          ensure  => absent;
+          user   => $user,
+          ensure => absent;
       }
     }
     default: {
