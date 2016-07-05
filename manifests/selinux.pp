@@ -26,22 +26,22 @@ class mrepo::selinux {
   $context = 'system_u:object_r:httpd_sys_content_t'
 
   if $mrepo::params::use_selinux {
-    exec { "Apply httpd context to mrepo $src_root":
-      command   => "chcon -hR $context $src_root",
-      unless    => "test `ls -dZ $src_root | awk '{print \$4}'` = '$context'",
+    exec { "Apply httpd context to mrepo ${src_root}":
+      command   => "chcon -hR ${context} ${src_root}",
       path      => [ '/usr/bin', '/bin' ],
       user      => 'root',
       group     => 'root',
+      unless    => "test `ls -dZ ${src_root} | awk '{print \$4}'` = '${context}'",
       require   => File[$src_root],
       logoutput => on_failure,
     }
 
-    exec { "Apply httpd context to mrepo $www_root":
-      command   => "chcon -hR $context $www_root",
-      unless    => "test `ls -dZ $www_root | awk '{print \$4}'` = '$context'",
+    exec { "Apply httpd context to mrepo ${www_root}":
+      command   => "chcon -hR ${context} ${www_root}",
       path      => [ '/usr/bin', '/bin' ],
       user      => 'root',
       group     => 'root',
+      unless    => "test `ls -dZ ${www_root} | awk '{print \$4}'` = '${context}'",
       require   => File[$www_root],
       logoutput => on_failure,
     }
