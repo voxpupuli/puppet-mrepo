@@ -19,7 +19,7 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::selinux {
-  include mrepo::params
+  include ::mrepo::params
   $src_root = $mrepo::params::src_root
   $www_root = $mrepo::params::www_root
 

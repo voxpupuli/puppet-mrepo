@@ -15,7 +15,7 @@
 class mrepo::webservice(
   $ensure = 'present'
 ){
-  include mrepo::params
+  include ::mrepo::params
 
   $user       = $mrepo::params::user
   $group      = $mrepo::params::group
@@ -27,8 +27,8 @@ class mrepo::webservice(
   $ip         = $mrepo::params::www_ip
 
   case $ensure {
-      include apache
     'present': {
+      include ::apache
 
       file { $docroot:
         ensure => directory,

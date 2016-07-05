@@ -15,7 +15,7 @@
 # Copyright 2012 Puppet Labs, unless otherwise noted
 #
 class mrepo::exports($clients) {
-  include mrepo::params
+  include ::mrepo::params
 
   $file_path = '/usr/local/sbin/export-mrepo'
 

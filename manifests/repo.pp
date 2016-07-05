@@ -134,8 +134,8 @@ define mrepo::repo (
   $mrepo_options = '-qgu',
   $mrepo_logging = '',
 ) {
-  include mrepo
-  include mrepo::params
+  include ::mrepo
+  include ::mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
   validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")

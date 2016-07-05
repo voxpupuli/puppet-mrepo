@@ -3,7 +3,7 @@
 # Downloads isos
 define mrepo::iso($source_url, $repo) {
 
-  include mrepo::params
+  include ::mrepo::params
 
   $target_file = "${mrepo::params::src_root}/iso/${name}"
 
