@@ -60,6 +60,12 @@
 # [*rhn_password*]
 # The Redhat Network password. Must be set if the param rhn is true.
 #
+# [*rhnget_cleanup*]
+# Clean up packages that are not on the sending side? mrepo default undef.
+#
+# [*rhnget_download_all*]
+# Download older versions of packages? mrepo default undef.
+#
 # [*genid_command*]
 # The base command to use to generate a systemid for RHN (mrepo::repo::rhn).
 # Default: /usr/bin/gensystemid 
@@ -96,30 +102,32 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::params (
-  $src_root       = '/var/mrepo',
-  $www_root       = '/var/www/mrepo',
-  $www_servername = 'mrepo',
-  $www_ip         = $::ipaddress,
-  $www_ip_based   = false,
-  $user           = 'apache',
-  $group          = 'apache',
-  $source         = 'package',
-  $ensure_src     = 'latest',
-  $selinux        = undef,
-  $rhn            = false,
-  $rhn_config     = false,
-  $rhn_username   = '',
-  $rhn_password   = '',
-  $genid_command  = '/usr/bin/gensystemid',
-  $mailto         = undef,
-  $mailfrom       = undef,
-  $smtpserver     = undef,
-  $git_proto      = 'git',
-  $descriptions   = {},
-  $http_proxy     = '',
-  $https_proxy    = '',
-  $priority       = '10',
-  $port           = '80',
+  $src_root            = '/var/mrepo',
+  $www_root            = '/var/www/mrepo',
+  $www_servername      = 'mrepo',
+  $www_ip              = $::ipaddress,
+  $www_ip_based        = false,
+  $user                = 'apache',
+  $group               = 'apache',
+  $source              = 'package',
+  $ensure_src          = 'latest',
+  $selinux             = undef,
+  $rhn                 = false,
+  $rhn_config          = false,
+  $rhn_username        = '',
+  $rhn_password        = '',
+  $rhnget_cleanup      = undef,
+  $rhnget_download_all = undef,
+  $genid_command       = '/usr/bin/gensystemid',
+  $mailto              = undef,
+  $mailfrom            = undef,
+  $smtpserver          = undef,
+  $git_proto           = 'git',
+  $descriptions        = {},
+  $http_proxy          = '',
+  $https_proxy         = '',
+  $priority            = '10',
+  $port                = '80',
 ) {
   validate_re($source, '^git$|^package$')
   validate_re($git_proto, '^git$|^https$')
@@ -127,6 +135,19 @@ class mrepo::params (
   validate_re($port, '^\d+$')
   validate_bool($rhn)
   validate_hash($descriptions)
+
+  if $mailto {
+    validate_email_address($mailto)
+  }
+  if $mailfrom {
+    validate_email_address($mailfrom)
+
+  if $rhnget_cleanup != undef {
+    validate_bool($rhnget_cleanup)
+  }
+  if $rhnget_download_all != undef {
+    validate_bool($rhnget_download_all)
+  }
 
   if $mailto {
     validate_email_address($mailto)

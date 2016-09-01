@@ -17,6 +17,12 @@ rhnlogin = <%= @rhn_username %>:<%= @rhn_password %>
 <% elsif not @rhn_username.empty? -%>
 rhnlogin = <%= @rhn_username %>
 <% end -%>
+<% unless @rhnget_cleanup.nil? -%>
+rhnget-cleanup      = <%= @rhnget_cleanup?'yes':'no' %>
+<% end -%>
+<% unless @rhnget_download_all.nil? -%>
+rhnget-download-all = <%= @rhnget_download_all?'yes':'no' %>
+<% end -%>
 
 <% if @mailto -%>
 mailto = <%= @mailto %>
