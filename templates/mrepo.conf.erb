@@ -20,4 +20,10 @@ rhnlogin = <%= @rhn_username %>
 
 <% unless (mailto = @mailto) == 'UNSET' -%>
 mailto = <%= mailto %>
+<%   if (mailfrom = @mailfrom) != 'UNSET' -%>
+mailfrom = <%= mailfrom %>
+<%   end -%>
+<%   if (smtpserver = @smtpserver) != 'UNSET' -%>
+smtp-server = <%= smtpserver %>
+<%   end -%>
 <% end -%>

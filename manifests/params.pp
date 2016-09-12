@@ -65,8 +65,13 @@
 # Default: /usr/bin/gensystemid 
 #
 # [*mailto*]
+# The email recipient for mrepo updates. Defaults to unset, meaning no email will be sent.
 #
-# The email recipient for mrepo updates. Defaults to unset
+# [*mailfrom*]
+# The email sender for mrepo updates. Defaults to unset, meaning mrepo will use its default of `mrepo@`_fqdn_.
+#
+# [*smtpserver*]
+# The SMTP server to use for sending update emails.  Defaults to unset, meaning mrepo will use its default of `localhost`.
 #
 # == Examples
 #
@@ -107,6 +112,8 @@ class mrepo::params (
   $rhn_password   = '',
   $genid_command  = '/usr/bin/gensystemid',
   $mailto         = 'UNSET',
+  $mailfrom       = 'UNSET',
+  $smtpserver     = 'UNSET',
   $git_proto      = 'git',
   $descriptions   = {},
   $http_proxy     = '',
@@ -120,6 +127,17 @@ class mrepo::params (
   validate_re($port, '^\d+$')
   validate_bool($rhn)
   validate_hash($descriptions)
+
+  # validate email addresses based on regex found in `is_email_address`
+  # in newer stdlib versions.  If metadata.json updated to require
+  # *4.12.0* or newer, the `validate_re` calls can be replaced by
+  # `validate_email_address`.
+  if $mailto != 'UNSET' {
+    validate_re($mailto, '\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z$', "${mailto} is not a valid email address")
+  }
+  if $mailfrom != 'UNSET' {
+    validate_re($mailfrom, '\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z$', "${mailfrom} is not a valid email address")
+  }
 
   if $rhn {
     validate_re($rhn_username, '.+')
