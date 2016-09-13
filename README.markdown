@@ -1,6 +1,10 @@
+[![Puppet Forge](http://img.shields.io/puppetforge/v/voxpupuli/mrepo.svg)](https://forge.puppetlabs.com/voxpupuli/mrepo)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-mrepo.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-mrepo)
+
 # Puppet Mrepo #
 
 This module creates and synchronizes rpm based repositories by managing mrepo.
+It is maintained by [Vox Pupuli](https://voxpupuli.org/) having kindly been migrated from [Puppet Inc](https://www.puppet.com/).
 
 ## Synopsis ##
 
