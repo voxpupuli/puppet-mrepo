@@ -36,12 +36,12 @@ define mrepo::repo::ncc (
   $repotitle   = $name,
   $typerelease = $release,
 ) {
-  include mrepo::params
+  include ::mrepo::params
 
   # This Class needs testing... no SLES here....
 
   case $ensure {
-    present: {
+    'present': {
       $user  = $mrepo::params::user
       $group = $mrepo::params::group
 
@@ -53,14 +53,14 @@ define mrepo::repo::ncc (
         ensure  => present,
         owner   => $user,
         group   => $group,
-        mode    => "0640",
+        mode    => '0640',
         backup  => false,
         content => $ncc_username;
       "${src_root_subdir}/secret":
         ensure  => present,
         owner   => $user,
         group   => $group,
-        mode    => "0640",
+        mode    => '0640',
         backup  => false,
         content => $ncc_password;
       }

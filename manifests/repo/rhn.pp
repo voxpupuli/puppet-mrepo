@@ -35,7 +35,7 @@ define mrepo::repo::rhn (
   $typerelease = $release,
   $repotitle   = $name,
 ) {
-  include mrepo::params
+  include ::mrepo::params
 
   $http_proxy    = $mrepo::params::http_proxy
   $https_proxy   = $mrepo::params::https_proxy
