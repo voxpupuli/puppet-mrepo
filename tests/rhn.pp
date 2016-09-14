@@ -1,7 +1,7 @@
-class { "mrepo::params":
+class { 'mrepo::params':
   rhn           => true,
-  rhn_username  => "test",
-  rhn_password  => "test",
+  rhn_username  => 'test',
+  rhn_password  => 'test',
 }
 
 include mrepo::rhn

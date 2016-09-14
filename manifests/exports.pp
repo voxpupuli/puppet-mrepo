@@ -34,7 +34,7 @@ class mrepo::exports($clients) {
     $clients_real = "-c ${clients}"
   }
 
-  cron { "Export mrepo repositories":
+  cron { 'Export mrepo repositories':
     command => "${file_path} ${clients_real} write",
     ensure  => present,
     user    => 'root',

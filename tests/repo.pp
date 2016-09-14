@@ -1,9 +1,9 @@
-mrepo::repo { "centos5-i386":
+mrepo::repo { 'centos5-i386':
   ensure    => present,
-  update    => "weekly",
-  repotitle => "CentOS 5.6 32 bit",
-  arch      => "i386",
-  release   => "5.6",
+  update    => 'weekly',
+  repotitle => 'CentOS 5.6 32 bit',
+  arch      => 'i386',
+  release   => '5.6',
   urls      => {
     addons      => 'rsync://mirrors.kernel.org/centos/$release/addons/$arch/',
     centosplus  => 'rsync://mirrors.kernel.org/centos/$release/centosplus/$arch/',
