@@ -26,6 +26,7 @@ class mrepo::webservice(
   $ip_based   = $mrepo::params::www_ip_based
   $ip         = $mrepo::params::www_ip
 
+  validate_re($ensure, ['^present$','^absent$'])
   case $ensure {
     'present': {
       include ::apache
@@ -51,7 +52,7 @@ class mrepo::webservice(
         }
       }
     }
-    'absent': {
+    default: {
       apache::vhost { 'mrepo':
         ensure  => $ensure,
         port    => $port,
