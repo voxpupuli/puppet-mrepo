@@ -111,9 +111,9 @@ class mrepo::params (
   $rhn_username   = '',
   $rhn_password   = '',
   $genid_command  = '/usr/bin/gensystemid',
-  $mailto         = 'UNSET',
-  $mailfrom       = 'UNSET',
-  $smtpserver     = 'UNSET',
+  $mailto         = undef,
+  $mailfrom       = undef,
+  $smtpserver     = undef,
   $git_proto      = 'git',
   $descriptions   = {},
   $http_proxy     = '',
@@ -128,15 +128,11 @@ class mrepo::params (
   validate_bool($rhn)
   validate_hash($descriptions)
 
-  # validate email addresses based on regex found in `is_email_address`
-  # in newer stdlib versions.  If metadata.json updated to require
-  # *4.12.0* or newer, the `validate_re` calls can be replaced by
-  # `validate_email_address`.
-  if $mailto != 'UNSET' {
-    validate_re($mailto, '\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z$', "${mailto} is not a valid email address")
+  if $mailto != undef {
+    validate_email_address($mailto)
   }
-  if $mailfrom != 'UNSET' {
-    validate_re($mailfrom, '\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z$', "${mailfrom} is not a valid email address")
+  if $mailfrom != undef {
+    validate_email_address($mailfrom)
   }
 
   if $rhn {
