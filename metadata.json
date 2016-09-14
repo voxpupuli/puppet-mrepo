@@ -8,6 +8,34 @@
   "project_page": "https://github.com/voxpupuli/puppet-mrepo",
   "issues_url": "https://github.com/voxpupuli/puppet-mrepo/issues",
   "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
   ],
   "requirements": [
   ],
