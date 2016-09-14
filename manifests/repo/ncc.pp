@@ -48,21 +48,22 @@ define mrepo::repo::ncc (
       $real_name = mrepo_munge($name, $arch)
       $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
 
-      file {
-      "${src_root_subdir}/deviceid":
+      file { "${src_root_subdir}/deviceid":
         ensure  => present,
         owner   => $user,
         group   => $group,
         mode    => '0640',
         backup  => false,
-        content => $ncc_username;
-      "${src_root_subdir}/secret":
+        content => $ncc_username,
+      }
+
+      file { "${src_root_subdir}/secret":
         ensure  => present,
         owner   => $user,
         group   => $group,
         mode    => '0640',
         backup  => false,
-        content => $ncc_password;
+        content => $ncc_password,
       }
     }
   }

@@ -70,27 +70,32 @@ class mrepo::package {
     content => template('mrepo/mrepo.conf.erb'),
   }
 
-  file {
-    '/etc/mrepo.conf.d':
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-    '/var/cache/mrepo':
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-    $src_root:
-      ensure  => directory,
-      owner   => $user,
-      group   => $group,
-      mode    => '0755';
-    '/var/log/mrepo.log':
-      ensure  => file,
-      owner   => $user,
-      group   => $group,
-      mode    => '0640';
+  file { '/etc/mrepo.conf.d':
+    ensure  => directory,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+  }
+
+  file { '/var/cache/mrepo':
+    ensure  => directory,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+  }
+
+  file { $src_root:
+    ensure  => directory,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+  }
+
+  file { '/var/log/mrepo.log':
+    ensure  => file,
+    owner   => $user,
+    group   => $group,
+    mode    => '0640',
   }
 
   # Packages needed to mirror files and generate mirror metadata
