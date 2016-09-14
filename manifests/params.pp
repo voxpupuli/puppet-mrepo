@@ -128,10 +128,10 @@ class mrepo::params (
   validate_bool($rhn)
   validate_hash($descriptions)
 
-  if $mailto != undef {
+  if $mailto {
     validate_email_address($mailto)
   }
-  if $mailfrom != undef {
+  if $mailfrom {
     validate_email_address($mailfrom)
   }
 
