@@ -15,7 +15,7 @@
 class mrepo::webservice(
   $ensure = 'present'
 ){
-  include mrepo::params
+  include ::mrepo::params
 
   $user       = $mrepo::params::user
   $group      = $mrepo::params::group
@@ -26,24 +26,25 @@ class mrepo::webservice(
   $ip_based   = $mrepo::params::www_ip_based
   $ip         = $mrepo::params::www_ip
 
+  validate_re($ensure, ['^present$','^absent$'])
   case $ensure {
-    present: {
-      include apache
+    'present': {
+      include ::apache
 
       file { $docroot:
-        ensure  => directory,
-        owner   => $user,
-        group   => $group,
-        mode    => '0755',
+        ensure => directory,
+        owner  => $user,
+        group  => $group,
+        mode   => '0755',
       }
 
-      apache::vhost { "mrepo":
-        priority          => $priority,
-        port              => $port,
-        servername        => $servername,
-        docroot           => $docroot,
-        custom_fragment   => template("${module_name}/apache.conf.erb"),
-        ip_based          => $ip_based,
+      apache::vhost { 'mrepo':
+        priority        => $priority,
+        port            => $port,
+        servername      => $servername,
+        docroot         => $docroot,
+        custom_fragment => template("${module_name}/apache.conf.erb"),
+        ip_based        => $ip_based,
       }
       if $ip_based {
         Apache::Vhost['mrepo'] {
@@ -51,8 +52,8 @@ class mrepo::webservice(
         }
       }
     }
-    absent: {
-      apache::vhost { "mrepo":
+    default: {
+      apache::vhost { 'mrepo':
         ensure  => $ensure,
         port    => $port,
         docroot => $docroot,

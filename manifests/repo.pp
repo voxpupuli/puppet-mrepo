@@ -134,8 +134,8 @@ define mrepo::repo (
   $mrepo_options = '-qgu',
   $mrepo_logging = '',
 ) {
-  include mrepo
-  include mrepo::params
+  include ::mrepo
+  include ::mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
   validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
@@ -156,7 +156,7 @@ define mrepo::repo (
   $group = $mrepo::params::group
 
   case $ensure {
-    present: {
+    'present': {
 
       file { "/etc/mrepo.conf.d/${name}.conf":
         ensure  => present,
@@ -196,7 +196,7 @@ define mrepo::repo (
       }
 
       case $update {
-        now: {
+        'now': {
           exec { "Synchronize repo ${name}":
             command   => $repo_command,
             cwd       => $src_root,
@@ -207,42 +207,42 @@ define mrepo::repo (
             require   => Class['mrepo::package'],
             logoutput => on_failure,
           }
-          cron {
-            "Nightly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
-            "Weekly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+          cron { "Nightly synchronize repo ${name}":
+            ensure => absent,
+            user   => $user,
+          }
+          cron { "Weekly synchronize repo ${name}":
+            ensure => absent,
+            user   => $user,
           }
         }
-        nightly: {
-          cron {
-            "Nightly synchronize repo ${name}":
-              ensure  => present,
-              command   => $repo_command,
-              hour    => $hour,
-              minute  => $minute,
-              user    => $user,
-              require => Class['mrepo::package'];
-            "Weekly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+        'nightly': {
+          cron { "Nightly synchronize repo ${name}":
+            ensure  => present,
+            command => $repo_command,
+            hour    => $hour,
+            minute  => $minute,
+            user    => $user,
+            require => Class['mrepo::package'],
+          }
+          cron { "Weekly synchronize repo ${name}":
+            ensure => absent,
+            user   => $user,
           }
         }
-        weekly: {
-          cron {
-            "Weekly synchronize repo ${name}":
-              ensure  => present,
-              command   => $repo_command,
-              weekday => '0',
-              hour    => $hour,
-              minute  => $minute,
-              user    => $user,
-              require => Class['mrepo::package'];
-            "Nightly synchronize repo ${name}":
-              user => $user,
-              ensure  => absent;
+        'weekly': {
+          cron { "Weekly synchronize repo ${name}":
+            ensure  => present,
+            command => $repo_command,
+            weekday => '0',
+            hour    => $hour,
+            minute  => $minute,
+            user    => $user,
+            require => Class['mrepo::package'],
+          }
+          cron { "Nightly synchronize repo ${name}":
+            ensure => absent,
+            user   => $user,
           }
         }
         default: {
@@ -264,7 +264,7 @@ define mrepo::repo (
       }
 
     }
-    absent: {
+    'absent': {
       exec { "Unmount any mirrored ISOs for ${name}":
         command   => "umount ${www_root_subdir}/disc*",
         path      => ['/usr/bin', '/bin', '/usr/sbin', '/sbin'],
@@ -272,31 +272,32 @@ define mrepo::repo (
         provider  => shell,
         logoutput => true,
       }
-      file {
-        $www_root_subdir:
-          ensure  => absent,
-          backup  => false,
-          recurse => false,
-          force   => true,
-          before  => File[$src_root_subdir],
-          require => Exec["Unmount any mirrored ISOs for ${name}"];
-        "${mrepo::params::src_root}/${name}":
-          ensure  => absent,
-          backup  => false,
-          recurse => false,
-          force   => true;
-        "/etc/mrepo.conf.d/${name}":
-          ensure  => absent,
-          backup  => false,
-          force   => true;
+      file { $www_root_subdir:
+        ensure  => absent,
+        backup  => false,
+        recurse => false,
+        force   => true,
+        before  => File[$src_root_subdir],
+        require => Exec["Unmount any mirrored ISOs for ${name}"],
       }
-      cron {
-        "Nightly synchronize repo ${name}":
-          user => $user,
-          ensure  => absent;
-        "Weekly synchronize repo ${name}":
-          user => $user,
-          ensure  => absent;
+      file { "${mrepo::params::src_root}/${name}":
+        ensure  => absent,
+        backup  => false,
+        recurse => false,
+        force   => true,
+      }
+      file { "/etc/mrepo.conf.d/${name}":
+        ensure => absent,
+        backup => false,
+        force  => true,
+      }
+      cron { "Nightly synchronize repo ${name}":
+        ensure => absent,
+        user   => $user,
+      }
+      cron { "Weekly synchronize repo ${name}":
+        ensure => absent,
+        user   => $user,
       }
     }
     default: {

@@ -15,7 +15,7 @@
 # Copyright 2012 Puppet Labs, unless otherwise noted
 #
 class mrepo::exports($clients) {
-  include mrepo::params
+  include ::mrepo::params
 
   $file_path = '/usr/local/sbin/export-mrepo'
 
@@ -34,9 +34,9 @@ class mrepo::exports($clients) {
     $clients_real = "-c ${clients}"
   }
 
-  cron { "Export mrepo repositories":
-    command => "${file_path} ${clients_real} write",
+  cron { 'Export mrepo repositories':
     ensure  => present,
+    command => "${file_path} ${clients_real} write",
     user    => 'root',
     minute  => fqdn_rand(60),
     require => File[$file_path],
