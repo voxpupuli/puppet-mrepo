@@ -7,7 +7,7 @@ EOS
   reponame     = arguments[0]
   architecture = arguments[1]
 
-  raise Puppet::ParseError, "mrepo_munge() takes (String, String), received (#{reponame.class}, #{architecture.class})" unless(reponame.is_a? String and architecture.is_a? String)
+  raise Puppet::ParseError, "mrepo_munge() takes (String, String), received (#{reponame.class}, #{architecture.class})" unless reponame.is_a? String and architecture.is_a? String
 
   collapsible_arches = %w(alpha i386 ia64 ppc ppc64 x86_64 sparc64 sparc64v s390 s390x)
 
