@@ -41,7 +41,7 @@ define mrepo::repo::ncc (
   # This Class needs testing... no SLES here....
 
   case $ensure {
-    present: {
+    'present': {
       $user  = $mrepo::params::user
       $group = $mrepo::params::group
 

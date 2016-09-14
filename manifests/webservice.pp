@@ -27,7 +27,7 @@ class mrepo::webservice(
   $ip         = $mrepo::params::www_ip
 
   case $ensure {
-    present: {
+    'present': {
       include ::apache
 
       file { $docroot:
@@ -51,7 +51,7 @@ class mrepo::webservice(
         }
       }
     }
-    absent: {
+    'absent': {
       apache::vhost { 'mrepo':
         ensure  => $ensure,
         port    => $port,

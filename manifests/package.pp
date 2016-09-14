@@ -26,7 +26,7 @@ class mrepo::package {
   $proto  = $mrepo::params::git_proto
   $ensure = $mrepo::params::ensure_src
   case $source {
-    git: {
+    'git': {
       vcsrepo { '/usr/src/mrepo':
         ensure   => $ensure,
         revision => 'HEAD',
@@ -43,7 +43,7 @@ class mrepo::package {
         logoutput   => on_failure,
       }
     }
-    package: {
+    'package': {
       package { 'mrepo':
         ensure  => present,
       }
