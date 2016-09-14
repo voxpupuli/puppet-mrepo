@@ -208,12 +208,12 @@ define mrepo::repo (
             logoutput => on_failure,
           }
           cron { "Nightly synchronize repo ${name}":
-            user => $user,
             ensure  => absent,
+            user => $user,
           }
           cron { "Weekly synchronize repo ${name}":
-            user => $user,
             ensure  => absent,
+            user => $user,
           }
         }
         'nightly': {
@@ -226,8 +226,8 @@ define mrepo::repo (
             require => Class['mrepo::package'],
           }
           cron { "Weekly synchronize repo ${name}":
-            user => $user,
             ensure  => absent,
+            user => $user,
           }
         }
         'weekly': {
@@ -241,8 +241,8 @@ define mrepo::repo (
             require => Class['mrepo::package'],
           }
           cron { "Nightly synchronize repo ${name}":
-            user => $user,
             ensure  => absent,
+            user => $user,
           }
         }
         default: {
@@ -292,12 +292,12 @@ define mrepo::repo (
         force   => true,
       }
       cron { "Nightly synchronize repo ${name}":
-        user => $user,
         ensure  => absent,
+        user => $user,
       }
       cron { "Weekly synchronize repo ${name}":
-        user => $user,
         ensure  => absent,
+        user => $user,
       }
     }
     default: {
