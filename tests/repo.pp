@@ -11,5 +11,5 @@ mrepo::repo { 'centos5-i386':
     extras      => 'rsync://mirrors.kernel.org/centos/$release/extras/$arch/',
     fasttrack   => 'rsync://mirrors.kernel.org/centos/$release/fasttrack/$arch/',
     updates     => 'rsync://mirrors.kernel.org/centos/$release/updates/$arch/',
-  }
+  },
 }
