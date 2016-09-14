@@ -31,19 +31,19 @@ class mrepo::webservice(
       include ::apache
 
       file { $docroot:
-        ensure  => directory,
-        owner   => $user,
-        group   => $group,
-        mode    => '0755',
+        ensure => directory,
+        owner  => $user,
+        group  => $group,
+        mode   => '0755',
       }
 
       apache::vhost { 'mrepo':
-        priority          => $priority,
-        port              => $port,
-        servername        => $servername,
-        docroot           => $docroot,
-        custom_fragment   => template("${module_name}/apache.conf.erb"),
-        ip_based          => $ip_based,
+        priority        => $priority,
+        port            => $port,
+        servername      => $servername,
+        docroot         => $docroot,
+        custom_fragment => template("${module_name}/apache.conf.erb"),
+        ip_based        => $ip_based,
       }
       if $ip_based {
         Apache::Vhost['mrepo'] {
