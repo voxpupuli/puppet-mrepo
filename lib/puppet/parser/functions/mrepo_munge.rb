@@ -1,4 +1,4 @@
-Puppet::Parser::Functions.newfunction(:mrepo_munge, :type => :rvalue, :doc => <<-EOS
+Puppet::Parser::Functions.newfunction(:mrepo_munge, type: :rvalue, doc: <<-EOS
 Processes mrepo::repo names and collapses them to mach mrepo standards.
 EOS
 ) do |arguments|
