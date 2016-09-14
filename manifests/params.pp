@@ -65,8 +65,13 @@
 # Default: /usr/bin/gensystemid 
 #
 # [*mailto*]
+# The email recipient for mrepo updates. Defaults to unset, meaning no email will be sent.
 #
-# The email recipient for mrepo updates. Defaults to unset
+# [*mailfrom*]
+# The email sender for mrepo updates. Defaults to unset, meaning mrepo will use its default of `mrepo@`_fqdn_.
+#
+# [*smtpserver*]
+# The SMTP server to use for sending update emails.  Defaults to unset, meaning mrepo will use its default of `localhost`.
 #
 # == Examples
 #
@@ -106,7 +111,9 @@ class mrepo::params (
   $rhn_username   = '',
   $rhn_password   = '',
   $genid_command  = '/usr/bin/gensystemid',
-  $mailto         = 'UNSET',
+  $mailto         = undef,
+  $mailfrom       = undef,
+  $smtpserver     = undef,
   $git_proto      = 'git',
   $descriptions   = {},
   $http_proxy     = '',
@@ -120,6 +127,13 @@ class mrepo::params (
   validate_re($port, '^\d+$')
   validate_bool($rhn)
   validate_hash($descriptions)
+
+  if $mailto {
+    validate_email_address($mailto)
+  }
+  if $mailfrom {
+    validate_email_address($mailfrom)
+  }
 
   if $rhn {
     validate_re($rhn_username, '.+')
