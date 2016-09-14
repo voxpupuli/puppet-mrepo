@@ -1,5 +1,5 @@
 Puppet::Parser::Functions.newfunction(:mrepo_munge, type: :rvalue, doc: <<-EOS
-Processes mrepo::repo names and collapses them to mach mrepo standards.
+Processes mrepo::repo names and collapses them to match mrepo standards.
 EOS
                                      ) do |arguments|
   raise Puppet::ParseError, "mrepo_munge(): Wrong number of arguments given (#{arguments.length} for 2)" unless arguments.length == 2

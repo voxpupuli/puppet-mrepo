@@ -67,7 +67,7 @@
 #
 # [*mrepo_env*]
 # Environment passed to the mrepo command
-# Default: ''
+# Default: undef
 #
 # [*mrepo_command*]
 # Mrepo command string
@@ -79,7 +79,7 @@
 #
 # [*mrepo_logging*]
 # Can be used to redirect output to a logfile for later inspection
-# Default: empty
+# Default: undef
 #
 # == Examples
 #
@@ -129,10 +129,10 @@ define mrepo::repo (
   $sync_timeout  = '1200',
   $type          = 'std',
   $typerelease   = undef,
-  $mrepo_env     = '',
+  $mrepo_env     = undef,
   $mrepo_command = '/usr/bin/mrepo',
   $mrepo_options = '-qgu',
-  $mrepo_logging = '',
+  $mrepo_logging = undef,
 ) {
   include ::mrepo
   include ::mrepo::params
@@ -188,7 +188,8 @@ define mrepo::repo (
         logoutput => on_failure,
       }
 
-      if $::mrepo_env {
+      if $mrepo_env {
+        validate_string($mrepo_env)
         $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
       }
       else {
