@@ -29,10 +29,10 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo {
-  include mrepo::package
-  include mrepo::rhn
-  include mrepo::webservice
-  include mrepo::selinux
+  include ::mrepo::package
+  include ::mrepo::rhn
+  include ::mrepo::webservice
+  include ::mrepo::selinux
 
   anchor { 'mrepo::begin':
     before => Class['mrepo::package'],

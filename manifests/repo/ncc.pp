@@ -36,7 +36,7 @@ define mrepo::repo::ncc (
   $repotitle   = $name,
   $typerelease = $release,
 ) {
-  include mrepo::params
+  include ::mrepo::params
 
   # This Class needs testing... no SLES here....
 

@@ -20,7 +20,7 @@
 #
 class mrepo::rhn {
 
-  include mrepo::params
+  include ::mrepo::params
   $group        = $mrepo::params::group
   $rhn          = $mrepo::params::rhn
   $rhn_config   = $mrepo::params::rhn_config
