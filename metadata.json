@@ -1,6 +1,6 @@
 {
   "name": "puppet-mrepo",
-  "version": "2.0.0-rc",
+  "version": "2.0.0",
   "author": "Vox Pupuli",
   "summary": "Configures and manages mrepo mirrors",
   "license": "Apache-2.0",
