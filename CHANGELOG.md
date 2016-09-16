@@ -1,3 +1,10 @@
+## 2016-09-16 Release 2.0.1
+
+Version 2.0.0 was tagged but never released to the forge due to a travis configuration issue.
+There are no other changes or fixes in this release.
+
+  * [PR-46](https://github.com/voxpupuli/puppet-mrepo/pull/46) Add travis secret
+
 ## 2016-09-16 Release 2.0.0
 
 This is the first release in [Vox Pupuli](https://voxpupuli.org/)'s [puppet](https://forge.puppet.com/puppet) namespace.
