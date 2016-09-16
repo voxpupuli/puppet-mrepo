@@ -43,7 +43,7 @@ deploy:
     branch: ha-bug-puppet-forge
   user: puppet
   password:
-    secure: ""
+    secure: "ZB12EC//4Z9bp7OVy03loiecq9jg02RxLesGiYq4nnJZkd7KFP//1Rezrox7WjXIYpLaQJ4XIPUyd3LnpE60fXnHDiLUtrw/51x1lgub01tppi8ly8t04AOyPrG1x3GAOJzD2UW9SL02MPYI7uqQdoYm3Kl4CXv++Ji5FGofZFk="
   on:
     tags: true
     # all_branches is required to use tags
