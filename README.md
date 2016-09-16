@@ -1,4 +1,4 @@
-[![Puppet Forge](http://img.shields.io/puppetforge/v/voxpupuli/mrepo.svg)](https://forge.puppetlabs.com/voxpupuli/mrepo)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
 [![Build Status](https://travis-ci.org/voxpupuli/puppet-mrepo.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-mrepo)
 
 # Puppet Mrepo #
