@@ -22,8 +22,7 @@ class mrepo::selinux {
   include ::mrepo::params
   $src_root = $mrepo::params::src_root
   $www_root = $mrepo::params::www_root
-
-  $context = 'system_u:object_r:httpd_sys_content_t'
+  $context  = $mrepo::params::selinux_context
 
   if $mrepo::params::use_selinux {
     exec { "Apply httpd context to mrepo ${src_root}":

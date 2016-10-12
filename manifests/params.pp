@@ -132,6 +132,7 @@ class mrepo::params (
   $https_proxy         = '',
   $priority            = '10',
   $port                = '80',
+  $selinux_context     = 'system_u:object_r:httpd_sys_content_t',
 ) {
   validate_re($source, '^git$|^package$')
   validate_re($git_proto, '^git$|^https$')
