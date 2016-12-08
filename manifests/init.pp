@@ -152,8 +152,6 @@ class mrepo (
   validate_bool($rhn)
   validate_hash($descriptions)
 
-  assert_private('You can no longer refer to the mrepo::params class directly, see https://github.com/voxpupuli/puppet-mrepo#caveats for more details')
-
   if $mailto {
     validate_email_address($mailto)
   }
@@ -192,10 +190,10 @@ class mrepo (
     }
   }
 
-  include ::mrepo::package
-  include ::mrepo::rhn
-  include ::mrepo::webservice
-  include ::mrepo::selinux
+  contain ::mrepo::package
+  contain ::mrepo::rhn
+  contain ::mrepo::webservice
+  contain ::mrepo::selinux
 
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']

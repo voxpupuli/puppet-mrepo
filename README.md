@@ -164,7 +164,7 @@ page](https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt).
 
 ### Params Pattern ###
 
-This module was previously using a pattern
+This module was previously using a design where the params class was used as the main class and included in other classes.
 
 It now follows the params pattern, where parameters are set in the params
 class as default, inherited, then overwritten as needed when calling the base class.
@@ -182,8 +182,7 @@ class { '::mrepo::params':
 }
 ```
 
-
-After:
+#### After:
 
 ```puppet
 class { '::mrepo':
