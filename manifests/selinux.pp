@@ -19,12 +19,12 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::selinux {
-  include ::mrepo::params
-  $src_root = $mrepo::params::src_root
-  $www_root = $mrepo::params::www_root
-  $context  = $mrepo::params::selinux_context
 
-  if $mrepo::params::use_selinux {
+  $src_root = $mrepo::src_root
+  $www_root = $mrepo::www_root
+  $context  = $mrepo::selinux_context
+
+  if $mrepo::use_selinux {
     exec { "Apply httpd context to mrepo ${src_root}":
       command   => "chcon -hR ${context} ${src_root}",
       path      => [ '/usr/bin', '/bin' ],

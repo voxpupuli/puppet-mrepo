@@ -1,4 +1,3 @@
-class { '::mrepo::params':
+class { '::mrepo':
   selinux => true,
 }
-include ::mrepo::selinux

@@ -37,14 +37,14 @@ define mrepo::repo::rhn (
 ) {
   include ::mrepo::params
 
-  $http_proxy    = $mrepo::params::http_proxy
-  $https_proxy   = $mrepo::params::https_proxy
-  $rhn_username  = $mrepo::params::rhn_username
-  $rhn_password  = $mrepo::params::rhn_password
-  $src_root      = $mrepo::params::src_root
-  $user          = $mrepo::params::user
-  $group         = $mrepo::params::group
-  $genid_command = $mrepo::params::genid_command
+  $http_proxy    = $mrepo::http_proxy
+  $https_proxy   = $mrepo::https_proxy
+  $rhn_username  = $mrepo::rhn_username
+  $rhn_password  = $mrepo::rhn_password
+  $src_root      = $mrepo::src_root
+  $user          = $mrepo::user
+  $group         = $mrepo::group
+  $genid_command = $mrepo::genid_command
 
   $sysid_command = "${genid_command}\s-r\s${typerelease}\s-u\s\'${rhn_username}\'\s-p\s\'${rhn_password}\'\s-a\s${arch}\s\'${src_root}/${name}\'"
 

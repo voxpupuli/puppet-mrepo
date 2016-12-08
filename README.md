@@ -16,7 +16,7 @@ Install and configure a basic mrepo installation
 
 Override default values and enable redhat network support for use in other classes
 
-    class { 'mrepo::params':
+    class { 'mrepo':
       selinux       => true,
       rhn           => true,
       rhn_username  => 'user',
@@ -29,10 +29,10 @@ Or using Hiera for parameters (same example)
     class { 'mrepo': }
 
   Hiera:
-    mrepo::params::selinux: true
-    mrepo::params::rhn: true
-    mrepo::params::rhn_username: user
-    mrepo::params::rhn_password: pass
+    mrepo::selinux: true
+    mrepo::rhn: true
+    mrepo::rhn_username: user
+    mrepo::rhn_password: pass
 
 Mirror multiple centos 5 repositories
 
@@ -86,7 +86,7 @@ Mirror multiple rhel channels
 
 ## Usage ##
 
-If you need to customize the mrepo default settings, include the mrepo::params
+If you need to customize the mrepo default settings, include the mrepo
 class and include the appropriate variables. Else, you should be able to use
 the mrepo::repo by itself to instantiate repositories.
 
@@ -161,6 +161,39 @@ For full details on how mrepo is used, see [the mrepo usage
 page](https://github.com/dagwieers/mrepo/blob/master/docs/usage.txt).
 
 ## Caveats ##
+
+### Params Pattern ###
+
+This module was previously using a pattern
+
+It now follows the params pattern, where parameters are set in the params
+class as default, inherited, then overwritten as needed when calling the base class.
+
+#### Before:
+
+Using classes
+
+```puppet
+class { '::mrepo::params':
+  selinux       => true,
+  rhn           => true,
+  rhn_username  => 'user',
+  rhn_password  => 'pass',
+}
+```
+
+
+After:
+
+```puppet
+class { '::mrepo':
+  selinux       => true,
+  rhn           => true,
+  rhn_username  => 'user',
+  rhn_password  => 'pass',
+}
+```
+
 
 ### SELinux ###
 

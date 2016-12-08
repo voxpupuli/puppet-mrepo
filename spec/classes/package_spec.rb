@@ -8,6 +8,9 @@ describe 'mrepo::package', type: :class do
       end
 
       context 'with default parameters' do
+        let :pre_condition do
+          'class { "mrepo": }'
+        end
         it { is_expected.to compile.with_all_deps }
         describe '/etc/mrepo.conf' do
           it { is_expected.to contain_file('/etc/mrepo.conf') }
@@ -25,7 +28,7 @@ describe 'mrepo::package', type: :class do
       describe 'rhnget_cleanup parameter' do
         context 'with rhnget_cleanup = true' do
           let(:pre_condition) do
-            'class { "mrepo::params": rhnget_cleanup => true }'
+            'class { "mrepo": rhnget_cleanup => true }'
           end
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
@@ -34,7 +37,7 @@ describe 'mrepo::package', type: :class do
         end
         context 'with rhnget_cleanup = false' do
           let(:pre_condition) do
-            'class { "mrepo::params": rhnget_cleanup => false }'
+            'class { "mrepo": rhnget_cleanup => false }'
           end
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
@@ -46,7 +49,7 @@ describe 'mrepo::package', type: :class do
       describe 'rhnget_download_all parameter' do
         context 'with rhnget_download_all = true' do
           let(:pre_condition) do
-            'class { "mrepo::params": rhnget_download_all => true }'
+            'class { "mrepo": rhnget_download_all => true }'
           end
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
@@ -55,7 +58,7 @@ describe 'mrepo::package', type: :class do
         end
         context 'with rhnget_download_all = false' do
           let(:pre_condition) do
-            'class { "mrepo::params": rhnget_download_all => false }'
+            'class { "mrepo": rhnget_download_all => false }'
           end
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]

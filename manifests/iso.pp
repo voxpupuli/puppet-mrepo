@@ -3,9 +3,9 @@
 # Downloads isos
 define mrepo::iso($source_url, $repo) {
 
-  include ::mrepo::params
+  include ::mrepo
 
-  $target_file = "${mrepo::params::src_root}/iso/${name}"
+  $target_file = "${mrepo::src_root}/iso/${name}"
 
   staging::file { $name:
     source => "${source_url}/${name}",
