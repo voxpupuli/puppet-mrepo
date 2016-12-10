@@ -9,7 +9,7 @@
 # This class does not need to be directly included.
 #
 # == Author
-# Pascal Bourdier <pascal.bourdier+gith@gmail.com>
+# https://github.com/PascalBourdier
 #
 class mrepo::service {
 
