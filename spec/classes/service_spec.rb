@@ -11,7 +11,7 @@ describe 'mrepo::service', type: :class do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_service('mrepo').with(
           'enable' => true,
-        )
+        )}
       end
     end
   end
