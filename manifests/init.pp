@@ -40,7 +40,7 @@ class mrepo {
   }
 
   Class['mrepo::params']     -> Class['mrepo::package']
-  Class['mrepo::params']     -> Class['mrepo::service']
+  Class['mrepo::package']    -> Class['mrepo::service']
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']

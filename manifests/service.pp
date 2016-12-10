@@ -19,7 +19,6 @@ class mrepo::service {
 
   if $source == 'package' {
     service { 'mrepo':
-      require => [Package['mrepo']],
       enable  => true,
     }
   }
