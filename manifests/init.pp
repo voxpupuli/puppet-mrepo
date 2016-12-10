@@ -30,6 +30,7 @@
 #
 class mrepo {
   include ::mrepo::package
+  include ::mrepo::service
   include ::mrepo::rhn
   include ::mrepo::webservice
   include ::mrepo::selinux
@@ -39,6 +40,7 @@ class mrepo {
   }
 
   Class['mrepo::params']     -> Class['mrepo::package']
+  Class['mrepo::params']     -> Class['mrepo::service']
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']
@@ -47,6 +49,7 @@ class mrepo {
   anchor { 'mrepo::end':
     require => [
       Class['mrepo::package'],
+      Class['mrepo::service'],
       Class['mrepo::webservice'],
       Class['mrepo::selinux'],
       Class['mrepo::rhn'],
