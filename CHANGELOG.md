@@ -1,3 +1,14 @@
+# Changelog
+
+## 2017-01-13 - Release 2.1.0
+
+This is the last release with Puppet 3 support!
+* Fix Puppetforge badge
+* Rename READMEs
+* Parameterized the selinux context: #51
+* Set min version_requirement for Puppet + deps
+* Refactor to use the params pattern
+
 ## 2016-09-16 Release 2.0.1
 
 Version 2.0.0 was tagged but never released to the forge due to a travis configuration issue.
