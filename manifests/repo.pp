@@ -28,7 +28,7 @@
 # Values: yum,apt,repomd
 #
 # [*update*]
-# The schedule for updating.The 'now' will update the repo on every run of 
+# The schedule for updating.The 'now' will update the repo on every run of
 # puppet. Be warned that this could be a very lengthy process on the first run.
 # Default: nightly
 # Values: now, nightly, weekly, never
@@ -135,7 +135,6 @@ define mrepo::repo (
   $mrepo_logging = undef,
 ) {
   include ::mrepo
-  include ::mrepo::params
 
   validate_re($ensure, "^present$|^absent$")
   validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
@@ -147,13 +146,13 @@ define mrepo::repo (
   # This manages the inconsistent behavior.
   $real_name = mrepo_munge($name, $arch)
 
-  $src_root        = $mrepo::params::src_root
-  $www_root        = $mrepo::params::www_root
+  $src_root        = $mrepo::src_root
+  $www_root        = $mrepo::www_root
   $src_root_subdir = "${src_root}/${real_name}"
   $www_root_subdir = "${www_root}/${real_name}"
 
-  $user  = $mrepo::params::user
-  $group = $mrepo::params::group
+  $user  = $mrepo::user
+  $group = $mrepo::group
 
   case $ensure {
     'present': {
@@ -281,7 +280,7 @@ define mrepo::repo (
         before  => File[$src_root_subdir],
         require => Exec["Unmount any mirrored ISOs for ${name}"],
       }
-      file { "${mrepo::params::src_root}/${name}":
+      file { "${mrepo::src_root}/${name}":
         ensure  => absent,
         backup  => false,
         recurse => false,

@@ -15,16 +15,16 @@
 class mrepo::webservice(
   $ensure = 'present'
 ){
-  include ::mrepo::params
+  include ::mrepo
 
-  $user       = $mrepo::params::user
-  $group      = $mrepo::params::group
-  $docroot    = $mrepo::params::www_root
-  $servername = $mrepo::params::www_servername
-  $priority   = $mrepo::params::priority
-  $port       = $mrepo::params::port
-  $ip_based   = $mrepo::params::www_ip_based
-  $ip         = $mrepo::params::www_ip
+  $user       = $mrepo::user
+  $group      = $mrepo::group
+  $docroot    = $mrepo::www_root
+  $servername = $mrepo::www_servername
+  $priority   = $mrepo::priority
+  $port       = $mrepo::port
+  $ip_based   = $mrepo::www_ip_based
+  $ip         = $mrepo::www_ip
 
   validate_re($ensure, ['^present$','^absent$'])
   case $ensure {

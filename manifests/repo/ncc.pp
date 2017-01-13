@@ -36,16 +36,16 @@ define mrepo::repo::ncc (
   $repotitle   = $name,
   $typerelease = $release,
 ) {
-  include ::mrepo::params
+  include ::mrepo
 
   # This Class needs testing... no SLES here....
 
   if $ensure == 'present' {
-    $user  = $mrepo::params::user
-    $group = $mrepo::params::group
+    $user  = $mrepo::user
+    $group = $mrepo::group
 
     $real_name = mrepo_munge($name, $arch)
-    $src_root_subdir = "${mrepo::params::src_root}/${real_name}"
+    $src_root_subdir = "${mrepo::src_root}/${real_name}"
 
     file { "${src_root_subdir}/deviceid":
       ensure  => present,

@@ -4,7 +4,7 @@
 #
 # == Parameters
 #
-# Optional parameters can be found in the mrepo::params class
+# Optional parameters can be found in the mrepo class
 #
 # == Examples
 #
@@ -20,10 +20,9 @@
 #
 class mrepo::rhn {
 
-  include ::mrepo::params
-  $group        = $mrepo::params::group
-  $rhn          = $mrepo::params::rhn
-  $rhn_config   = $mrepo::params::rhn_config
+  $group        = $mrepo::group
+  $rhn          = $mrepo::rhn
+  $rhn_config   = $mrepo::rhn_config
 
   if $rhn == true {
 
@@ -34,13 +33,13 @@ class mrepo::rhn {
     # CentOS does not have redhat network specific configuration files by default
     if $::operatingsystem == 'CentOS' or $rhn_config == true {
 
-      file {
-        '/etc/sysconfig/rhn':
-          ensure => directory,
-          owner  => 'root',
-          group  => 'root',
-          mode   => '0755',
+      file { '/etc/sysconfig/rhn':
+        ensure => 'file',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
       }
+
       exec { 'Generate rhnuuid':
         command   => 'printf "rhnuuid=%s\n" `/usr/bin/uuidgen` >> /etc/sysconfig/rhn/up2date-uuid',
         path      => [ '/usr/bin', '/bin' ],
@@ -52,7 +51,7 @@ class mrepo::rhn {
       }
 
       file { '/etc/sysconfig/rhn/up2date-uuid':
-        ensure  => present,
+        ensure  => 'file',
         replace => false,
         owner   => 'root',
         group   => $group,
@@ -61,7 +60,7 @@ class mrepo::rhn {
       }
 
       file { '/etc/sysconfig/rhn/sources':
-        ensure  => present,
+        ensure  => 'file',
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
@@ -69,7 +68,7 @@ class mrepo::rhn {
       }
 
       file { '/usr/share/mrepo/rhn/RHNS-CA-CERT':
-        ensure => present,
+        ensure => 'file',
         owner  => 'root',
         group  => 'root',
         mode   => '0644',

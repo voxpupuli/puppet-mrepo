@@ -2,7 +2,7 @@
 #
 # == Parameters
 #
-# Optional parameters can be found in the mrepo::params class
+# None
 #
 # == Examples
 #
@@ -18,13 +18,12 @@
 #
 class mrepo::package {
 
-  include ::mrepo::params
+  $user   = $mrepo::user
+  $group  = $mrepo::group
+  $source = $mrepo::source
+  $proto  = $mrepo::git_proto
+  $ensure = $mrepo::ensure_src
 
-  $user   = $mrepo::params::user
-  $group  = $mrepo::params::group
-  $source = $mrepo::params::source
-  $proto  = $mrepo::params::git_proto
-  $ensure = $mrepo::params::ensure_src
   case $source {
     'git': {
       vcsrepo { '/usr/src/mrepo':
@@ -54,15 +53,15 @@ class mrepo::package {
 
   # mrepo.conf template params
   #
-  $src_root            = $mrepo::params::src_root
-  $www_root            = $mrepo::params::www_root
-  $rhn_username        = $mrepo::params::rhn_username
-  $rhn_password        = $mrepo::params::rhn_password
-  $rhnget_cleanup      = $mrepo::params::rhnget_cleanup
-  $rhnget_download_all = $mrepo::params::rhnget_download_all
-  $mailto              = $mrepo::params::mailto
-  $http_proxy          = $mrepo::params::http_proxy
-  $https_proxy         = $mrepo::params::https_proxy
+  $src_root            = $mrepo::src_root
+  $www_root            = $mrepo::www_root
+  $rhn_username        = $mrepo::rhn_username
+  $rhn_password        = $mrepo::rhn_password
+  $rhnget_cleanup      = $mrepo::rhnget_cleanup
+  $rhnget_download_all = $mrepo::rhnget_download_all
+  $mailto              = $mrepo::mailto
+  $http_proxy          = $mrepo::http_proxy
+  $https_proxy         = $mrepo::https_proxy
 
   file { '/etc/mrepo.conf':
     ensure  => present,
