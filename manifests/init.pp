@@ -192,9 +192,11 @@ class mrepo (
 
   contain ::mrepo::package
   contain ::mrepo::rhn
+  contain ::mrepo::service
   contain ::mrepo::webservice
   contain ::mrepo::selinux
 
+  Class['mrepo::package']    -> Class['mrepo::service']
   Class['mrepo::package']    -> Class['mrepo::webservice']
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']
