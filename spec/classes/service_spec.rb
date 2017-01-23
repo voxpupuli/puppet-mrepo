@@ -12,12 +12,10 @@ describe 'mrepo::service', type: :class do
       end
 
       context 'with service mrepo enable' do
-        let(:params) {{:service_enable => true}}
+        let(:params) { { service_enable: true } }
 
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_service('mrepo').with(
-          'enable' => true
-        )}
+        it { is_expected.to contain_service('mrepo').with('enable' => true) }
       end
     end
   end
