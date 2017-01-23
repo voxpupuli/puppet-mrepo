@@ -143,6 +143,7 @@ class mrepo (
   $priority             = $::mrepo::params::priority,
   $port                 = $::mrepo::params::port,
   $selinux_context      = $::mrepo::params::selinux_context,
+  $service_enable       = $::mrepo::params::service_enable,
 ) inherits ::mrepo::params {
 
   validate_re($source, '^git$|^package$')

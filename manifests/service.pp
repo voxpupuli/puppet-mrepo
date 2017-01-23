@@ -11,13 +11,13 @@
 # == Author
 # https://github.com/PascalBourdier
 #
-class mrepo::service {
+class mrepo::service($service_enable = false) {
 
-  include ::mrepo::params
+  include ::mrepo
 
-  $source = $mrepo::params::source
+  $source = $mrepo::source
 
-  if $source == 'package' {
+  if ( $source == 'package' ) and ( $service_enable ) {
     service { 'mrepo':
       enable  => true,
     }
