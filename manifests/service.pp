@@ -12,8 +12,8 @@
 # https://github.com/PascalBourdier
 #
 class mrepo::service(
-  $service_enable = $mrepo::params::service_enable,
-  $service_manage = $mrepo::params::service_manage,
+  $service_enable = $mrepo::service_enable,
+  $service_manage = $mrepo::service_manage,
 ) {
 
   include ::mrepo
