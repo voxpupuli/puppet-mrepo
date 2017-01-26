@@ -39,6 +39,7 @@ class mrepo::params
   $priority            = '10'
   $port                = '80'
   $selinux_context     = 'system_u:object_r:httpd_sys_content_t'
-  $service_enable      = false
+  $service_enable      = true
+  $service_manage      = false
 
 }
