@@ -24,16 +24,16 @@
 # Copyright 2012 Puppet Labs, unless otherwise noted
 #
 define mrepo::repo::rhn (
-  $ensure,
-  $release,
-  $arch,
-  $urls        = {},
-  $metadata    = 'repomd',
-  $update      = 'nightly',
-  $hour        = '0',
-  $iso         = '',
-  $typerelease = $release,
-  $repotitle   = $name,
+  Enum['present', 'absent'] $ensure,
+  String[1] $release,
+  Mrepo::Arch $arch,
+  Hash[String, String] $urls        = {},
+  String[1] $metadata               = 'repomd',
+  Mrepo::Update $update             = 'nightly',
+  Variant[String[1], Integer] $hour = '0',
+  Optional[String[1]] $iso          = undef,
+  String[1] $repotitle              = $name,
+  Optional[String[1]] $typerelease  = $release,
 ) {
   include mrepo::params
 

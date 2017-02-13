@@ -31,7 +31,7 @@ class mrepo::rhn {
     }
 
     # CentOS does not have redhat network specific configuration files by default
-    if $::operatingsystem == 'CentOS' or $rhn_config == true {
+    if $facts['os']['name'] == 'CentOS' or $rhn_config == true {
 
       file { '/etc/sysconfig/rhn':
         ensure => 'file',
@@ -41,7 +41,7 @@ class mrepo::rhn {
       }
 
       # Generate UUID using the fqdn_uuid function from stdlib
-      $rhnuuid_setting = fqdn_uuid($::fqdn)
+      $rhnuuid_setting = fqdn_uuid($facts['networking']['fqdn'])
 
       file { '/etc/sysconfig/rhn/up2date-uuid':
         ensure  => 'file',

@@ -5,7 +5,7 @@ name = <%= @repotitle %>
 release = <%= @release %>
 arch = <%= @arch %>
 metadata = <%= if @metadata.is_a? Array; then @metadata.join(' '); else @metadata; end %>
-<% unless @iso.empty? -%>
+<% if @iso -%>
 iso = <%= @iso %>
 <% end -%>
 <% @urls.keys.sort.each do |rname| -%>

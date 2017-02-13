@@ -3,10 +3,10 @@ require 'spec_helper'
 describe 'mrepo::rhn', type: :class do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
+      let(:node) { 'mrepo.example.com' } # gives uuid 51188cb3-b227-598a-a1d4-f508c78f9e77
+
       let(:facts) do
-        facts.merge(
-          fqdn: 'mrepo.example.com', # gives uuid 51188cb3-b227-598a-a1d4-f508c78f9e77
-        )
+        facts
       end
 
       context 'with default parameters' do
