@@ -24,6 +24,7 @@ describe 'mrepo::repo', type: :define do
           }
         }
       end
+
       it { is_expected.to compile }
     end
   end

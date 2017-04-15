@@ -6,6 +6,7 @@ describe 'mrepo', type: :class do
       let(:facts) do
         facts
       end
+
       it { is_expected.to compile.with_all_deps }
 
       context 'with service mrepo manage and disable' do

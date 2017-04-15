@@ -11,6 +11,7 @@ describe 'mrepo::package', type: :class do
         let :pre_condition do
           'class { "mrepo": }'
         end
+
         it { is_expected.to compile.with_all_deps }
         describe '/etc/mrepo.conf' do
           it { is_expected.to contain_file('/etc/mrepo.conf') }
@@ -30,6 +31,7 @@ describe 'mrepo::package', type: :class do
           let(:pre_condition) do
             'class { "mrepo": rhnget_cleanup => true }'
           end
+
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).to match %r{^rhnget-cleanup = yes$}
@@ -39,6 +41,7 @@ describe 'mrepo::package', type: :class do
           let(:pre_condition) do
             'class { "mrepo": rhnget_cleanup => false }'
           end
+
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).to match %r{^rhnget-cleanup = no$}
@@ -51,6 +54,7 @@ describe 'mrepo::package', type: :class do
           let(:pre_condition) do
             'class { "mrepo": rhnget_download_all => true }'
           end
+
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).to match %r{^rhnget-download-all = yes$}
@@ -60,6 +64,7 @@ describe 'mrepo::package', type: :class do
           let(:pre_condition) do
             'class { "mrepo": rhnget_download_all => false }'
           end
+
           it do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).to match %r{^rhnget-download-all = no$}
