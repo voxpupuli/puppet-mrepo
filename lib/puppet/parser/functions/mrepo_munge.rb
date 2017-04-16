@@ -1,5 +1,5 @@
 Puppet::Parser::Functions.newfunction(:mrepo_munge, type: :rvalue, doc: <<-EOS
-Processes mrepo::repo names and collapses them to match mrepo standards.
+  Processes mrepo::repo names and collapses them to match mrepo standards.
 EOS
                                      ) do |arguments|
   raise Puppet::ParseError, "mrepo_munge(): Wrong number of arguments given (#{arguments.length} for 2)" unless arguments.length == 2
@@ -9,7 +9,7 @@ EOS
 
   raise Puppet::ParseError, "mrepo_munge() takes (String, String), received (#{reponame.class}, #{architecture.class})" unless reponame.is_a?(String) && architecture.is_a?(String)
 
-  collapsible_arches = %w(alpha i386 ia64 ppc ppc64 x86_64 sparc64 sparc64v s390 s390x)
+  collapsible_arches = %w[alpha i386 ia64 ppc ppc64 x86_64 sparc64 sparc64v s390 s390x]
 
   if collapsible_arches.include?(architecture) && reponame.match(%r{^.*-#{architecture}$})
     reponame
