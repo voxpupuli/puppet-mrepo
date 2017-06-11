@@ -116,61 +116,40 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo (
-  $src_root             = $::mrepo::params::src_root,
-  $www_root             = $::mrepo::params::www_root,
-  $www_servername       = $::mrepo::params::www_servername,
-  $www_ip               = $::mrepo::params::www_ip,
-  $www_ip_based         = $::mrepo::params::www_ip_based,
-  $user                 = $::mrepo::params::user,
-  $group                = $::mrepo::params::group,
-  $source               = $::mrepo::params::source,
-  $ensure_src           = $::mrepo::params::ensure_src,
-  $selinux              = $::mrepo::params::selinux,
-  $rhn                  = $::mrepo::params::rhn,
-  $rhn_config           = $::mrepo::params::rhn_config,
-  $rhn_username         = $::mrepo::params::rhn_username,
-  $rhn_password         = $::mrepo::params::rhn_password,
-  $rhnget_cleanup       = $::mrepo::params::rhnget_cleanup,
-  $rhnget_download_all  = $::mrepo::params::rhnget_download_all,
-  $genid_command        = $::mrepo::params::genid_command,
-  $mailto               = $::mrepo::params::mailto,
-  $mailfrom             = $::mrepo::params::mailfrom,
-  $smtpserver           = $::mrepo::params::smtpserver,
-  $git_proto            = $::mrepo::params::git_proto,
-  $descriptions         = $::mrepo::params::descriptions,
-  $http_proxy           = $::mrepo::params::http_proxy,
-  $https_proxy          = $::mrepo::params::https_proxy,
-  $priority             = $::mrepo::params::priority,
-  $port                 = $::mrepo::params::port,
-  $selinux_context      = $::mrepo::params::selinux_context,
-  $service_enable       = $::mrepo::params::service_enable,
-  $service_manage       = $::mrepo::params::service_manage,
+  $src_root                              = $::mrepo::params::src_root,
+  $www_root                              = $::mrepo::params::www_root,
+  $www_servername                        = $::mrepo::params::www_servername,
+  $www_ip                                = $::mrepo::params::www_ip,
+  $www_ip_based                          = $::mrepo::params::www_ip_based,
+  $user                                  = $::mrepo::params::user,
+  $group                                 = $::mrepo::params::group,
+  Enum['git', 'package'] $source         = $::mrepo::params::source,
+  $ensure_src                            = $::mrepo::params::ensure_src,
+  Optional[Boolean] $selinux             = $::mrepo::params::selinux,
+  Boolean $rhn                           = $::mrepo::params::rhn,
+  $rhn_config                            = $::mrepo::params::rhn_config,
+  Optional[String] $rhn_username         = $::mrepo::params::rhn_username,
+  Optional[String] $rhn_password         = $::mrepo::params::rhn_password,
+  Optional[Boolean] $rhnget_cleanup      = $::mrepo::params::rhnget_cleanup,
+  Optional[Boolean] $rhnget_download_all = $::mrepo::params::rhnget_download_all,
+  $genid_command                         = $::mrepo::params::genid_command,
+  Optional[String] $mailto               = $::mrepo::params::mailto,
+  Optional[String] $mailfrom             = $::mrepo::params::mailfrom,
+  $smtpserver                            = $::mrepo::params::smtpserver,
+  Enum['git', 'https'] $git_proto        = $::mrepo::params::git_proto,
+  Hash $descriptions                     = $::mrepo::params::descriptions,
+  $http_proxy                            = $::mrepo::params::http_proxy,
+  $https_proxy                           = $::mrepo::params::https_proxy,
+  Integer $priority                      = $::mrepo::params::priority,
+  Integer $port                          = $::mrepo::params::port,
+  $selinux_context                       = $::mrepo::params::selinux_context,
+  $service_enable                        = $::mrepo::params::service_enable,
+  $service_manage                        = $::mrepo::params::service_manage,
 ) inherits ::mrepo::params {
 
-  validate_re($source, '^git$|^package$')
-  validate_re($git_proto, '^git$|^https$')
-  validate_re($priority, '^\d+$')
-  validate_re($port, '^\d+$')
-  validate_bool($rhn)
-  validate_hash($descriptions)
-
-  if $mailto {
-    validate_email_address($mailto)
-  }
-  if $mailfrom {
-    validate_email_address($mailfrom)
-  }
-
   if $rhn {
-    validate_re($rhn_username, '.+')
-    validate_re($rhn_password, '.+')
-  }
-
-  if $rhnget_cleanup != undef {
-    validate_bool($rhnget_cleanup)
-  }
-  if $rhnget_download_all != undef {
-    validate_bool($rhnget_download_all)
+    assert_type(String[1], $rhn_username)
+    assert_type(String[1], $rhn_password)
   }
 
   # Validate selinux usage. If manually set, validate as a bool and use that value.
@@ -187,7 +166,7 @@ class mrepo (
       }
     }
     default: {
-      validate_bool($selinux)
+      assert_type(Boolean, $selinux)
       $use_selinux = $selinux
     }
   }
