@@ -40,7 +40,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.6.1 <5.0.0"
+      "version_requirement": ">= 4.7.0 < 5.0.0"
     }
   ],
   "description": "Puppet module to configure and manage mrepo mirrors. Mirrors can be generated from distribution ISOs, existing RPM mirrors, the Redhat Network, or Yast Online Update.",
