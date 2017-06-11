@@ -13,7 +13,7 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::webservice(
-  $ensure = 'present'
+  Enum['present', 'absent'] $ensure = 'present'
 ){
   include ::mrepo
 
@@ -26,7 +26,6 @@ class mrepo::webservice(
   $ip_based   = $mrepo::www_ip_based
   $ip         = $mrepo::www_ip
 
-  validate_re($ensure, ['^present$','^absent$'])
   case $ensure {
     'present': {
       include ::apache
