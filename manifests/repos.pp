@@ -1,7 +1,7 @@
 class mrepo::repos (
-  $resources = {}
+  Hash $resources = {}
 ) {
-  validate_hash( $resources )
+
   create_resources('mrepo::repo',$resources)
 
   Class['mrepo::selinux']

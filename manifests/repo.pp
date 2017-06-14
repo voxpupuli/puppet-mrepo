@@ -115,31 +115,26 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 define mrepo::repo (
-  $ensure,
+  Enum['present', 'absent'] $ensure,
   $release,
-  $arch,
-  $urls          = {},
-  $metadata      = 'repomd',
-  $update        = 'nightly',
-  $hour          = '0',
-  $minute        = '0',
-  $iso           = '',
-  $repotitle     = $name,
-  $gen_timeout   = '1200',
-  $sync_timeout  = '1200',
-  $type          = 'std',
-  $typerelease   = undef,
-  $mrepo_env     = undef,
-  $mrepo_command = '/usr/bin/mrepo',
-  $mrepo_options = '-qgu',
-  $mrepo_logging = undef,
+  Mrepo::Arch $arch,
+  $urls                           = {},
+  $metadata                       = 'repomd',
+  Mrepo::Update $update           = 'nightly',
+  $hour                           = '0',
+  $minute                         = '0',
+  $iso                            = '',
+  $repotitle                      = $name,
+  $gen_timeout                    = '1200',
+  $sync_timeout                   = '1200',
+  Enum['std', 'ncc', 'rhn'] $type = 'std',
+  $typerelease                    = undef,
+  Optional[String[1]] $mrepo_env  = undef,
+  $mrepo_command                  = '/usr/bin/mrepo',
+  $mrepo_options                  = '-qgu',
+  $mrepo_logging                  = undef,
 ) {
   include ::mrepo
-
-  validate_re($ensure, "^present$|^absent$")
-  validate_re($arch, "^i386$|^i586$|^x86_64$|^ppc$|^s390$|^s390x$|^ia64$")
-  validate_re($update, "^now$|^nightly$|^weekly$|^never$")
-  validate_re($type  , "^std$|^ncc$|^rhn$")
 
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.
@@ -188,7 +183,6 @@ define mrepo::repo (
       }
 
       if $mrepo_env {
-        validate_string($mrepo_env)
         $repo_command = "${mrepo_env} ${mrepo_command} ${mrepo_options} ${name} ${mrepo_logging}"
       }
       else {
