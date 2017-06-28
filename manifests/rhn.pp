@@ -40,15 +40,8 @@ class mrepo::rhn {
         mode   => '0755',
       }
 
-      exec { 'Generate rhnuuid':
-        command   => 'printf "rhnuuid=%s\n" `/usr/bin/uuidgen` >> /etc/sysconfig/rhn/up2date-uuid',
-        path      => [ '/usr/bin', '/bin' ],
-        user      => 'root',
-        group     => $group,
-        creates   => '/etc/sysconfig/rhn/up2date-uuid',
-        logoutput => on_failure,
-        require   => File['/etc/sysconfig/rhn'],
-      }
+      # Generate UUID using the fqdn_uuid function from stdlib
+      $rhnuuid_setting = fqdn_uuid($::fqdn)
 
       file { '/etc/sysconfig/rhn/up2date-uuid':
         ensure  => 'file',
@@ -56,7 +49,7 @@ class mrepo::rhn {
         owner   => 'root',
         group   => $group,
         mode    => '0640',
-        require => Exec['Generate rhnuuid'],
+        content => "rhnuuid=${rhnuuid_setting}",
       }
 
       file { '/etc/sysconfig/rhn/sources':
