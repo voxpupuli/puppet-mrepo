@@ -4,8 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/v3.1.0) (2017-11-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v3.0.0...v3.1.0)
+
+**Merged pull requests:**
+
+- Update metadata dependencies for puppet5 support [\#78](https://github.com/voxpupuli/puppet-mrepo/pull/78) ([alexjfisher](https://github.com/alexjfisher))
+- release 3.0.0 [\#77](https://github.com/voxpupuli/puppet-mrepo/pull/77) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v3.0.0) (2017-10-11)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v2.1.0...v3.0.0)
+
+**Breaking changes:**
+
+- BREAKING: Drop puppet 3 support. Replace validate\_\* with datatypes [\#75](https://github.com/voxpupuli/puppet-mrepo/pull/75) ([bastelfreak](https://github.com/bastelfreak))
 
 **Closed issues:**
 
@@ -13,12 +27,13 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- replace validate\_\* with datatypes [\#75](https://github.com/voxpupuli/puppet-mrepo/pull/75) ([bastelfreak](https://github.com/bastelfreak))
 - Fix github license detection [\#73](https://github.com/voxpupuli/puppet-mrepo/pull/73) ([alexjfisher](https://github.com/alexjfisher))
 - enable mrepo service by default [\#68](https://github.com/voxpupuli/puppet-mrepo/pull/68) ([PascalBourdier](https://github.com/PascalBourdier))
+- release 2.1.0 [\#65](https://github.com/voxpupuli/puppet-mrepo/pull/65) ([bastelfreak](https://github.com/bastelfreak))
 - Refactors UUID exec to use fqdn\_uuid function [\#60](https://github.com/voxpupuli/puppet-mrepo/pull/60) ([petems](https://github.com/petems))
 
 ## [v2.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/v2.1.0) (2017-01-13)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v2.0.1...v2.1.0)
 
 **Closed issues:**
@@ -29,7 +44,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- release 2.1.0 [\#65](https://github.com/voxpupuli/puppet-mrepo/pull/65) ([bastelfreak](https://github.com/bastelfreak))
 - modulesync 0.16.7 [\#64](https://github.com/voxpupuli/puppet-mrepo/pull/64) ([bastelfreak](https://github.com/bastelfreak))
 - Set min version\_requirement for Puppet + deps [\#63](https://github.com/voxpupuli/puppet-mrepo/pull/63) ([juniorsysadmin](https://github.com/juniorsysadmin))
 - modulesync 0.16.6 [\#62](https://github.com/voxpupuli/puppet-mrepo/pull/62) ([bastelfreak](https://github.com/bastelfreak))
@@ -44,6 +58,7 @@ These should not affect the functionality of the module.
 - Fix Puppetforge badge [\#48](https://github.com/voxpupuli/puppet-mrepo/pull/48) ([alexjfisher](https://github.com/alexjfisher))
 
 ## [v2.0.1](https://github.com/voxpupuli/puppet-mrepo/tree/v2.0.1) (2016-09-16)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v2.0.0...v2.0.1)
 
 **Merged pull requests:**
@@ -52,6 +67,7 @@ These should not affect the functionality of the module.
 - Add travis secret [\#46](https://github.com/voxpupuli/puppet-mrepo/pull/46) ([alexjfisher](https://github.com/alexjfisher))
 
 ## [v2.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v2.0.0) (2016-09-16)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/1.2.1...v2.0.0)
 
 **Closed issues:**
@@ -68,6 +84,7 @@ These should not affect the functionality of the module.
 - Add `mailfrom` and `smtpserver` parameters [\#37](https://github.com/voxpupuli/puppet-mrepo/pull/37) ([jearls](https://github.com/jearls))
 
 ## [1.2.1](https://github.com/voxpupuli/puppet-mrepo/tree/1.2.1) (2016-04-26)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/1.2.0...1.2.1)
 
 **Merged pull requests:**
@@ -78,6 +95,7 @@ These should not affect the functionality of the module.
 - \(MODULES-2950\) Remove non-root user cron jobs [\#29](https://github.com/voxpupuli/puppet-mrepo/pull/29) ([shermdog](https://github.com/shermdog))
 
 ## [1.2.0](https://github.com/voxpupuli/puppet-mrepo/tree/1.2.0) (2015-08-12)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/1.1.1...1.2.0)
 
 **Merged pull requests:**
@@ -98,23 +116,24 @@ These should not affect the functionality of the module.
 - Fix two minor items which make module unusable by default [\#8](https://github.com/voxpupuli/puppet-mrepo/pull/8) ([rhysrhaven](https://github.com/rhysrhaven))
 
 ## [1.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/1.1.1) (2013-05-09)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/1.1.0...1.1.1)
 
 ## [1.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/1.1.0) (2012-10-03)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/1.0.0...1.1.0)
 
 **Merged pull requests:**
 
 - Release of 1.1.0 [\#7](https://github.com/voxpupuli/puppet-mrepo/pull/7) ([adrienthebo](https://github.com/adrienthebo))
-
-## [1.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/1.0.0) (2012-08-28)
-[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v0.1.3...1.0.0)
-
-**Merged pull requests:**
-
 - 1.0.0 release for mrepo [\#5](https://github.com/voxpupuli/puppet-mrepo/pull/5) ([adrienthebo](https://github.com/adrienthebo))
 
+## [1.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/1.0.0) (2012-08-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v0.1.3...1.0.0)
+
 ## [v0.1.3](https://github.com/voxpupuli/puppet-mrepo/tree/v0.1.3) (2012-02-12)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v0.1.2...v0.1.3)
 
 **Merged pull requests:**
@@ -122,9 +141,11 @@ These should not affect the functionality of the module.
 - Update Modulefile dependency information [\#4](https://github.com/voxpupuli/puppet-mrepo/pull/4) ([adrienthebo](https://github.com/adrienthebo))
 
 ## [v0.1.2](https://github.com/voxpupuli/puppet-mrepo/tree/v0.1.2) (2011-12-14)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v0.1.1...v0.1.2)
 
 ## [v0.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/v0.1.1) (2011-09-16)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v0.1.0...v0.1.1)
 
 **Merged pull requests:**
@@ -132,6 +153,7 @@ These should not affect the functionality of the module.
 - Fixes typos in the Modulefile [\#3](https://github.com/voxpupuli/puppet-mrepo/pull/3) ([ody](https://github.com/ody))
 
 ## [v0.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/v0.1.0) (2011-09-16)
+
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/0.1.0...v0.1.0)
 
 **Merged pull requests:**
@@ -139,6 +161,9 @@ These should not affect the functionality of the module.
 - First release of mrepo [\#2](https://github.com/voxpupuli/puppet-mrepo/pull/2) ([adrienthebo](https://github.com/adrienthebo))
 
 ## [0.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/0.1.0) (2011-09-15)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/25944b8072f0cfa0f5bd27b32dbe58e784ea8edf...0.1.0)
+
 
 
 \* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
