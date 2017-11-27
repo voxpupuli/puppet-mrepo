@@ -1,6 +1,6 @@
 {
   "name": "puppet-mrepo",
-  "version": "3.0.1-rc0",
+  "version": "3.1.0",
   "author": "Vox Pupuli",
   "summary": "Configures and manages mrepo mirrors",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.7.0 < 6.0.0"
+      "version_requirement": ">= 4.7.1 < 6.0.0"
     }
   ],
   "description": "Puppet module to configure and manage mrepo mirrors. Mirrors can be generated from distribution ISOs, existing RPM mirrors, the Redhat Network, or Yast Online Update.",
@@ -51,7 +51,7 @@
     },
     {
       "name": "puppetlabs/vcsrepo",
-      "version_requirement": ">= 1.3.1 < 2.0.0"
+      "version_requirement": ">= 1.3.1 < 3.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
