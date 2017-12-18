@@ -22,6 +22,10 @@
 # Whether to use IP-based virtual hosts or not.
 # Default: false
 #
+# [*www_ensure*]
+# Ensure apache vhost for mrepo has the given state.
+# Default: present
+#
 # [*user*]
 # The account to use for mirroring the files.
 # Default: apache
@@ -121,6 +125,7 @@ class mrepo (
   $www_servername                        = $::mrepo::params::www_servername,
   $www_ip                                = $::mrepo::params::www_ip,
   $www_ip_based                          = $::mrepo::params::www_ip_based,
+  Enum['present', 'absent'] $www_ensure  = $::mrepo::params::www_ensure,
   $user                                  = $::mrepo::params::user,
   $group                                 = $::mrepo::params::group,
   Enum['git', 'package'] $source         = $::mrepo::params::source,
