@@ -17,7 +17,7 @@ class mrepo::params
   $www_servername      = 'mrepo'
   $www_ip              = $::ipaddress
   $www_ip_based        = false
-  $www_ensure          = present,
+  $www_ensure          = 'present'
   $user                = 'apache'
   $group               = 'apache'
   $source              = 'package'
