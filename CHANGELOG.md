@@ -4,12 +4,13 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/v3.1.1) (2018-08-15)
+## [v3.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/v3.1.1) (2018-09-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v3.1.0...v3.1.1)
 
 **Merged pull requests:**
 
+- allow puppetlabs/stdlib 5.x [\#93](https://github.com/voxpupuli/puppet-mrepo/pull/93) ([bastelfreak](https://github.com/bastelfreak))
 - allow puppet/staging 3.x & puppetlabs/apache 3.x [\#91](https://github.com/voxpupuli/puppet-mrepo/pull/91) ([bastelfreak](https://github.com/bastelfreak))
 - Remove docker nodesets [\#87](https://github.com/voxpupuli/puppet-mrepo/pull/87) ([bastelfreak](https://github.com/bastelfreak))
 - bump puppet to latest supported version 4.10.0 [\#83](https://github.com/voxpupuli/puppet-mrepo/pull/83) ([bastelfreak](https://github.com/bastelfreak))
