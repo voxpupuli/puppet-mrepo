@@ -84,6 +84,13 @@ Mirror multiple rhel channels
       }
     }
 
+Fetch and place an ISO file for the above rhel6server-x86_64 repo
+
+    mrepo::iso { 'rhel-server-6.0-$arch-dvd.iso':
+      source_url => 'http://some.domain.tld/path/to/isodir',
+      repo       => 'rhel6server-x86_64',
+    }
+
 ## Usage ##
 
 If you need to customize the mrepo default settings, include the mrepo
@@ -146,6 +153,7 @@ Is equivalent to this:
       repotitle => 'CentOS 5.6 64 bit',
       arch      => 'x86_64',
       release   => '5.6',
+      urls      => {
         addons      => 'rsync://mirrors.kernel.org/centos/5.6/addons/x86_64/',
         centosplus  => 'rsync://mirrors.kernel.org/centos/5.6/centosplus/x86_64/',
         updates     => 'rsync://mirrors.kernel.org/centos/5.6/updates/x86_64/',

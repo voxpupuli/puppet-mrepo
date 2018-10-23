@@ -58,8 +58,8 @@
       "version_requirement": ">= 4.15.0 < 6.0.0"
     },
     {
-      "name": "puppet/staging",
-      "version_requirement": ">= 2.0.1 < 4.0.0"
+      "name": "puppet/archive",
+      "version_requirement": ">= 3.2.1 < 4.0.0"
     }
   ]
 }
