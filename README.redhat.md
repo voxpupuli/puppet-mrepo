@@ -28,10 +28,10 @@ architectures.  Validation for this would get prohibitively costly, and has
 been left as the responsibility of the user. In addition, there is a common
 convention to mainly differentiate between releases on the major version
 number. The type and typerelease fields were added to mrepo::repo to deal with this
-complexity. 
+complexity.
 
 For RHN, $type must be 'rhn', $release is generally similar to '5.6' or '6',
-and $typerelease and $arch must match the following values in order for 
+and $typerelease and $arch must match the following values in order for
 a valid systemid to be generated.
 This list was pulled from the gensystemid command, from mrepo release 8138e3bb6b5aa26cf8db.
 
