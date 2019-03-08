@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v3.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/v3.1.1) (2018-09-06)
+## [v4.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v4.0.0) (2019-03-09)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v3.1.1...v4.0.0)
+
+**Breaking changes:**
+
+- modulesync 2.5.1 and drop Puppet 4 [\#100](https://github.com/voxpupuli/puppet-mrepo/pull/100) ([bastelfreak](https://github.com/bastelfreak))
+- Manage iso directory within mrepo::iso \(requires puppet/archive, drop puppet/staging\) [\#97](https://github.com/voxpupuli/puppet-mrepo/pull/97) ([mrolli](https://github.com/mrolli))
+
+**Merged pull requests:**
+
+- modulesync 2.2.0 and allow puppet 6.x [\#96](https://github.com/voxpupuli/puppet-mrepo/pull/96) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v3.1.1](https://github.com/voxpupuli/puppet-mrepo/tree/v3.1.1) (2018-09-07)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v3.1.0...v3.1.1)
 
