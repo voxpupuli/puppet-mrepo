@@ -1,1 +1,1 @@
-include ::mrepo::package
+include mrepo::package

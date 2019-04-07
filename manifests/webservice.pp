@@ -15,7 +15,7 @@
 class mrepo::webservice(
   Enum['present', 'absent'] $ensure = 'present'
 ){
-  include ::mrepo
+  include mrepo
 
   $user       = $mrepo::user
   $group      = $mrepo::group
@@ -28,7 +28,7 @@ class mrepo::webservice(
 
   case $ensure {
     'present': {
-      include ::apache
+      include apache
 
       file { $docroot:
         ensure => directory,

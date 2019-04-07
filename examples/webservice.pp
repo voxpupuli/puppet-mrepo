@@ -1,1 +1,1 @@
-include ::mrepo::webservice
+include mrepo::webservice
