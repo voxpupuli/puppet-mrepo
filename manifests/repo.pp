@@ -134,7 +134,7 @@ define mrepo::repo (
   $mrepo_options                  = '-qgu',
   $mrepo_logging                  = undef,
 ) {
-  include ::mrepo
+  include mrepo
 
   # mrepo tries to be clever, and if the arch is the suffix of the name will
   # fold the two, but if the name isn't x86_64 or i386, no folding occurs.

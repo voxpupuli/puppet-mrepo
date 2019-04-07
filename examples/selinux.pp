@@ -1,3 +1,3 @@
-class { '::mrepo':
+class { 'mrepo':
   selinux => true,
 }

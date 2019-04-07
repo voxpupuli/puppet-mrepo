@@ -9,7 +9,7 @@
 # @param repo Title of the mrepo::repo resources the ISO file belongs to
 define mrepo::iso($source_url, $repo) {
 
-  include ::mrepo
+  include mrepo
 
   $target_file = "${mrepo::src_root}/iso/${name}"
 

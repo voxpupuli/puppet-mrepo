@@ -13,7 +13,7 @@
 #
 class mrepo::service {
 
-  include ::mrepo
+  include mrepo
 
   $source         = $mrepo::source
   $service_manage = $mrepo::service_manage
