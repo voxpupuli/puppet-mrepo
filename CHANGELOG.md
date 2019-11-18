@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v4.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v4.0.0) (2019-03-09)
+## [v4.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/v4.1.0) (2019-11-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Add datatypes & multiple enhancements [\#107](https://github.com/voxpupuli/puppet-mrepo/pull/107) ([genebean](https://github.com/genebean))
+
+**Fixed bugs:**
+
+- Remove SymLinksIfOwnerMatch from template [\#102](https://github.com/voxpupuli/puppet-mrepo/pull/102) ([mrolli](https://github.com/mrolli))
+
+**Merged pull requests:**
+
+- allow puppetlabs/vcsrepo 3.x [\#108](https://github.com/voxpupuli/puppet-mrepo/pull/108) ([bastelfreak](https://github.com/bastelfreak))
+- Allow `puppetlabs/apache` 5.x, `puppetlabs/stdlib` 6.x and `puppet/archive` 4.x [\#105](https://github.com/voxpupuli/puppet-mrepo/pull/105) ([alexjfisher](https://github.com/alexjfisher))
+- Allow puppetlabs/apache 4.x [\#104](https://github.com/voxpupuli/puppet-mrepo/pull/104) ([mrolli](https://github.com/mrolli))
+
+## [v4.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v4.0.0) (2019-05-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v3.1.1...v4.0.0)
 
