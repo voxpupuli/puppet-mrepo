@@ -116,23 +116,25 @@
 #
 define mrepo::repo (
   Enum['present', 'absent'] $ensure,
-  $release,
+  String[1] $release,
   Mrepo::Arch $arch,
-  $urls                           = {},
-  $metadata                       = 'repomd',
-  Mrepo::Update $update           = 'nightly',
-  $hour                           = '0',
-  $minute                         = '0',
-  $iso                            = '',
-  $repotitle                      = $name,
-  $gen_timeout                    = '1200',
-  $sync_timeout                   = '1200',
-  Enum['std', 'ncc', 'rhn'] $type = 'std',
-  $typerelease                    = undef,
-  Optional[String[1]] $mrepo_env  = undef,
-  $mrepo_command                  = '/usr/bin/mrepo',
-  $mrepo_options                  = '-qgu',
-  $mrepo_logging                  = undef,
+  Hash[String, String] $urls                = {},
+  String[1] $metadata                       = 'repomd',
+  Mrepo::Update $update                     = 'nightly',
+  Variant[String[1], Integer] $hour         = '0',
+  Variant[String[1], Integer] $minute       = '0',
+  Optional[String[1]] $iso                  = undef,
+  String[1] $repotitle                      = $name,
+  Variant[String[1], Integer] $gen_timeout  = '1200',
+  Variant[String[1], Integer] $sync_timeout = '1200',
+  Enum['std', 'ncc', 'rhn'] $type           = 'std',
+  Optional[String[1]] $typerelease          = undef,
+  Optional[String[1]] $mrepo_env            = undef,
+  Stdlib::Absolutepath $mrepo_command       = '/usr/bin/mrepo',
+  String $mrepo_options                     = '-qgu',
+  Optional[String[1]] $mrepo_logging        = undef,
+  Optional[String[1]] $ncc_username         = undef,
+  Optional[String[1]] $ncc_password         = undef,
 ) {
   include mrepo
 
@@ -243,18 +245,46 @@ define mrepo::repo (
         }
       }
 
-      if $type != 'std' {
-        #notify { "Type = ${type}": }
-        create_resources( "mrepo::repo::${type}",
-          { "${name}"      => {
-              ensure      => $ensure,
-              release     => $release,
-              arch        => $arch,
-              repotitle   => $repotitle,
-              typerelease => $typerelease,
+      case $type {
+        'ncc': {
+          create_resources( 'mrepo::repo::ncc',
+            { "${name}"      => {
+                ensure       => $ensure,
+                release      => $release,
+                arch         => $arch,
+                ncc_username => $ncc_username,
+                ncc_password => $ncc_password,
+                urls         => $urls,
+                metadata     => $metadata,
+                update       => $update,
+                hour         => $hour,
+                iso          => $iso,
+                repotitle    => $repotitle,
+                typerelease  => $typerelease,
+              }
             }
-          }
-        )
+          )
+        }
+        'rhn': {
+          create_resources( 'mrepo::repo::rhn',
+            { "${name}"     => {
+                ensure      => $ensure,
+                release     => $release,
+                arch        => $arch,
+                urls        => $urls,
+                metadata    => $metadata,
+                update      => $update,
+                hour        => $hour,
+                iso         => $iso,
+                repotitle   => $repotitle,
+                typerelease => $typerelease,
+              }
+            }
+          )
+        }
+        default: {
+          # don't do anything for 'std'
+        }
       }
 
     }
@@ -274,7 +304,7 @@ define mrepo::repo (
         before  => File[$src_root_subdir],
         require => Exec["Unmount any mirrored ISOs for ${name}"],
       }
-      file { "${mrepo::src_root}/${name}":
+      file { $src_root_subdir:
         ensure  => absent,
         backup  => false,
         recurse => false,

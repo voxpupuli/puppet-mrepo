@@ -71,6 +71,16 @@ describe 'mrepo::package', type: :class do
           end
         end
       end
+      describe 'with createrepo_options' do
+        let(:pre_condition) do
+          'class { "mrepo": createrepo_options => "--some-opt --another-opt -q -p" }'
+        end
+
+        it do
+          content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
+          expect(content).to match %r{^createrepo-options = --some-opt --another-opt -q -p$}
+        end
+      end
     end
   end
 end
