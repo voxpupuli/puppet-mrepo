@@ -25,7 +25,7 @@
 # The metadata type for the repository. More than one value can be used in
 # an array.
 # Default: repomd
-# Values: yum,apt,repomd
+# Values: yum,apt,repomd,repoview
 #
 # [*update*]
 # The schedule for updating.The 'now' will update the repo on every run of
@@ -118,23 +118,23 @@ define mrepo::repo (
   Enum['present', 'absent'] $ensure,
   String[1] $release,
   Mrepo::Arch $arch,
-  Hash[String, String] $urls                = {},
-  String[1] $metadata                       = 'repomd',
-  Mrepo::Update $update                     = 'nightly',
-  Variant[String[1], Integer] $hour         = '0',
-  Variant[String[1], Integer] $minute       = '0',
-  Optional[String[1]] $iso                  = undef,
-  String[1] $repotitle                      = $name,
-  Variant[String[1], Integer] $gen_timeout  = '1200',
-  Variant[String[1], Integer] $sync_timeout = '1200',
-  Enum['std', 'ncc', 'rhn'] $type           = 'std',
-  Optional[String[1]] $typerelease          = undef,
-  Optional[String[1]] $mrepo_env            = undef,
-  Stdlib::Absolutepath $mrepo_command       = '/usr/bin/mrepo',
-  String $mrepo_options                     = '-qgu',
-  Optional[String[1]] $mrepo_logging        = undef,
-  Optional[String[1]] $ncc_username         = undef,
-  Optional[String[1]] $ncc_password         = undef,
+  Hash[String, String] $urls                                = {},
+  Variant[Mrepo::Metadata,Array[Mrepo::Metadata]] $metadata = 'repomd',
+  Mrepo::Update $update                                     = 'nightly',
+  Variant[String[1], Integer] $hour                         = '0',
+  Variant[String[1], Integer] $minute                       = '0',
+  Optional[String[1]] $iso                                  = undef,
+  String[1] $repotitle                                      = $name,
+  Variant[String[1], Integer] $gen_timeout                  = '1200',
+  Variant[String[1], Integer] $sync_timeout                 = '1200',
+  Enum['std', 'ncc', 'rhn'] $type                           = 'std',
+  Optional[String[1]] $typerelease                          = undef,
+  Optional[String[1]] $mrepo_env                            = undef,
+  Stdlib::Absolutepath $mrepo_command                       = '/usr/bin/mrepo',
+  String $mrepo_options                                     = '-qgu',
+  Optional[String[1]] $mrepo_logging                        = undef,
+  Optional[String[1]] $ncc_username                         = undef,
+  Optional[String[1]] $ncc_password                         = undef,
 ) {
   include mrepo
 
