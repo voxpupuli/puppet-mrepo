@@ -157,7 +157,7 @@ class mrepo (
   # If undefined and selinux is present and not disabled, use selinux.
   case $mrepo::selinux {
     undef: {
-      case $selinux {
+      case fact('os.selinux.current_mode') {
         'enforcing', 'permissive': {
           $use_selinux = true
         }
@@ -167,8 +167,7 @@ class mrepo (
       }
     }
     default: {
-      assert_type(Boolean, $selinux)
-      $use_selinux = $selinux
+      $use_selinux = $mrepo::selinux
     }
   }
 
