@@ -48,7 +48,7 @@ define mrepo::repo::ncc (
     $src_root_subdir = "${mrepo::src_root}/${real_name}"
 
     file { "${src_root_subdir}/deviceid":
-      ensure  => present,
+      ensure  => file,
       owner   => $user,
       group   => $group,
       mode    => '0640',
@@ -57,7 +57,7 @@ define mrepo::repo::ncc (
     }
 
     file { "${src_root_subdir}/secret":
-      ensure  => present,
+      ensure  => file,
       owner   => $user,
       group   => $group,
       mode    => '0640',

@@ -17,7 +17,6 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::package {
-
   $user   = $mrepo::user
   $group  = $mrepo::group
   $source = $mrepo::source
@@ -65,7 +64,7 @@ class mrepo::package {
   $createrepo_options  = $mrepo::createrepo_options
 
   file { '/etc/mrepo.conf':
-    ensure  => present,
+    ensure  => file,
     owner   => $user,
     group   => $group,
     mode    => '0640',

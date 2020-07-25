@@ -19,20 +19,17 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::rhn {
-
   $group        = $mrepo::group
   $rhn          = $mrepo::rhn
   $rhn_config   = $mrepo::rhn_config
 
   if $rhn == true {
-
     package { 'pyOpenSSL':
       ensure  => present,
     }
 
     # CentOS does not have redhat network specific configuration files by default
     if $facts['os']['name'] == 'CentOS' or $rhn_config == true {
-
       file { '/etc/sysconfig/rhn':
         ensure => 'file',
         owner  => 'root',
@@ -75,7 +72,7 @@ class mrepo::rhn {
         mode   => '0755',
       }
 
-      file {'/usr/share/rhn/RHNS-CA-CERT':
+      file { '/usr/share/rhn/RHNS-CA-CERT':
         ensure => link,
         target => '/usr/share/mrepo/rhn/RHNS-CA-CERT',
       }

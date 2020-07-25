@@ -147,7 +147,6 @@ class mrepo (
   Boolean $service_enable                         = $mrepo::params::service_enable,
   Boolean $service_manage                         = $mrepo::params::service_manage,
 ) inherits mrepo::params {
-
   if $rhn {
     assert_type(String[1], $rhn_username)
     assert_type(String[1], $rhn_password)
@@ -182,6 +181,4 @@ class mrepo (
   Class['mrepo::package']    -> Class['mrepo::rhn']
   Class['mrepo::package']    -> Class['mrepo::selinux']
   Class['mrepo::webservice'] -> Class['mrepo::selinux']
-
 }
-
