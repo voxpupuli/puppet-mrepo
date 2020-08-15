@@ -14,12 +14,11 @@
 #
 # Copyright 2012 Puppet Labs, unless otherwise noted
 #
-class mrepo::exports($clients) {
-
+class mrepo::exports ($clients) {
   $file_path = '/usr/local/sbin/export-mrepo'
 
   file { $file_path:
-    ensure => present,
+    ensure => file,
     source => 'puppet:///modules/mrepo/export-mrepo',
     owner  => '0',
     group  => '0',

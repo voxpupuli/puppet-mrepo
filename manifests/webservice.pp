@@ -12,9 +12,9 @@
 #
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
-class mrepo::webservice(
+class mrepo::webservice (
   Enum['present', 'absent'] $ensure = 'present'
-){
+) {
   include mrepo
 
   $user       = $mrepo::user

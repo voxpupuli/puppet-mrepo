@@ -19,7 +19,6 @@
 # Copyright 2011 Puppet Labs, unless otherwise noted
 #
 class mrepo::selinux {
-
   $src_root = $mrepo::src_root
   $www_root = $mrepo::www_root
   $context  = $mrepo::selinux_context
@@ -27,7 +26,7 @@ class mrepo::selinux {
   if $mrepo::use_selinux {
     exec { "Apply httpd context to mrepo ${src_root}":
       command   => "chcon -hR ${context} ${src_root}",
-      path      => [ '/usr/bin', '/bin' ],
+      path      => ['/usr/bin', '/bin'],
       user      => 'root',
       group     => 'root',
       unless    => "test `ls -dZ ${src_root} | awk '{print \$4}'` = '${context}'",
@@ -37,7 +36,7 @@ class mrepo::selinux {
 
     exec { "Apply httpd context to mrepo ${www_root}":
       command   => "chcon -hR ${context} ${www_root}",
-      path      => [ '/usr/bin', '/bin' ],
+      path      => ['/usr/bin', '/bin'],
       user      => 'root',
       group     => 'root',
       unless    => "test `ls -dZ ${www_root} | awk '{print \$4}'` = '${context}'",

@@ -12,7 +12,6 @@
 # https://github.com/PascalBourdier
 #
 class mrepo::service {
-
   include mrepo
 
   $source         = $mrepo::source
@@ -24,5 +23,4 @@ class mrepo::service {
       enable  => $service_enable,
     }
   }
-
 }

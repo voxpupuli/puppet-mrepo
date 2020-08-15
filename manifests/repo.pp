@@ -153,9 +153,8 @@ define mrepo::repo (
 
   case $ensure {
     'present': {
-
       file { "/etc/mrepo.conf.d/${name}.conf":
-        ensure  => present,
+        ensure  => file,
         owner   => $user,
         group   => $group,
         content => template('mrepo/repo.conf.erb'),
@@ -174,7 +173,7 @@ define mrepo::repo (
       exec { "Generate mrepo repo ${name}":
         command   => "mrepo -g ${name}",
         cwd       => $src_root,
-        path      => [ '/usr/bin', '/bin' ],
+        path      => ['/usr/bin', '/bin'],
         user      => $user,
         group     => $group,
         creates   => $www_root_subdir,
@@ -196,7 +195,7 @@ define mrepo::repo (
           exec { "Synchronize repo ${name}":
             command   => $repo_command,
             cwd       => $src_root,
-            path      => [ '/usr/bin', '/bin' ],
+            path      => ['/usr/bin', '/bin'],
             user      => $user,
             group     => $group,
             timeout   => $sync_timeout,
@@ -286,7 +285,6 @@ define mrepo::repo (
           # don't do anything for 'std'
         }
       }
-
     }
     'absent': {
       exec { "Unmount any mirrored ISOs for ${name}":
