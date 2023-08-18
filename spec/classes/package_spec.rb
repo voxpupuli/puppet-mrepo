@@ -13,12 +13,15 @@ describe 'mrepo::package', type: :class do
         end
 
         it { is_expected.to compile.with_all_deps }
+
         describe '/etc/mrepo.conf' do
           it { is_expected.to contain_file('/etc/mrepo.conf') }
+
           it 'does not have rhnget-cleanup line' do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).not_to match %r{rhnget-cleanup}
           end
+
           it 'does not have rhnget-download-all line' do
             content = catalogue.resource('file', '/etc/mrepo.conf').send(:parameters)[:content]
             expect(content).not_to match %r{rhnget-download-all}
@@ -37,6 +40,7 @@ describe 'mrepo::package', type: :class do
             expect(content).to match %r{^rhnget-cleanup = yes$}
           end
         end
+
         context 'with rhnget_cleanup = false' do
           let(:pre_condition) do
             'class { "mrepo": rhnget_cleanup => false }'
@@ -60,6 +64,7 @@ describe 'mrepo::package', type: :class do
             expect(content).to match %r{^rhnget-download-all = yes$}
           end
         end
+
         context 'with rhnget_download_all = false' do
           let(:pre_condition) do
             'class { "mrepo": rhnget_download_all => false }'
@@ -71,6 +76,7 @@ describe 'mrepo::package', type: :class do
           end
         end
       end
+
       describe 'with createrepo_options' do
         let(:pre_condition) do
           'class { "mrepo": createrepo_options => "--some-opt --another-opt -q -p" }'

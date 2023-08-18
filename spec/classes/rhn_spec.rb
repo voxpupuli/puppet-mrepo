@@ -22,9 +22,7 @@ describe 'mrepo::rhn', type: :class do
 
         it { is_expected.to contain_package('pyOpenSSL') }
 
-        if facts[:operatingsystem] == 'CentOS'
-          it { is_expected.to contain_file('/etc/sysconfig/rhn/up2date-uuid').with_content(%r{rhnuuid=51188cb3-b227-598a-a1d4-f508c78f9e77}) }
-        end
+        it { is_expected.to contain_file('/etc/sysconfig/rhn/up2date-uuid').with_content(%r{rhnuuid=51188cb3-b227-598a-a1d4-f508c78f9e77}) } if facts[:operatingsystem] == 'CentOS'
       end
     end
   end
