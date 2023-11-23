@@ -182,7 +182,7 @@ class as default, inherited, then overwritten as needed when calling the base cl
 Using classes
 
 ```puppet
-class { '::mrepo::params':
+class { 'mrepo::params':
   selinux       => true,
   rhn           => true,
   rhn_username  => 'user',
@@ -193,7 +193,7 @@ class { '::mrepo::params':
 #### After:
 
 ```puppet
-class { '::mrepo':
+class { 'mrepo':
   selinux       => true,
   rhn           => true,
   rhn_username  => 'user',
