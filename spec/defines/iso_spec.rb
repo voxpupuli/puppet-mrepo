@@ -16,11 +16,13 @@ describe 'mrepo::iso' do
       end
 
       it { is_expected.to compile }
+
       it {
         is_expected.to contain_mrepo__iso('CentOS-7-x86_64-Minimal-1804.iso').
           with('source_url' => 'http://example.com/isos').
           with('repo' => 'centos7-x86_64')
       }
+
       it {
         is_expected.to contain_file('/var/mrepo/iso').
           with_ensure('directory').
@@ -28,6 +30,7 @@ describe 'mrepo::iso' do
           with_group('apache').
           with_mode('0644')
       }
+
       it {
         is_expected.to contain_archive('/var/mrepo/iso/CentOS-7-x86_64-Minimal-1804.iso').
           with('source' => 'http://example.com/isos/CentOS-7-x86_64-Minimal-1804.iso').
