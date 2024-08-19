@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-mrepo/tree/v5.0.0) (2024-08-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v4.1.0...v5.0.0)
+
+**Breaking changes:**
+
+- Drop EoL Scientific Linux [\#142](https://github.com/voxpupuli/puppet-mrepo/pull/142) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Eol EL6 [\#140](https://github.com/voxpupuli/puppet-mrepo/pull/140) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Puppet 6 support [\#127](https://github.com/voxpupuli/puppet-mrepo/pull/127) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add EL9 support [\#141](https://github.com/voxpupuli/puppet-mrepo/pull/141) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/apache: Allow 12.x [\#134](https://github.com/voxpupuli/puppet-mrepo/pull/134) ([zilchms](https://github.com/zilchms))
+- puppetlabs/vcsrepo: Allow 6.x [\#133](https://github.com/voxpupuli/puppet-mrepo/pull/133) ([zilchms](https://github.com/zilchms))
+- puppet/archive: Allow 7.x [\#132](https://github.com/voxpupuli/puppet-mrepo/pull/132) ([zilchms](https://github.com/zilchms))
+- Add Puppet 8 support [\#129](https://github.com/voxpupuli/puppet-mrepo/pull/129) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 9.x [\#128](https://github.com/voxpupuli/puppet-mrepo/pull/128) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/archive: allow 5.x [\#123](https://github.com/voxpupuli/puppet-mrepo/pull/123) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Fix use of `selinux` fact [\#112](https://github.com/voxpupuli/puppet-mrepo/pull/112) ([alexjfisher](https://github.com/alexjfisher))
+- Fix datatype of attribute metadata [\#111](https://github.com/voxpupuli/puppet-mrepo/pull/111) ([mrolli](https://github.com/mrolli))
+
+**Merged pull requests:**
+
+- Remove legacy top-scope syntax [\#130](https://github.com/voxpupuli/puppet-mrepo/pull/130) ([smortex](https://github.com/smortex))
+- Allow stdlib 8.0.0 [\#124](https://github.com/voxpupuli/puppet-mrepo/pull/124) ([smortex](https://github.com/smortex))
+- modulesync 3.0.0 & puppet-lint updates [\#116](https://github.com/voxpupuli/puppet-mrepo/pull/116) ([bastelfreak](https://github.com/bastelfreak))
+- delete legacy travis directory [\#113](https://github.com/voxpupuli/puppet-mrepo/pull/113) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-mrepo/tree/v4.1.0) (2019-11-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-mrepo/compare/v4.0.0...v4.1.0)
@@ -121,7 +153,7 @@ These should not affect the functionality of the module.
 - Add the most basic of rspec-puppet tests [\#41](https://github.com/voxpupuli/puppet-mrepo/pull/41) ([alexjfisher](https://github.com/alexjfisher))
 - Modulesync [\#39](https://github.com/voxpupuli/puppet-mrepo/pull/39) ([alexjfisher](https://github.com/alexjfisher))
 - Update README and metadata.json after VP migration [\#38](https://github.com/voxpupuli/puppet-mrepo/pull/38) ([alexjfisher](https://github.com/alexjfisher))
-- Add `mailfrom` and `smtpserver` parameters [\#37](https://github.com/voxpupuli/puppet-mrepo/pull/37) ([jearls](https://github.com/jearls))
+- Add `mailfrom` and `smtpserver` parameters [\#37](https://github.com/voxpupuli/puppet-mrepo/pull/37) ([ghost](https://github.com/ghost))
 
 ## [1.2.1](https://github.com/voxpupuli/puppet-mrepo/tree/1.2.1) (2016-04-26)
 
@@ -141,12 +173,12 @@ These should not affect the functionality of the module.
 **Merged pull requests:**
 
 - Release 1.2.0 [\#27](https://github.com/voxpupuli/puppet-mrepo/pull/27) ([hunner](https://github.com/hunner))
-- only include the `ip` parameter in the apache vhost if $ip\_based is true [\#26](https://github.com/voxpupuli/puppet-mrepo/pull/26) ([jearls](https://github.com/jearls))
+- only include the `ip` parameter in the apache vhost if $ip\_based is true [\#26](https://github.com/voxpupuli/puppet-mrepo/pull/26) ([ghost](https://github.com/ghost))
 - Explicitly scope $mrepo::params::use\_selinux [\#25](https://github.com/voxpupuli/puppet-mrepo/pull/25) ([smarlow](https://github.com/smarlow))
 - Fix syntax error [\#24](https://github.com/voxpupuli/puppet-mrepo/pull/24) ([arioch](https://github.com/arioch))
 - Add ip-based vhost [\#23](https://github.com/voxpupuli/puppet-mrepo/pull/23) ([arioch](https://github.com/arioch))
 - fix smart quote [\#22](https://github.com/voxpupuli/puppet-mrepo/pull/22) ([underscorgan](https://github.com/underscorgan))
-- Add metadata summary in Modulefile per FM-1523 [\#20](https://github.com/voxpupuli/puppet-mrepo/pull/20) ([laurenrother](https://github.com/laurenrother))
+- Add metadata summary in Modulefile per FM-1523 [\#20](https://github.com/voxpupuli/puppet-mrepo/pull/20) ([lrnrthr](https://github.com/lrnrthr))
 - RedHat Network fixes and documentation [\#18](https://github.com/voxpupuli/puppet-mrepo/pull/18) ([esalberg](https://github.com/esalberg))
 - fix repo variable; 'name' was confused. [\#17](https://github.com/voxpupuli/puppet-mrepo/pull/17) ([easescript](https://github.com/easescript))
 - No guarantee that 'mrepo::repos' will be included [\#15](https://github.com/voxpupuli/puppet-mrepo/pull/15) ([hakamadare](https://github.com/hakamadare))
