@@ -28,12 +28,6 @@
         "7",
         "9"
       ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
-      ]
     }
   ],
   "requirements": [
