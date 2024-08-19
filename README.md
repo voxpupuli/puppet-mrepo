@@ -1,7 +1,16 @@
-[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-mrepo.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-mrepo)
+# Puppet Mrepo
 
-# Puppet Mrepo #
+[![Build Status](https://github.com/voxpupuli/puppet-mrepo/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-mrepo/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-mrepo/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-mrepo/actions/workflows/release.yml)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/mrepo.svg)](https://forge.puppetlabs.com/puppet/mrepo)
+[![puppetmodule.info docs](https://www.puppetmodule.info/images/badge.svg)](https://www.puppetmodule.info/m/puppet-mrepo)
+[![Apache-2.0 License](https://img.shields.io/github/license/voxpupuli/puppet-mrepo.svg)](LICENSE)
+[![Donated by Puppet](https://img.shields.io/badge/donated%20by-Puppet-fb7047.svg)](#transfer-notice)
+
+# Transfer Notice
 
 This module creates and synchronizes rpm based repositories by managing mrepo.
 It is maintained by [Vox Pupuli](https://voxpupuli.org/) having kindly been migrated from [Puppet Inc](https://www.puppet.com/).
