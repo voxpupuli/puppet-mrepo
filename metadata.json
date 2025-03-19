@@ -34,6 +34,10 @@
     {
       "name": "puppet",
       "version_requirement": ">= 7.0.0 < 9.0.0"
+    },
+    {
+      "name": "openvox",
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
   "description": "Puppet module to configure and manage mrepo mirrors. Mirrors can be generated from distribution ISOs, existing RPM mirrors, the Redhat Network, or Yast Online Update.",
