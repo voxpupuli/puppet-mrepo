@@ -20,7 +20,7 @@ class mrepo::service {
 
   if ( $source == 'package' ) and ( str2bool($service_manage) == true ) {
     service { 'mrepo':
-      enable  => $service_enable,
+      enable => $service_enable,
     }
   }
 }
