@@ -43,7 +43,7 @@ class mrepo::package {
     }
     'package': {
       package { 'mrepo':
-        ensure  => present,
+        ensure => present,
       }
     }
     default: {
@@ -101,6 +101,6 @@ class mrepo::package {
 
   # Packages needed to mirror files and generate mirror metadata
   package { ['lftp', 'createrepo']:
-    ensure  => present,
+    ensure => present,
   }
 }
