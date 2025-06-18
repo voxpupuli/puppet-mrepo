@@ -1,9 +1,8 @@
+---
 fixtures:
   repositories:
-    stdlib:  'https://github.com/puppetlabs/puppetlabs-stdlib.git'
-    concat:  'https://github.com/puppetlabs/puppetlabs-concat.git'
-    apache:  'https://github.com/puppetlabs/puppetlabs-apache.git'
-    archive: 'https://github.com/voxpupuli/puppet-archive.git'
-    cron_core:
-      repo: https://github.com/puppetlabs/puppetlabs-cron_core.git
-      puppet_version: ">= 6.0.0"
+    apache: https://github.com/puppetlabs/puppetlabs-apache.git
+    archive: https://github.com/voxpupuli/puppet-archive.git
+    concat: https://github.com/puppetlabs/puppetlabs-concat.git
+    cron_core: https://github.com/puppetlabs/puppetlabs-cron_core.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
