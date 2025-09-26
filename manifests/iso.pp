@@ -13,10 +13,10 @@ define mrepo::iso ($source_url, $repo) {
   $target_file = "${mrepo::src_root}/iso/${name}"
 
   ensure_resource('file', "${mrepo::src_root}/iso", {
-      'ensure' => 'directory',
-      'owner'  => $mrepo::user,
-      'group'  => $mrepo::group,
-      'mode'   => '0644',
+    'ensure' => 'directory',
+    'owner'  => $mrepo::user,
+    'group'  => $mrepo::group,
+    'mode'   => '0644',
   })
 
   archive { $target_file:
