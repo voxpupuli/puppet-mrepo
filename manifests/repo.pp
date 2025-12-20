@@ -192,7 +192,7 @@ define mrepo::repo (
 
       case $update {
         'now': {
-          exec { "Synchronize repo ${name}":
+          exec { "Synchronize repo ${name}": # lint:ignore:exec_idempotency
             command   => $repo_command,
             cwd       => $src_root,
             path      => ['/usr/bin', '/bin'],
