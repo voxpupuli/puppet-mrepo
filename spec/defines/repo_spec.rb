@@ -20,8 +20,8 @@ describe 'mrepo::repo', type: :define do
             'contrib'    => 'rsync://mirrors.kernel.org/centos/$release/contrib/$arch/',
             'extras'     => 'rsync://mirrors.kernel.org/centos/$release/extras/$arch/',
             'fasttrack'  => 'rsync://mirrors.kernel.org/centos/$release/fasttrack/$arch/',
-            'updates'    => 'rsync://mirrors.kernel.org/centos/$release/updates/$arch/'
-          }
+            'updates'    => 'rsync://mirrors.kernel.org/centos/$release/updates/$arch/',
+          },
         }
       end
 

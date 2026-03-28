@@ -13,7 +13,7 @@ describe 'mrepo', type: :class do
         let(:params) do
           {
             service_enable: false,
-            service_manage: true
+            service_manage: true,
           }
         end
 
@@ -25,7 +25,7 @@ describe 'mrepo', type: :class do
         let(:params) do
           {
             service_enable: true,
-            service_manage: true
+            service_manage: true,
           }
         end
 
