@@ -40,7 +40,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/apache",
-      "version_requirement": ">= 2.0.0 < 13.0.0"
+      "version_requirement": ">= 2.0.0 < 14.0.0"
     },
     {
       "name": "puppetlabs/vcsrepo",
